@@ -1,0 +1,209 @@
+{
+  "playerInfo": {
+    "nickname": "TestPlayer",
+    "level": 60,
+    "signature": "Testing Enka API",
+    "worldLevel": 8,
+    "nameCardId": 210001,
+    "finishAchievementNum": 945,
+    "towerFloorIndex": 12,
+    "towerLevelIndex": 3,
+    "profilePicture": {
+      "avatarId": 10000046
+    }
+  },
+  "avatarInfoList": [
+    {
+      "avatarId": 10000046,
+      "propMap": {
+        "4001": { "type": 4001, "val": "90" }
+      },
+      "talentIdList": [464, 465, 466, 467, 468, 469],
+      "fightPropMap": {
+        "1": 15552,
+        "2": 4780,
+        "3": 0,
+        "4": 106,
+        "5": 311,
+        "6": 0.466,
+        "7": 876,
+        "8": 0,
+        "9": 0,
+        "20": 0.912,
+        "22": 2.023,
+        "23": 1.0,
+        "28": 105,
+        "29": 0,
+        "30": 0,
+        "40": 0.616,
+        "2000": 35558,
+        "2001": 1234,
+        "2002": 876
+      },
+      "skillDepotId": 4601,
+      "inherentProudSkillList": [462, 463],
+      "skillLevelMap": {
+        "10464": 10,
+        "10465": 10,
+        "10470": 10
+      },
+      "equipList": [
+        {
+          "itemId": 11510,
+          "weapon": {
+            "level": 90,
+            "promoteLevel": 6,
+            "affixMap": {
+              "111510": 0
+            }
+          },
+          "flat": {
+            "nameTextMapHash": "Staff of Homa",
+            "rankLevel": 5,
+            "weaponStats": [
+              { "appendPropId": "FIGHT_PROP_BASE_ATTACK", "statValue": 608 },
+              { "appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.662 }
+            ],
+            "itemType": "ITEM_WEAPON",
+            "icon": "UI_EquipIcon_Pole_Homa"
+          }
+        },
+        {
+          "itemId": 94533,
+          "reliquary": {
+            "level": 21,
+            "mainPropId": 14001,
+            "appendPropIdList": [501221, 501222, 501223, 501224]
+          },
+          "flat": {
+            "nameTextMapHash": "Witch's Flower of Blaze",
+            "setNameTextMapHash": "Crimson Witch of Flames",
+            "rankLevel": 5,
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_HP",
+              "statValue": 4780
+            },
+            "reliquarySubstats": [
+              { "appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.078 },
+              { "appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.218 },
+              { "appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 0.146 },
+              { "appendPropId": "FIGHT_PROP_ELEMENT_MASTERY", "statValue": 21 }
+            ],
+            "itemType": "ITEM_RELIQUARY",
+            "icon": "UI_RelicIcon_15005_4",
+            "equipType": "EQUIP_BRACER"
+          }
+        },
+        {
+          "itemId": 70540,
+          "reliquary": {
+            "level": 21,
+            "mainPropId": 12001,
+            "appendPropIdList": [501221, 501222, 501223, 501224]
+          },
+          "flat": {
+            "nameTextMapHash": "Witch's Ever-Burning Plume",
+            "setNameTextMapHash": "Crimson Witch of Flames",
+            "rankLevel": 5,
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_ATTACK",
+              "statValue": 311
+            },
+            "reliquarySubstats": [
+              { "appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.109 },
+              { "appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.155 },
+              { "appendPropId": "FIGHT_PROP_HP_PERCENT", "statValue": 0.099 },
+              { "appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 0.099 }
+            ],
+            "itemType": "ITEM_RELIQUARY",
+            "icon": "UI_RelicIcon_15005_2",
+            "equipType": "EQUIP_NECKLACE"
+          }
+        },
+        {
+          "itemId": 85542,
+          "reliquary": {
+            "level": 21,
+            "mainPropId": 13001,
+            "appendPropIdList": [501221, 501222, 501223, 501224]
+          },
+          "flat": {
+            "nameTextMapHash": "Witch's End Time",
+            "setNameTextMapHash": "Crimson Witch of Flames",
+            "rankLevel": 5,
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_HP_PERCENT",
+              "statValue": 0.466
+            },
+            "reliquarySubstats": [
+              { "appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.035 },
+              { "appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.272 },
+              { "appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 0.163 },
+              { "appendPropId": "FIGHT_PROP_ELEMENT_MASTERY", "statValue": 44 }
+            ],
+            "itemType": "ITEM_RELIQUARY",
+            "icon": "UI_RelicIcon_15005_1",
+            "equipType": "EQUIP_SHOES"
+          }
+        },
+        {
+          "itemId": 82544,
+          "reliquary": {
+            "level": 21,
+            "mainPropId": 15001,
+            "appendPropIdList": [501221, 501222, 501223, 501224]
+          },
+          "flat": {
+            "nameTextMapHash": "Witch's Scorching Hat",
+            "setNameTextMapHash": "Crimson Witch of Flames",
+            "rankLevel": 5,
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_FIRE_ADD_HURT",
+              "statValue": 0.466
+            },
+            "reliquarySubstats": [
+              { "appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.132 },
+              { "appendPropId": "FIGHT_PROP_CRITICAL_HURT", "statValue": 0.202 },
+              { "appendPropId": "FIGHT_PROP_ATTACK", "statValue": 19 },
+              { "appendPropId": "FIGHT_PROP_ELEMENT_MASTERY", "statValue": 40 }
+            ],
+            "itemType": "ITEM_RELIQUARY",
+            "icon": "UI_RelicIcon_15005_3",
+            "equipType": "EQUIP_RING"
+          }
+        },
+        {
+          "itemId": 81545,
+          "reliquary": {
+            "level": 21,
+            "mainPropId": 11001,
+            "appendPropIdList": [501221, 501222, 501223, 501224]
+          },
+          "flat": {
+            "nameTextMapHash": "Witch's Heart Flames",
+            "setNameTextMapHash": "Crimson Witch of Flames",
+            "rankLevel": 5,
+            "reliquaryMainstat": {
+              "mainPropId": "FIGHT_PROP_CRITICAL_HURT",
+              "statValue": 0.622
+            },
+            "reliquarySubstats": [
+              { "appendPropId": "FIGHT_PROP_CRITICAL", "statValue": 0.101 },
+              { "appendPropId": "FIGHT_PROP_HP_PERCENT", "statValue": 0.053 },
+              { "appendPropId": "FIGHT_PROP_ATTACK_PERCENT", "statValue": 0.157 },
+              { "appendPropId": "FIGHT_PROP_ATTACK", "statValue": 16 }
+            ],
+            "itemType": "ITEM_RELIQUARY",
+            "icon": "UI_RelicIcon_15005_5",
+            "equipType": "EQUIP_DRESS"
+          }
+        }
+      ],
+      "fetterInfo": {
+        "expLevel": 10
+      }
+    }
+  ],
+  "ttl": 300,
+  "uid": "1234567890"
+}
