@@ -1,0 +1,4144 @@
+{
+  "player": {
+    "uid": "855842984",
+    "nickname": "AnirudhArcade",
+    "level": 60,
+    "region": "ASIA",
+    "worldLevel": 9,
+    "signature": "YT @FrostyAnirudh",
+    "nameCardId": 210227,
+    "nameCardUrl": "https://enka.network/ui/UI_NameCardPic_Citlali_P.png",
+    "profilePicture": "https://enka.network/ui/UI_AvatarIcon_Citlali.png",
+    "finishAchievementNum": 1287,
+    "towerFloorIndex": 12,
+    "towerLevelIndex": 3,
+    "towerStarIndex": 36,
+    "theaterActIndex": 9,
+    "theaterStarIndex": 8,
+    "theaterModeIndex": 128,
+    "stygianIndex": 4,
+    "stygianSeconds": 182
+  },
+  "characters": [
+    {
+      "id": 10000104,
+      "name": "Chasca",
+      "element": "Anemo",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 0,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 5,
+        "skill": 10,
+        "burst": 10,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 16585,
+        "atk": 1586,
+        "def": 687,
+        "em": 42,
+        "er": 100,
+        "cr": 54.1,
+        "cd": 235.9,
+        "dmgBonus": {
+          "anemo": 46.6
+        }
+      },
+      "weapon": {
+        "id": 15514,
+        "name": "Astral Vulture's Crimson Plumage",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 608,
+        "subStat": {
+          "key": "cd",
+          "value": 66.2
+        },
+        "passiveName": "Shadow of the Lone Plume",
+        "passiveDescription": "Triggering Swirl grants ATK +24% for 12s. Having different elements in party increases Charged Attack DMG by 20/48/96%.",
+        "icon": "https://enka.network/ui/UI_EquipIcon_Bow_Qoyllorsnova.png"
+      },
+      "artifacts": [
+        {
+          "id": 38543,
+          "name": "Obsidian Codex (Flower)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 6.2,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 26.4,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 38.8,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_4.png"
+        },
+        {
+          "id": 38524,
+          "name": "Obsidian Codex (Plume)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "hp",
+              "value": 657,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "def",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 19.4,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cr",
+              "value": 6.2,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 31.8,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_2.png"
+        },
+        {
+          "id": 94553,
+          "name": "Golden Troupe (Sands)",
+          "setId": 15020,
+          "setName": "Golden Troupe",
+          "setBonusText": {
+            "twoPiece": "Increases Elemental Skill DMG by 20%.",
+            "fourPiece": "Increases Elemental Skill DMG by 25%. Additionally, when not on the field, Elemental Skill DMG will be further increased by 25%. This effect will be cleared 2s after taking the field."
+          },
+          "rarity": 5,
+          "level": 0,
+          "slot": "sands",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 7
+          },
+          "subStats": [
+            {
+              "key": "hp",
+              "value": 209,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 3.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 7,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15020_5.png"
+        },
+        {
+          "id": 38513,
+          "name": "Obsidian Codex (Goblet)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "anemoDmgBonus",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 11.7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "atk",
+              "value": 19,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 16.9,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cr",
+              "value": 6.6,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 24.9,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_1.png"
+        },
+        {
+          "id": 38533,
+          "name": "Obsidian Codex (Circlet)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 7.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 42,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 56,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 5.3,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 14.8,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15020": 1,
+        "15038": 4
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15038,
+          "name": "Obsidian Codex",
+          "setName": "Obsidian Codex",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+          "fourPieceText": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s.",
+          "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+          "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 117.3,
+      "akashaCv": 179.5,
+      "qualityBadge": "Subpar",
+      "icon": "/icons/characters/10000104.png",
+      "gachaSplash": "/icons/characters/10000104_gacha.png",
+      "akasha": {
+        "calculationId": "local-10000104",
+        "category": "ANEMO BUILD",
+        "ranking": 0,
+        "outOf": 0,
+        "topPercent": 0,
+        "topStats": {
+          "hp": 16877,
+          "atk": 1986,
+          "def": 682,
+          "em": 21,
+          "er": 112.3,
+          "dmgBonus": 23.3,
+          "cr": 55.1,
+          "cd": 267.8,
+          "sampleSize": 2,
+          "sourceLabel": "PLAYERS AVG"
+        },
+        "playerStats": {
+          "hp": 15881.1,
+          "atk": 2080.9,
+          "def": 638,
+          "em": 56,
+          "er": 111,
+          "dmgBonus": 46.6,
+          "dmgBonusKey": "anemoDamageBonus",
+          "cr": 57.3,
+          "cd": 261.5,
+          "sampleSize": 1,
+          "sourceLabel": "Chasca"
+        },
+        "source": "local"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000120,
+      "name": "Flins",
+      "element": "Electro",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 1,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 7,
+        "skill": 10,
+        "burst": 10,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 18077,
+        "atk": 2363,
+        "def": 848,
+        "em": 173,
+        "er": 119.4,
+        "cr": 61.7,
+        "cd": 243.1,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 13516,
+        "name": "Bloodsoaked Ruins",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 674,
+        "subStat": {
+          "key": "cr",
+          "value": 22.1
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Pole_TummaLyhty.png"
+      },
+      "artifacts": [
+        {
+          "id": 41543,
+          "name": "Night of the Sky's Unveiling (Flower)",
+          "setId": 15041,
+          "setName": "Night of the Sky's Unveiling",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "Within 8s of triggering an Elemental Reaction, obtain buffs based on party Elemental Types: ATK +14% for each member sharing the same element; EM +50 for each member of a different element. Stacks up to 3 characters."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 3.9,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 21,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "em",
+              "value": 33,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 39,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 28.8,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15041_4.png"
+        },
+        {
+          "id": 41524,
+          "name": "Night of the Sky's Unveiling (Plume)",
+          "setId": 15041,
+          "setName": "Night of the Sky's Unveiling",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "Within 8s of triggering an Elemental Reaction, obtain buffs based on party Elemental Types: ATK +14% for each member sharing the same element; EM +50 for each member of a different element. Stacks up to 3 characters."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 5.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 42,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 28,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "hp",
+              "value": 239,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 38.8,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15041_2.png"
+        },
+        {
+          "id": 41553,
+          "name": "Night of the Sky's Unveiling (Sands)",
+          "setId": 15041,
+          "setName": "Night of the Sky's Unveiling",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "Within 8s of triggering an Elemental Reaction, obtain buffs based on party Elemental Types: ATK +14% for each member sharing the same element; EM +50 for each member of a different element. Stacks up to 3 characters."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 5.8,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 17.9,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "em",
+              "value": 19,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "er",
+              "value": 13,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 29.5,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15041_5.png"
+        },
+        {
+          "id": 77513,
+          "name": "Wanderer's Troupe (Goblet)",
+          "setId": 15003,
+          "setName": "Wanderer's Troupe",
+          "setBonusText": {
+            "twoPiece": "Increases Elemental Mastery by 80.",
+            "fourPiece": "Increases Charged Attack DMG by 35% if the character uses a Bow or Catalyst."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 33,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 25.6,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "hp",
+              "value": 269,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 2.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 31,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15003_1.png"
+        },
+        {
+          "id": 90534,
+          "name": "Heart of Depth (Circlet)",
+          "setId": 15016,
+          "setName": "Heart of Depth",
+          "setBonusText": {
+            "twoPiece": "Hydro DMG Bonus +15%.",
+            "fourPiece": "After using an Elemental Skill, increases Normal Attack and Charged Attack DMG by 30% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "hp",
+              "value": 299,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atk",
+              "value": 37,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 16.7,
+              "rolls": 5,
+              "pips": "●●●●●"
+            },
+            {
+              "key": "er",
+              "value": 6.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 33.4,
+          "qualityBadge": "Great",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15016_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15003": 1,
+        "15016": 1,
+        "15041": 3
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15041,
+          "name": "Gilded Dreams",
+          "setName": "Gilded Dreams",
+          "count": 3,
+          "twoPieceActive": true,
+          "fourPieceActive": false,
+          "twoPieceText": "Elemental Mastery +80.",
+          "twoPiece": "Elemental Mastery +80.",
+          "activeTier": "2pc"
+        }
+      ],
+      "totalCv": 161.5,
+      "akashaCv": 223.7,
+      "qualityBadge": "Decent",
+      "icon": "/icons/characters/10000120.png",
+      "gachaSplash": "/icons/characters/10000120_gacha.png",
+      "akasha": {
+        "calculationId": "1000012000",
+        "category": "LUNAR 110% ER",
+        "title": "Basic Lunar-Charged Team, Avg DMG",
+        "details": "C0 Flins, C0 Ineffa @ 2850 ATK 4-pc Silken Moon, C0R5 TTDS Sucrose @ 880 EM 4-pc VV, C1 Aino @ 4-pc Noblesse. Combo used: E EQ 2N5 EQ N5. Flins is a main contributor in only 5 Lunar-Charged procs, and does not really contribute to other procs when he is off-field, so for simplicity the formula will consider only his damage portion of the 5 Lunar-Charged hits (in-game LEC hits will be up to around 50% higher due to other characters also contributing to the reaction). ",
+        "ranking": 225381,
+        "outOf": 490897,
+        "topPercent": 45.91,
+        "result": 1491240,
+        "teammates": [
+          {
+            "id": 10000120,
+            "name": "Flins",
+            "icon": "/icons/characters/10000120.png"
+          },
+          {
+            "id": 10000116,
+            "name": "Ineffa",
+            "icon": "/icons/characters/10000116.png"
+          },
+          {
+            "id": 10000043,
+            "name": "Sucrose",
+            "icon": "/icons/characters/10000043.png"
+          },
+          {
+            "id": 10000121,
+            "name": "Aino",
+            "icon": "/icons/characters/10000121.png"
+          }
+        ],
+        "topStats": {
+          "hp": 18110.4,
+          "atk": 2612,
+          "def": 875.3,
+          "em": 305.7,
+          "er": 110.3,
+          "dmgBonus": 0,
+          "cr": 69.5,
+          "cd": 245.2,
+          "sampleSize": 1,
+          "sourceLabel": "TOP 1% AVG"
+        },
+        "playerStats": {
+          "hp": 17509.8,
+          "atk": 2431.8,
+          "def": 926.6,
+          "em": 417.2,
+          "er": 111,
+          "dmgBonus": 0,
+          "cr": 51.5,
+          "cd": 239.2,
+          "sampleSize": 1,
+          "sourceLabel": "Flins"
+        },
+        "source": "akasha"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000125,
+      "name": "Columbina",
+      "element": "Hydro",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 1,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 1,
+        "skill": 10,
+        "burst": 10,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 36097,
+        "atk": 993,
+        "def": 547,
+        "em": 120,
+        "er": 159.6,
+        "cr": 74.4,
+        "cd": 251.7,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 14522,
+        "name": "Weapon 14522",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 542,
+        "subStat": {
+          "key": "cd",
+          "value": 88.2
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Catalyst_Brisingamen.png"
+      },
+      "artifacts": [
+        {
+          "id": 43544,
+          "name": "Flower of Paradise Lost (Flower)",
+          "setId": 15043,
+          "setName": "Flower of Paradise Lost",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "The equipping character's Bloom, Hyperbloom, and Burgeon reaction DMG is increased by 40%. Additionally, after triggering these reactions, they gain another 25% bonus to the aforementioned effect for 10s. Max 4 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 7.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 18.7,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "er",
+              "value": 16.2,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 33.5,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15043_4.png"
+        },
+        {
+          "id": 43523,
+          "name": "Flower of Paradise Lost (Plume)",
+          "setId": 15043,
+          "setName": "Flower of Paradise Lost",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "The equipping character's Bloom, Hyperbloom, and Burgeon reaction DMG is increased by 40%. Additionally, after triggering these reactions, they gain another 25% bonus to the aforementioned effect for 10s. Max 4 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 12.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 12.4,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "er",
+              "value": 4.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 37.2,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15043_2.png"
+        },
+        {
+          "id": 43553,
+          "name": "Flower of Paradise Lost (Sands)",
+          "setId": 15043,
+          "setName": "Flower of Paradise Lost",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "The equipping character's Bloom, Hyperbloom, and Burgeon reaction DMG is increased by 40%. Additionally, after triggering these reactions, they gain another 25% bonus to the aforementioned effect for 10s. Max 4 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 9.7,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cd",
+              "value": 7.8,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "er",
+              "value": 15.5,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "def",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 27.2,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15043_5.png"
+        },
+        {
+          "id": 31514,
+          "name": "Marechaussee Hunter (Goblet)",
+          "setId": 15031,
+          "setName": "Marechaussee Hunter",
+          "setBonusText": {
+            "twoPiece": "Normal and Charged Attack DMG +15%.",
+            "fourPiece": "When current HP increases or decreases, CRIT Rate will be increased by 12% for 5s. Max 3 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 12.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "er",
+              "value": 12.3,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 10.5,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "em",
+              "value": 40,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 33.4,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15031_1.png"
+        },
+        {
+          "id": 43534,
+          "name": "Flower of Paradise Lost (Circlet)",
+          "setId": 15043,
+          "setName": "Flower of Paradise Lost",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "The equipping character's Bloom, Hyperbloom, and Burgeon reaction DMG is increased by 40%. Additionally, after triggering these reactions, they gain another 25% bonus to the aforementioned effect for 10s. Max 4 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 29,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 10.1,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 9.9,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "er",
+              "value": 11,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 20.2,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15043_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15031": 1,
+        "15043": 4
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15043,
+          "name": "Flower of Paradise Lost",
+          "setName": "Flower of Paradise Lost",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "Elemental Mastery +80.",
+          "fourPieceText": "The equipping character's Bloom, Hyperbloom, and Burgeon reaction DMG is increased by 40%. Additionally, after triggering these reactions, they gain another 25% bonus to the aforementioned effect for 10s. Max 4 stacks.",
+          "twoPiece": "Elemental Mastery +80.",
+          "fourPiece": "The equipping character's Bloom, Hyperbloom, and Burgeon reaction DMG is increased by 40%. Additionally, after triggering these reactions, they gain another 25% bonus to the aforementioned effect for 10s. Max 4 stacks.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 151.5,
+      "akashaCv": 213.7,
+      "qualityBadge": "Decent",
+      "icon": "/icons/characters/10000125.png",
+      "gachaSplash": "/icons/characters/10000125_gacha.png",
+      "akasha": {
+        "calculationId": "1000012512",
+        "category": "LUNAR 150% ER",
+        "title": "Lunar-Crystallize Team, Avg DMG",
+        "details": "C0 Columbina, C0 Zibai, C0 Linnea, C0 Silken Illuga @ 850 EM. Columina A1 at 3 stacks. If Columbina uses 4-pc Silken then Illuga switches to 2+2 set and has 160 more EM. Formula includes damage gain/loss from base 2518114 on Zibai and 695194 on Linnea through changes in team buffs (e.g. if Columbina is on 4-pc Silken then Illuga is on 2+2 set, giving him 160 more EM which then incraeses Zibai's damage further) Zibai/Linnea's combo and assumptions mostly mirror her leaderboard assumptions. Zibai is at C0R1 top 1% investment with the following stats: 60% Crit RATE, 300% Crit DMG, 2750 DEF, 120 EM. Linnea is at C0R0 top 1% investment with the following stats90% Crit RATE, 200% Crit DMG, 2400 DEF, 35 EM. ",
+        "ranking": 1187,
+        "outOf": 396711,
+        "topPercent": 0.3,
+        "result": 860278,
+        "teammates": [
+          {
+            "id": 10000125,
+            "name": "Columbina",
+            "icon": "/icons/characters/10000125.png"
+          },
+          {
+            "id": 10000126,
+            "name": "Zibai",
+            "icon": "/icons/characters/10000126.png"
+          },
+          {
+            "id": 10000130,
+            "name": "Linnea",
+            "icon": "/icons/characters/10000130.png"
+          }
+        ],
+        "topStats": {
+          "hp": 39260.8,
+          "atk": 1005.7,
+          "def": 576.2,
+          "em": 139.1,
+          "er": 114.8,
+          "dmgBonus": 0,
+          "cr": 74.9,
+          "cd": 263,
+          "sampleSize": 1,
+          "sourceLabel": "TOP 1% AVG"
+        },
+        "playerStats": {
+          "hp": 36096.7,
+          "atk": 993.2,
+          "def": 547.3,
+          "em": 119.6,
+          "er": 159.6,
+          "dmgBonus": 0,
+          "cr": 74.4,
+          "cd": 251.7,
+          "sampleSize": 1,
+          "sourceLabel": "Columbina"
+        },
+        "source": "akasha"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000116,
+      "name": "Ineffa",
+      "element": "Electro",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 0,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 1,
+        "skill": 9,
+        "burst": 8,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 19015,
+        "atk": 2306,
+        "def": 1018,
+        "em": 56,
+        "er": 120,
+        "cr": 63.9,
+        "cd": 254.5,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 13515,
+        "name": "Fractured Halo",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 608,
+        "subStat": {
+          "key": "cd",
+          "value": 66.2
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Pole_Perdix.png"
+      },
+      "artifacts": [
+        {
+          "id": 42543,
+          "name": "Desert Pavilion Chronicle (Flower)",
+          "setId": 15042,
+          "setName": "Desert Pavilion Chronicle",
+          "setBonusText": {
+            "twoPiece": "Anemo DMG Bonus +15%.",
+            "fourPiece": "When Charged Attacks hit opponents, Normal Attack SPD increases by 10% while Normal, Charged, and Plunging Attack DMG increases by 40% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 20.2,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "atk",
+              "value": 31,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 7.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 5.8,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 35,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15042_4.png"
+        },
+        {
+          "id": 42523,
+          "name": "Desert Pavilion Chronicle (Plume)",
+          "setId": 15042,
+          "setName": "Desert Pavilion Chronicle",
+          "setBonusText": {
+            "twoPiece": "Anemo DMG Bonus +15%.",
+            "fourPiece": "When Charged Attacks hit opponents, Normal Attack SPD increases by 10% while Normal, Charged, and Plunging Attack DMG increases by 40% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 6.2,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "hp",
+              "value": 299,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 21,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 33.4,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15042_2.png"
+        },
+        {
+          "id": 41553,
+          "name": "Night of the Sky's Unveiling (Sands)",
+          "setId": 15041,
+          "setName": "Night of the Sky's Unveiling",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "Within 8s of triggering an Elemental Reaction, obtain buffs based on party Elemental Types: ATK +14% for each member sharing the same element; EM +50 for each member of a different element. Stacks up to 3 characters."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "em",
+              "value": 19,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "def",
+              "value": 39,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 13.2,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 10.1,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 33.4,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15041_5.png"
+        },
+        {
+          "id": 42514,
+          "name": "Desert Pavilion Chronicle (Goblet)",
+          "setId": 15042,
+          "setName": "Desert Pavilion Chronicle",
+          "setBonusText": {
+            "twoPiece": "Anemo DMG Bonus +15%.",
+            "fourPiece": "When Charged Attacks hit opponents, Normal Attack SPD increases by 10% while Normal, Charged, and Plunging Attack DMG increases by 40% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 8.9,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cd",
+              "value": 21.8,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "atk",
+              "value": 37,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 39.6,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15042_1.png"
+        },
+        {
+          "id": 42533,
+          "name": "Desert Pavilion Chronicle (Circlet)",
+          "setId": 15042,
+          "setName": "Desert Pavilion Chronicle",
+          "setBonusText": {
+            "twoPiece": "Anemo DMG Bonus +15%.",
+            "fourPiece": "When Charged Attacks hit opponents, Normal Attack SPD increases by 10% while Normal, Charged, and Plunging Attack DMG increases by 40% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 37,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "defPercent",
+              "value": 18.2,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 14,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15042_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15041": 1,
+        "15042": 4
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15042,
+          "name": "Desert Pavilion Chronicle",
+          "setName": "Desert Pavilion Chronicle",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "Anemo DMG Bonus +15%.",
+          "fourPieceText": "When Charged Attacks hit opponents, Normal Attack SPD increases by 10% while Normal, Charged, and Plunging Attack DMG increases by 40% for 15s.",
+          "twoPiece": "Anemo DMG Bonus +15%.",
+          "fourPiece": "When Charged Attacks hit opponents, Normal Attack SPD increases by 10% while Normal, Charged, and Plunging Attack DMG increases by 40% for 15s.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 155.4,
+      "akashaCv": 217.6,
+      "qualityBadge": "Decent",
+      "icon": "/icons/characters/10000116.png",
+      "gachaSplash": "/icons/characters/10000116_gacha.png",
+      "akasha": {
+        "calculationId": "1000011600",
+        "category": "LUNAR 120% ER",
+        "title": "Basic Lunar-Charged Team, Avg DMG",
+        "details": "C0 Ineffa, C0 Flins, C0R5 TTDS Sucrose @ 880 EM 4-pc VV, C1 Aino. Ineffa Q + 10 E ticks + 6 LC ticks at 100% contribution + 4 LC ticks at 50% contribution. Aino is on 4-pc Silken unless Ineffa uses it herself, in which case Aino swaps to 4-pc Noblesse. 4-pc Tenacity on full uptime. 4-pc Noblesse on 6/10 uptime. Formula includes damage over base 1575204 gained on Flins through team buffs such as Ineffa's A4 or 4-pc Tenacity. Flins combo used: E EQ 2N5 EQ N5. Flins is at C0R1 top 1% investment with the following stats: 70% Crit RATE, 250% Crit DMG, 2600 ATK, 120 EM (280 EM total with A4). Ineffa is a main contributor in 6 Lunar-Charged procs and secondary contributor for 4 procs. Note that in-game LEC hits will appear with higher numbers due to other characters also contributing to the reaction. ",
+        "ranking": 72169,
+        "outOf": 283819,
+        "topPercent": 25.43,
+        "result": 1374014,
+        "teammates": [
+          {
+            "id": 10000116,
+            "name": "Ineffa",
+            "icon": "/icons/characters/10000116.png"
+          },
+          {
+            "id": 10000120,
+            "name": "Flins",
+            "icon": "/icons/characters/10000120.png"
+          },
+          {
+            "id": 10000043,
+            "name": "Sucrose",
+            "icon": "/icons/characters/10000043.png"
+          },
+          {
+            "id": 10000121,
+            "name": "Aino",
+            "icon": "/icons/characters/10000121.png"
+          }
+        ],
+        "topStats": {
+          "hp": 18625.1,
+          "atk": 2406.7,
+          "def": 908.1,
+          "em": 121,
+          "er": 114.8,
+          "dmgBonus": 0,
+          "cr": 88.8,
+          "cd": 226.4,
+          "sampleSize": 1,
+          "sourceLabel": "TOP 1% AVG"
+        },
+        "playerStats": {
+          "hp": 19015.2,
+          "atk": 2305.6,
+          "def": 1017.9,
+          "em": 55.9,
+          "er": 120,
+          "dmgBonus": 0,
+          "cr": 63.9,
+          "cd": 254.5,
+          "sampleSize": 1,
+          "sourceLabel": "Ineffa"
+        },
+        "source": "akasha"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000087,
+      "name": "Neuvillette",
+      "element": "Hydro",
+      "rarity": 5,
+      "level": 80,
+      "constellation": 0,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 8,
+        "skill": 8,
+        "burst": 8,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 31487,
+        "atk": 1336,
+        "def": 621,
+        "em": 61,
+        "er": 104.5,
+        "cr": 39.8,
+        "cd": 317,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 14521,
+        "name": "Reliquary of Truth",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 542,
+        "subStat": {
+          "key": "cd",
+          "value": 88.2
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Catalyst_Sistrum.png"
+      },
+      "artifacts": [
+        {
+          "id": 31544,
+          "name": "Marechaussee Hunter (Flower)",
+          "setId": 15031,
+          "setName": "Marechaussee Hunter",
+          "setBonusText": {
+            "twoPiece": "Normal and Charged Attack DMG +15%.",
+            "fourPiece": "When current HP increases or decreases, CRIT Rate will be increased by 12% for 5s. Max 3 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "hpPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 37,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 20.2,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cr",
+              "value": 6.6,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 33.4,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15031_4.png"
+        },
+        {
+          "id": 31524,
+          "name": "Marechaussee Hunter (Plume)",
+          "setId": 15031,
+          "setName": "Marechaussee Hunter",
+          "setBonusText": {
+            "twoPiece": "Normal and Charged Attack DMG +15%.",
+            "fourPiece": "When current HP increases or decreases, CRIT Rate will be increased by 12% for 5s. Max 3 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 12.8,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "cd",
+              "value": 11.7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 9.9,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "er",
+              "value": 4.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 37.3,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15031_2.png"
+        },
+        {
+          "id": 91554,
+          "name": "Tenacity of the Millelith (Sands)",
+          "setId": 15017,
+          "setName": "Tenacity of the Millelith",
+          "setBonusText": {
+            "twoPiece": "HP +20%.",
+            "fourPiece": "When an Elemental Skill hits an opponent, the ATK of all nearby party members is increased by 20% and their Shield Strength is increased by 30% for 3s. Triggers off-field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "atkPercent",
+              "value": 8.2,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 28.7,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "def",
+              "value": 23,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "defPercent",
+              "value": 10.2,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 28.7,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15017_5.png"
+        },
+        {
+          "id": 31513,
+          "name": "Marechaussee Hunter (Goblet)",
+          "setId": 15031,
+          "setName": "Marechaussee Hunter",
+          "setBonusText": {
+            "twoPiece": "Normal and Charged Attack DMG +15%.",
+            "fourPiece": "When current HP increases or decreases, CRIT Rate will be increased by 12% for 5s. Max 3 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "def",
+              "value": 37,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 3.9,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 27.2,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "hp",
+              "value": 299,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 35,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15031_1.png"
+        },
+        {
+          "id": 31533,
+          "name": "Marechaussee Hunter (Circlet)",
+          "setId": 15031,
+          "setName": "Marechaussee Hunter",
+          "setBonusText": {
+            "twoPiece": "Normal and Charged Attack DMG +15%.",
+            "fourPiece": "When current HP increases or decreases, CRIT Rate will be increased by 12% for 5s. Max 3 stacks."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "em",
+              "value": 23,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 3.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atk",
+              "value": 33,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 18.7,
+              "rolls": 4,
+              "pips": "●●●●○"
+            }
+          ],
+          "cv": 7,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15031_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15017": 1,
+        "15031": 4
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15031,
+          "name": "Marechaussee Hunter",
+          "setName": "Marechaussee Hunter",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "Normal and Charged Attack DMG +15%.",
+          "fourPieceText": "When current HP increases or decreases, CRIT Rate will be increased by 12% for 5s. Max 3 stacks.",
+          "twoPiece": "Normal and Charged Attack DMG +15%.",
+          "fourPiece": "When current HP increases or decreases, CRIT Rate will be increased by 12% for 5s. Max 3 stacks.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 141.4,
+      "akashaCv": 203.6,
+      "qualityBadge": "Decent",
+      "icon": "/icons/characters/10000087.png",
+      "gachaSplash": "/icons/characters/10000087_gacha.png",
+      "akasha": {
+        "calculationId": "1000008706",
+        "category": "HYPER",
+        "title": "Hyper Premium Double Hydro, Avg DMG",
+        "details": "E Q 2CA [...] E 2CA. C1 Neuvillette + C2 Furina + C0R1 FS Kazuha + C0R1 Xilonen. Single CA is counted as 8 damage ticks. 4p VV 100% uptime. FS buff for first 2 CAs. C0R1 Xilonen's buffs at full uptime. Furina's burst is at max stacks and covers entire combo. Neuvillette averages 75% HP through the combo (relevant for A4 buff) and maintains 3 A1 stacks. 4p HoD full uptime. 4p Nymph's Dream last two CAs are with 2 stacks only. 4p MH assumes Neuvillette is below 68% HP at the beginning of combo. 4p Shimenawa is NOT considered. ",
+        "ranking": 266701,
+        "outOf": 1213091,
+        "topPercent": 21.99,
+        "result": 3314569,
+        "teammates": [
+          {
+            "id": 10000087,
+            "name": "Neuvillette",
+            "icon": "/icons/characters/10000087.png"
+          }
+        ],
+        "topStats": {
+          "hp": 44229.2,
+          "atk": 1125.7,
+          "def": 647,
+          "em": 23.6,
+          "er": 110.5,
+          "dmgBonus": 7.4,
+          "dmgBonusKey": "hydroDamageBonus",
+          "cr": 61,
+          "cd": 294,
+          "sampleSize": 1,
+          "sourceLabel": "TOP 1% AVG"
+        },
+        "playerStats": {
+          "hp": 31487.5,
+          "atk": 1292.5,
+          "def": 561.8,
+          "em": 60.6,
+          "er": 104.5,
+          "dmgBonus": 0,
+          "cr": 57.3,
+          "cd": 299.1,
+          "sampleSize": 1,
+          "sourceLabel": "Neuvillette"
+        },
+        "source": "akasha"
+      },
+      "damageCalc": {
+        "totalDamage": 16590,
+        "breakdown": [
+          {
+            "step": "Base Damage",
+            "value": 8185.939200000001,
+            "formula": "1336 ATK × 6.13 talent multiplier"
+          },
+          {
+            "step": "DMG Bonus",
+            "value": 8185.939200000001,
+            "formula": "8186 × (1 + 0.0% Hydro DMG)"
+          },
+          {
+            "step": "Crit Damage",
+            "value": 34135.366464,
+            "formula": "8186 × (1 + 317.0% CRIT DMG)"
+          },
+          {
+            "step": "Enemy DEF",
+            "value": 17067.683232,
+            "formula": "34135 × 0.5 DEF multiplier"
+          },
+          {
+            "step": "Enemy RES",
+            "value": 15360.9149088,
+            "formula": "17068 × 0.9 RES multiplier"
+          },
+          {
+            "step": "HP Scaling",
+            "value": 16589.788101504,
+            "formula": "15361 × 1.08 (HP Scaling)"
+          }
+        ],
+        "rotation": [
+          "E → CA (charged) → CA (charged)",
+          "Full charge empowered attacks"
+        ]
+      }
+    },
+    {
+      "id": 10000106,
+      "name": "Mavuika",
+      "element": "Pyro",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 2,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 7,
+        "skill": 10,
+        "burst": 10,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 19674,
+        "atk": 2140,
+        "def": 891,
+        "em": 63,
+        "er": 100,
+        "cr": 62.7,
+        "cd": 242.3,
+        "dmgBonus": {
+          "pyro": 46.6
+        }
+      },
+      "weapon": {
+        "id": 12514,
+        "name": "A Thousand Blazing Suns",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 741,
+        "subStat": {
+          "key": "cr",
+          "value": 11
+        },
+        "passiveName": "Daybreak of the Blazing Sun",
+        "passiveDescription": "When using Elemental Skill or Burst, gain Scorching Sun: CRIT DMG increases by 20%, ATK increases by 28% for 6s. While in Nightsoul's Blessing, effects increase by 75%.",
+        "icon": "https://enka.network/ui/UI_EquipIcon_Claymore_RadianceSword.png"
+      },
+      "artifacts": [
+        {
+          "id": 38544,
+          "name": "Obsidian Codex (Flower)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "hpPercent",
+              "value": 4.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 6.6,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 31.9,
+              "rolls": 5,
+              "pips": "●●●●●"
+            }
+          ],
+          "cv": 45.1,
+          "qualityBadge": "Great",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_4.png"
+        },
+        {
+          "id": 38524,
+          "name": "Obsidian Codex (Plume)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 17.1,
+              "rolls": 5,
+              "pips": "●●●●●"
+            },
+            {
+              "key": "def",
+              "value": 39,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 7.8,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 42,
+          "qualityBadge": "Great",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_2.png"
+        },
+        {
+          "id": 38554,
+          "name": "Obsidian Codex (Sands)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 32.6,
+              "rolls": 5,
+              "pips": "●●●●●"
+            },
+            {
+              "key": "hpPercent",
+              "value": 4.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "em",
+              "value": 21,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 46.6,
+          "qualityBadge": "Great",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_5.png"
+        },
+        {
+          "id": 38514,
+          "name": "Obsidian Codex (Goblet)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "pyroDmgBonus",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "hpPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 19.4,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "def",
+              "value": 19,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 10.1,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 39.6,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_1.png"
+        },
+        {
+          "id": 41533,
+          "name": "Night of the Sky's Unveiling (Circlet)",
+          "setId": 15041,
+          "setName": "Night of the Sky's Unveiling",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "Within 8s of triggering an Elemental Reaction, obtain buffs based on party Elemental Types: ATK +14% for each member sharing the same element; EM +50 for each member of a different element. Stacks up to 3 characters."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "atkPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 5.8,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 42,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 42,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 11.6,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15041_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15038": 4,
+        "15041": 1
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15038,
+          "name": "Obsidian Codex",
+          "setName": "Obsidian Codex",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+          "fourPieceText": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s.",
+          "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+          "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 184.9,
+      "akashaCv": 247.1,
+      "qualityBadge": "Good",
+      "icon": "/icons/characters/10000106.png",
+      "gachaSplash": "/icons/characters/10000106_gacha.png",
+      "akasha": {
+        "calculationId": "1000010600",
+        "category": "MELT",
+        "title": "Premium Melt Combo, Avg DMG",
+        "details": "C0 Mavuika + C0R5 TTDS Citlali @ 4p Instructor + C0R1 Xilonen @ 4p Cinder 3200DEF + C6R1 Aquila Bennett @ 4p Noblesse. Combo: E .. Q 4CA jump 4CAF. Mavuika at 200 Fighting Spirit. A4 DMG Bonus starts at 40% for the burst and falls off to 26% for the final charged attack. Melt hits: Q, CA: 1,4,5,8. 4-pc Obsidian Codex's critrate buff stops after 6th Cyclic CA hit. ",
+        "ranking": 80141,
+        "outOf": 959603,
+        "topPercent": 8.35,
+        "result": 3218369,
+        "teammates": [
+          {
+            "id": 10000106,
+            "name": "Mavuika",
+            "icon": "/icons/characters/10000106.png"
+          },
+          {
+            "id": 10000107,
+            "name": "Citlali",
+            "icon": "/icons/characters/10000107.png"
+          },
+          {
+            "id": 10000103,
+            "name": "Xilonen",
+            "icon": "/icons/characters/10000103.png"
+          },
+          {
+            "id": 10000032,
+            "name": "Bennett",
+            "icon": "/icons/characters/10000032.png"
+          }
+        ],
+        "topStats": {
+          "hp": 18188.3,
+          "atk": 2190.8,
+          "def": 867.9,
+          "em": 232.8,
+          "er": 105.2,
+          "dmgBonus": 46.6,
+          "dmgBonusKey": "pyroDamageBonus",
+          "cr": 59,
+          "cd": 230.4,
+          "sampleSize": 1,
+          "sourceLabel": "TOP 1% AVG"
+        },
+        "playerStats": {
+          "hp": 19162.1,
+          "atk": 1570.5,
+          "def": 942.1,
+          "em": 228.5,
+          "er": 105.2,
+          "dmgBonus": 46.6,
+          "dmgBonusKey": "pyroDamageBonus",
+          "cr": 63.5,
+          "cd": 237.6,
+          "sampleSize": 1,
+          "sourceLabel": "Mavuika"
+        },
+        "source": "akasha"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000114,
+      "name": "Skirk",
+      "element": "Cryo",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 0,
+      "friendshipLevel": 5,
+      "talents": {
+        "normal": 1,
+        "skill": 8,
+        "burst": 8,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 18355,
+        "atk": 2078,
+        "def": 841,
+        "em": 140,
+        "er": 111,
+        "cr": 88.2,
+        "cd": 207.3,
+        "dmgBonus": {
+          "cryo": 15
+        }
+      },
+      "weapon": {
+        "id": 11424,
+        "name": "Wolf-Fang",
+        "rarity": 4,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 510,
+        "subStat": {
+          "key": "cr",
+          "value": 27.6
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Sword_Boreas.png"
+      },
+      "artifacts": [
+        {
+          "id": 40543,
+          "name": "Finale of the Deep Galleries (Flower)",
+          "setId": 15040,
+          "setName": "Finale of the Deep Galleries",
+          "setBonusText": {
+            "twoPiece": "Dendro DMG Bonus +15%.",
+            "fourPiece": "After Elemental Skills or Bursts hit opponents, the targets' Dendro RES will be decreased by 30% for 8s. This effect can be triggered even if the equipping character is not on the field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 33,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 13.6,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "def",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 7.8,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 35,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15040_4.png"
+        },
+        {
+          "id": 40523,
+          "name": "Finale of the Deep Galleries (Plume)",
+          "setId": 15040,
+          "setName": "Finale of the Deep Galleries",
+          "setBonusText": {
+            "twoPiece": "Dendro DMG Bonus +15%.",
+            "fourPiece": "After Elemental Skills or Bursts hit opponents, the targets' Dendro RES will be decreased by 30% for 8s. This effect can be triggered even if the equipping character is not on the field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "em",
+              "value": 23,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 13.2,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "cd",
+              "value": 12.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 38.8,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15040_2.png"
+        },
+        {
+          "id": 40554,
+          "name": "Finale of the Deep Galleries (Sands)",
+          "setId": 15040,
+          "setName": "Finale of the Deep Galleries",
+          "setBonusText": {
+            "twoPiece": "Dendro DMG Bonus +15%.",
+            "fourPiece": "After Elemental Skills or Bursts hit opponents, the targets' Dendro RES will be decreased by 30% for 8s. This effect can be triggered even if the equipping character is not on the field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 13.2,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "cd",
+              "value": 17.1,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "atk",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 43.5,
+          "qualityBadge": "Great",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15040_5.png"
+        },
+        {
+          "id": 41514,
+          "name": "Night of the Sky's Unveiling (Goblet)",
+          "setId": 15041,
+          "setName": "Night of the Sky's Unveiling",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "Within 8s of triggering an Elemental Reaction, obtain buffs based on party Elemental Types: ATK +14% for each member sharing the same element; EM +50 for each member of a different element. Stacks up to 3 characters."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 19.4,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cr",
+              "value": 3.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "em",
+              "value": 61,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "er",
+              "value": 11,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 25.6,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15041_1.png"
+        },
+        {
+          "id": 40534,
+          "name": "Finale of the Deep Galleries (Circlet)",
+          "setId": 15040,
+          "setName": "Finale of the Deep Galleries",
+          "setBonusText": {
+            "twoPiece": "Dendro DMG Bonus +15%.",
+            "fourPiece": "After Elemental Skills or Bursts hit opponents, the targets' Dendro RES will be decreased by 30% for 8s. This effect can be triggered even if the equipping character is not on the field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "em",
+              "value": 56,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "def",
+              "value": 19,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 4.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 12.4,
+              "rolls": 4,
+              "pips": "●●●●○"
+            }
+          ],
+          "cv": 24.8,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15040_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15040": 4,
+        "15041": 1
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15040,
+          "name": "Deepwood Memories",
+          "setName": "Deepwood Memories",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "Dendro DMG Bonus +15%.",
+          "fourPieceText": "After Elemental Skills or Bursts hit opponents, the targets' Dendro RES will be decreased by 30% for 8s. This effect can be triggered even if the equipping character is not on the field.",
+          "twoPiece": "Dendro DMG Bonus +15%.",
+          "fourPiece": "After Elemental Skills or Bursts hit opponents, the targets' Dendro RES will be decreased by 30% for 8s. This effect can be triggered even if the equipping character is not on the field.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 167.7,
+      "akashaCv": 229.9,
+      "qualityBadge": "Decent",
+      "icon": "/icons/characters/10000114.png",
+      "gachaSplash": "/icons/characters/10000114_gacha.png",
+      "akasha": {
+        "calculationId": "1000011409",
+        "category": "COMBO",
+        "title": "Triple Cryo, Avg DMG",
+        "details": "C0 Skirk, C0R1 Escoffier, C0 Furina @ max fanfare, C0 Shenhe @ 3750 ATK + 4pc Noblesse. Combo: E Q 2N5 CA 2N5. Q absorbs 3 Void Rifts. Escoffier's Fork at full uptime for simplicity. Target has cryo aura and is unfreezable. ",
+        "ranking": 180763,
+        "outOf": 771132,
+        "topPercent": 23.44,
+        "result": 2061665,
+        "teammates": [
+          {
+            "id": 10000114,
+            "name": "Skirk",
+            "icon": "/icons/characters/10000114.png"
+          },
+          {
+            "id": 10000112,
+            "name": "Escoffier",
+            "icon": "/icons/characters/10000112.png"
+          },
+          {
+            "id": 10000089,
+            "name": "Furina",
+            "icon": "/icons/characters/10000089.png"
+          },
+          {
+            "id": 10000063,
+            "name": "Shenhe",
+            "icon": "/icons/characters/10000063.png"
+          }
+        ],
+        "topStats": {
+          "hp": 18321.8,
+          "atk": 2028.8,
+          "def": 897.4,
+          "em": 23.4,
+          "er": 106.1,
+          "dmgBonus": 47.4,
+          "dmgBonusKey": "cryoDamageBonus",
+          "cr": 81.3,
+          "cd": 230.5,
+          "sampleSize": 1,
+          "sourceLabel": "TOP 1% AVG"
+        },
+        "playerStats": {
+          "hp": 19782.1,
+          "atk": 2153.7,
+          "def": 902,
+          "em": 55.9,
+          "er": 100,
+          "dmgBonus": 15,
+          "dmgBonusKey": "cryoDamageBonus",
+          "cr": 73,
+          "cd": 233.8,
+          "sampleSize": 1,
+          "sourceLabel": "Skirk"
+        },
+        "source": "akasha"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000107,
+      "name": "Citlali",
+      "element": "Cryo",
+      "rarity": 5,
+      "level": 80,
+      "constellation": 0,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 1,
+        "skill": 8,
+        "burst": 8,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 17412,
+        "atk": 1010,
+        "def": 744,
+        "em": 730,
+        "er": 212,
+        "cr": 43.1,
+        "cd": 97.4,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 14403,
+        "name": "Sacrificial Fragments",
+        "rarity": 4,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 5,
+        "baseAtk": 454,
+        "subStat": {
+          "key": "em",
+          "value": 221
+        },
+        "passiveName": "Composed",
+        "passiveDescription": "After damaging an opponent with an Elemental Skill, the skill has an 80% chance to end its own CD. Can only occur once every 16s.",
+        "icon": "https://enka.network/ui/UI_EquipIcon_Catalyst_Fossil.png"
+      },
+      "artifacts": [
+        {
+          "id": 37543,
+          "name": "Scroll of the Hero of Cinder City (Flower)",
+          "setId": 15037,
+          "setName": "Scroll of the Hero of Cinder City",
+          "setBonusText": {
+            "twoPiece": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+            "fourPiece": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 5.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 19,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "er",
+              "value": 23.3,
+              "rolls": 4,
+              "pips": "●●●●○"
+            }
+          ],
+          "cv": 17.8,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15037_4.png"
+        },
+        {
+          "id": 37523,
+          "name": "Scroll of the Hero of Cinder City (Plume)",
+          "setId": 15037,
+          "setName": "Scroll of the Hero of Cinder City",
+          "setBonusText": {
+            "twoPiece": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+            "fourPiece": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 9.3,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "em",
+              "value": 21,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 4.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "er",
+              "value": 18.1,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 18.6,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15037_2.png"
+        },
+        {
+          "id": 37554,
+          "name": "Scroll of the Hero of Cinder City (Sands)",
+          "setId": 15037,
+          "setName": "Scroll of the Hero of Cinder City",
+          "setBonusText": {
+            "twoPiece": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+            "fourPiece": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "er",
+            "value": 51.8
+          },
+          "subStats": [
+            {
+              "key": "atkPercent",
+              "value": 16.3,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cd",
+              "value": 28,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "cr",
+              "value": 2.7,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hp",
+              "value": 239,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 33.4,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15037_5.png"
+        },
+        {
+          "id": 75513,
+          "name": "Gladiator's Finale (Goblet)",
+          "setId": 15001,
+          "setName": "Gladiator's Finale",
+          "setBonusText": {
+            "twoPiece": "ATK +18%.",
+            "fourPiece": "If the wielder of this artifact set uses a Sword, Claymore or Polearm, increases their Normal Attack DMG by 35%."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "em",
+            "value": 187
+          },
+          "subStats": [
+            {
+              "key": "er",
+              "value": 9.1,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 12.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 26.4,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15001_1.png"
+        },
+        {
+          "id": 37533,
+          "name": "Scroll of the Hero of Cinder City (Circlet)",
+          "setId": 15037,
+          "setName": "Scroll of the Hero of Cinder City",
+          "setBonusText": {
+            "twoPiece": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+            "fourPiece": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "em",
+            "value": 187
+          },
+          "subStats": [
+            {
+              "key": "atkPercent",
+              "value": 5.8,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "er",
+              "value": 9.7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 13.6,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "def",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 27.2,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15037_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15001": 1,
+        "15037": 4
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15037,
+          "name": "Scroll of the Hero of Cinder City",
+          "setName": "Scroll of the Hero of Cinder City",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+          "fourPieceText": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack.",
+          "twoPiece": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+          "fourPiece": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 123.4,
+      "akashaCv": 123.4,
+      "qualityBadge": "Subpar",
+      "icon": "/icons/characters/10000107.png",
+      "gachaSplash": "/icons/characters/10000107_gacha.png",
+      "akasha": {
+        "calculationId": "local-10000107",
+        "category": "CRYO BUILD",
+        "ranking": 0,
+        "outOf": 0,
+        "topPercent": 0,
+        "playerStats": {
+          "hp": 16276.1,
+          "atk": 1010,
+          "def": 796,
+          "em": 729.7,
+          "er": 209.5,
+          "dmgBonus": 0,
+          "cr": 39.2,
+          "cd": 118.4,
+          "sampleSize": 1,
+          "sourceLabel": "Citlali"
+        },
+        "source": "local"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000143,
+      "name": "Vesna",
+      "element": "Anemo",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 0,
+      "friendshipLevel": 4,
+      "talents": {
+        "normal": 1,
+        "skill": 9,
+        "burst": 6,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 20671,
+        "atk": 2254,
+        "def": 1039,
+        "em": 79,
+        "er": 100,
+        "cr": 75.5,
+        "cd": 115.3,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 11409,
+        "name": "The Black Sword",
+        "rarity": 4,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 510,
+        "subStat": {
+          "key": "cr",
+          "value": 27.6
+        },
+        "passiveName": "Justice",
+        "passiveDescription": "Increases DMG dealt by Normal and Charged Attacks by 20%. Additionally, regenerates 60% of ATK as HP when Normal and Charged Attacks score a CRIT Hit. This effect can occur once every 5s.",
+        "icon": "https://enka.network/ui/UI_EquipIcon_Sword_Bloodstained.png"
+      },
+      "artifacts": [
+        {
+          "id": 47543,
+          "name": "Unknown Set (Flower)",
+          "setId": 15047,
+          "setName": "Unknown Set",
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 26.4,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "cr",
+              "value": 3.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "def",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 9.9,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 32.6,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15047_4.png"
+        },
+        {
+          "id": 47524,
+          "name": "Unknown Set (Plume)",
+          "setId": 15047,
+          "setName": "Unknown Set",
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 6.2,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 6.2,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 9.9,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 79,
+              "rolls": 4,
+              "pips": "●●●●○"
+            }
+          ],
+          "cv": 18.6,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15047_2.png"
+        },
+        {
+          "id": 38553,
+          "name": "Obsidian Codex (Sands)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "hpPercent",
+              "value": 5.8,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 26.4,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "defPercent",
+              "value": 14.6,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 3.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 32.6,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_5.png"
+        },
+        {
+          "id": 47514,
+          "name": "Unknown Set (Goblet)",
+          "setId": 15047,
+          "setName": "Unknown Set",
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "def",
+              "value": 74,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "atk",
+              "value": 33,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 6.6,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "defPercent",
+              "value": 5.8,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 13.2,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15047_1.png"
+        },
+        {
+          "id": 38534,
+          "name": "Obsidian Codex (Circlet)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 0,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cr",
+            "value": 4.7
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 6.2,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "def",
+              "value": 16,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 4.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "defPercent",
+              "value": 7.3,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 6.2,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15038": 2,
+        "15047": 3
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15038,
+          "name": "Obsidian Codex",
+          "setName": "Obsidian Codex",
+          "count": 2,
+          "twoPieceActive": true,
+          "fourPieceActive": false,
+          "twoPieceText": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+          "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+          "activeTier": "2pc"
+        },
+        {
+          "setId": 15047,
+          "name": "Unknown Set",
+          "setName": "Unknown Set",
+          "count": 3,
+          "twoPieceActive": true,
+          "fourPieceActive": false,
+          "activeTier": "2pc"
+        }
+      ],
+      "totalCv": 103.2,
+      "akashaCv": 112.6,
+      "qualityBadge": "Subpar",
+      "icon": "/icons/characters/10000143.png",
+      "gachaSplash": "/icons/characters/10000143_gacha.png",
+      "akasha": {
+        "calculationId": "local-10000143",
+        "category": "ANEMO BUILD",
+        "ranking": 0,
+        "outOf": 0,
+        "topPercent": 0,
+        "playerStats": {
+          "hp": 20338.9,
+          "atk": 2617.8,
+          "def": 1017.3,
+          "em": 118.9,
+          "er": 100,
+          "dmgBonus": 0,
+          "cr": 56.5,
+          "cd": 215.4,
+          "sampleSize": 1,
+          "sourceLabel": "Vesna"
+        },
+        "source": "local"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000150,
+      "name": "Odette",
+      "element": "Cryo",
+      "rarity": 5,
+      "level": 90,
+      "constellation": 1,
+      "friendshipLevel": 10,
+      "talents": {
+        "normal": 1,
+        "skill": 10,
+        "burst": 7,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 19122,
+        "atk": 2524,
+        "def": 931,
+        "em": 58,
+        "er": 122,
+        "cr": 65.6,
+        "cd": 232.2,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 11520,
+        "name": "Weapon 11520",
+        "rarity": 5,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 1,
+        "baseAtk": 674,
+        "subStat": {
+          "key": "cr",
+          "value": 22.1
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Sword_Swanlake.png"
+      },
+      "artifacts": [
+        {
+          "id": 48544,
+          "name": "Obsidian Guard (Flower)",
+          "setId": 15048,
+          "setName": "Obsidian Guard",
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 3.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "em",
+              "value": 58,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "def",
+              "value": 21,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 28.7,
+              "rolls": 4,
+              "pips": "●●●●○"
+            }
+          ],
+          "cv": 35.7,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15048_4.png"
+        },
+        {
+          "id": 48523,
+          "name": "Obsidian Guard (Plume)",
+          "setId": 15048,
+          "setName": "Obsidian Guard",
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "hpPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "defPercent",
+              "value": 5.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 6.6,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 20.2,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 33.4,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15048_2.png"
+        },
+        {
+          "id": 48554,
+          "name": "Obsidian Guard (Sands)",
+          "setId": 15048,
+          "setName": "Obsidian Guard",
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 10.9,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cd",
+              "value": 12.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "er",
+              "value": 9.7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 42,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 34.2,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15048_5.png"
+        },
+        {
+          "id": 21514,
+          "name": "Gilded Dreams (Goblet)",
+          "setId": 15026,
+          "setName": "Gilded Dreams",
+          "setBonusText": {
+            "twoPiece": "Elemental Mastery +80.",
+            "fourPiece": "Within 8s of triggering an Elemental Reaction, obtain buffs based on party Elemental Types: ATK +14% for each member sharing the same element; EM +50 for each member of a different element. Stacks up to 3 characters."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "atkPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 47,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "def",
+              "value": 19,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 20.2,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "cr",
+              "value": 7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 34.2,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15026_1.png"
+        },
+        {
+          "id": 48533,
+          "name": "Obsidian Guard (Circlet)",
+          "setId": 15048,
+          "setName": "Obsidian Guard",
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cd",
+            "value": 62.2
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 35,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 10.5,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "er",
+              "value": 12.3,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 23,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 21,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15048_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15026": 1,
+        "15048": 4
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15048,
+          "name": "Obsidian Guard",
+          "setName": "Obsidian Guard",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 158.5,
+      "akashaCv": 220.7,
+      "qualityBadge": "Decent",
+      "icon": "/icons/characters/10000150.png",
+      "gachaSplash": "/icons/characters/10000150_gacha.png",
+      "akasha": {
+        "calculationId": "1000015000",
+        "category": "STELLAR 4p HotF",
+        "title": "Stellar-Conduct Triple Cryo, Avg DMG",
+        "details": "C0 Odette + C0 Sandrone + C1 Yae + 4-pc Tenacity Qiqi. See Damage Distribution for hit counts and details. C1 Yae's and Qiqi's Stellar buffs at 100% uptime. Cryo resonance at 100% uptime. Polestar Field at avg of 7 stacks through the rotation. If Odette is on 4-pc Deep Shadow then Yae Miko becomes 4-pc Furnace holder. ",
+        "ranking": 100879,
+        "outOf": 291641,
+        "topPercent": 34.59,
+        "result": 949280,
+        "teammates": [
+          {
+            "id": 10000150,
+            "name": "Odette",
+            "icon": "/icons/characters/10000150.png"
+          },
+          {
+            "id": 10000133,
+            "name": "Sandrone",
+            "icon": "/icons/characters/10000133.png"
+          },
+          {
+            "id": 10000058,
+            "name": "Yae Miko",
+            "icon": "/icons/characters/10000058.png"
+          },
+          {
+            "id": 10000035,
+            "name": "Qiqi",
+            "icon": "/icons/characters/10000035.png"
+          }
+        ],
+        "topStats": {
+          "hp": 18853.5,
+          "atk": 2707.6,
+          "def": 874.6,
+          "em": 89.8,
+          "er": 108.7,
+          "dmgBonus": 0,
+          "cr": 79.5,
+          "cd": 208.1,
+          "sampleSize": 1,
+          "sourceLabel": "TOP 1% AVG"
+        },
+        "playerStats": {
+          "hp": 19122.3,
+          "atk": 2524.1,
+          "def": 931.3,
+          "em": 58.3,
+          "er": 122,
+          "dmgBonus": 0,
+          "cr": 65.6,
+          "cd": 232.2,
+          "sampleSize": 1,
+          "sourceLabel": "Odette"
+        },
+        "source": "akasha"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000140,
+      "name": "Vodyanitsa",
+      "element": "Hydro",
+      "rarity": 5,
+      "level": 72,
+      "constellation": 0,
+      "friendshipLevel": 2,
+      "talents": {
+        "normal": 1,
+        "skill": 6,
+        "burst": 4,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 48374,
+        "atk": 1149,
+        "def": 538,
+        "em": 35,
+        "er": 133,
+        "cr": 12,
+        "cd": 83.4,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 14431,
+        "name": "Ring of Yaxche",
+        "rarity": 4,
+        "level": 90,
+        "ascension": 6,
+        "refinement": 4,
+        "baseAtk": 510,
+        "subStat": {
+          "key": "hpPercent",
+          "value": 41.3
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Catalyst_Isikhulu.png"
+      },
+      "artifacts": [
+        {
+          "id": 91544,
+          "name": "Tenacity of the Millelith (Flower)",
+          "setId": 15017,
+          "setName": "Tenacity of the Millelith",
+          "setBonusText": {
+            "twoPiece": "HP +20%.",
+            "fourPiece": "When an Elemental Skill hits an opponent, the ATK of all nearby party members is increased by 20% and their Shield Strength is increased by 30% for 3s. Triggers off-field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "atk",
+              "value": 58,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "cd",
+              "value": 21.8,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "def",
+              "value": 23,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 21.8,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15017_4.png"
+        },
+        {
+          "id": 91523,
+          "name": "Tenacity of the Millelith (Plume)",
+          "setId": 15017,
+          "setName": "Tenacity of the Millelith",
+          "setBonusText": {
+            "twoPiece": "HP +20%.",
+            "fourPiece": "When an Elemental Skill hits an opponent, the ATK of all nearby party members is increased by 20% and their Shield Strength is increased by 30% for 3s. Triggers off-field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "defPercent",
+              "value": 13.1,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "hp",
+              "value": 747,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 9.3,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "er",
+              "value": 4.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 0,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15017_2.png"
+        },
+        {
+          "id": 37553,
+          "name": "Scroll of the Hero of Cinder City (Sands)",
+          "setId": 15037,
+          "setName": "Scroll of the Hero of Cinder City",
+          "setBonusText": {
+            "twoPiece": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+            "fourPiece": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 6.2,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cr",
+              "value": 7,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 35,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "er",
+              "value": 16.8,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 20.2,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15037_5.png"
+        },
+        {
+          "id": 91513,
+          "name": "Tenacity of the Millelith (Goblet)",
+          "setId": 15017,
+          "setName": "Tenacity of the Millelith",
+          "setBonusText": {
+            "twoPiece": "HP +20%.",
+            "fourPiece": "When an Elemental Skill hits an opponent, the ATK of all nearby party members is increased by 20% and their Shield Strength is increased by 30% for 3s. Triggers off-field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "er",
+              "value": 6.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "hp",
+              "value": 418,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cd",
+              "value": 5.4,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 19.8,
+              "rolls": 4,
+              "pips": "●●●●○"
+            }
+          ],
+          "cv": 5.4,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15017_1.png"
+        },
+        {
+          "id": 91533,
+          "name": "Tenacity of the Millelith (Circlet)",
+          "setId": 15017,
+          "setName": "Tenacity of the Millelith",
+          "setBonusText": {
+            "twoPiece": "HP +20%.",
+            "fourPiece": "When an Elemental Skill hits an opponent, the ATK of all nearby party members is increased by 20% and their Shield Strength is increased by 30% for 3s. Triggers off-field."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "hpPercent",
+            "value": 46.6
+          },
+          "subStats": [
+            {
+              "key": "er",
+              "value": 5.2,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 10.5,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "hp",
+              "value": 478,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 63,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 0,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15017_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15017": 4,
+        "15037": 1
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15017,
+          "name": "Tenacity of the Millelith",
+          "setName": "Tenacity of the Millelith",
+          "count": 4,
+          "twoPieceActive": true,
+          "fourPieceActive": true,
+          "twoPieceText": "HP +20%.",
+          "fourPieceText": "When an Elemental Skill hits an opponent, the ATK of all nearby party members is increased by 20% and their Shield Strength is increased by 30% for 3s. Triggers off-field.",
+          "twoPiece": "HP +20%.",
+          "fourPiece": "When an Elemental Skill hits an opponent, the ATK of all nearby party members is increased by 20% and their Shield Strength is increased by 30% for 3s. Triggers off-field.",
+          "activeTier": "4pc"
+        }
+      ],
+      "totalCv": 47.4,
+      "akashaCv": 47.4,
+      "qualityBadge": "Subpar",
+      "icon": "/icons/characters/10000140.png",
+      "gachaSplash": "/icons/characters/10000140_gacha.png",
+      "akasha": {
+        "calculationId": "local-10000140",
+        "category": "HYDRO BUILD",
+        "ranking": 0,
+        "outOf": 0,
+        "topPercent": 0,
+        "playerStats": {
+          "hp": 48374.2,
+          "atk": 1149.3,
+          "def": 538.3,
+          "em": 35,
+          "er": 133,
+          "dmgBonus": 0,
+          "cr": 12,
+          "cd": 83.4,
+          "sampleSize": 1,
+          "sourceLabel": "Vodyanitsa"
+        },
+        "source": "local"
+      },
+      "damageCalc": null
+    },
+    {
+      "id": 10000136,
+      "name": "Mitya",
+      "element": "Electro",
+      "rarity": 5,
+      "level": 70,
+      "constellation": 0,
+      "friendshipLevel": 2,
+      "talents": {
+        "normal": 6,
+        "skill": 6,
+        "burst": 1,
+        "boosted": {
+          "normal": false,
+          "skill": false,
+          "burst": false
+        }
+      },
+      "stats": {
+        "hp": 14729,
+        "atk": 1091,
+        "def": 839,
+        "em": 517,
+        "er": 177.5,
+        "cr": 52.8,
+        "cd": 173.6,
+        "dmgBonus": {}
+      },
+      "weapon": {
+        "id": 14430,
+        "name": "Waveriding Whirl",
+        "rarity": 4,
+        "level": 60,
+        "ascension": 3,
+        "refinement": 5,
+        "baseAtk": 293,
+        "subStat": {
+          "key": "er",
+          "value": 45.1
+        },
+        "icon": "https://enka.network/ui/UI_EquipIcon_Catalyst_Umpakati.png"
+      },
+      "artifacts": [
+        {
+          "id": 46543,
+          "name": "Long Night's Oath (Flower)",
+          "setId": 15046,
+          "setName": "Long Night's Oath",
+          "setBonusText": {
+            "twoPiece": "Increases ATK by 18%.",
+            "fourPiece": "After triggering an Elemental Reaction or dealing Elemental DMG while in Nightsoul's Blessing or combat, increases all party members' CRIT DMG by 20% and the wearer's Elemental DMG by 30% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "flower",
+          "mainStat": {
+            "key": "hp",
+            "value": 4780
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 14,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "em",
+              "value": 44,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 9.9,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "cr",
+              "value": 6.6,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 27.2,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15046_4.png"
+        },
+        {
+          "id": 46524,
+          "name": "Long Night's Oath (Plume)",
+          "setId": 15046,
+          "setName": "Long Night's Oath",
+          "setBonusText": {
+            "twoPiece": "Increases ATK by 18%.",
+            "fourPiece": "After triggering an Elemental Reaction or dealing Elemental DMG while in Nightsoul's Blessing or combat, increases all party members' CRIT DMG by 20% and the wearer's Elemental DMG by 30% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "plume",
+          "mainStat": {
+            "key": "atk",
+            "value": 311
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 3.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 25.6,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "def",
+              "value": 23,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "er",
+              "value": 16.8,
+              "rolls": 3,
+              "pips": "●●●○○"
+            }
+          ],
+          "cv": 31.8,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15046_2.png"
+        },
+        {
+          "id": 46553,
+          "name": "Long Night's Oath (Sands)",
+          "setId": 15046,
+          "setName": "Long Night's Oath",
+          "setBonusText": {
+            "twoPiece": "Increases ATK by 18%.",
+            "fourPiece": "After triggering an Elemental Reaction or dealing Elemental DMG while in Nightsoul's Blessing or combat, increases all party members' CRIT DMG by 20% and the wearer's Elemental DMG by 30% for 15s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "sands",
+          "mainStat": {
+            "key": "em",
+            "value": 187
+          },
+          "subStats": [
+            {
+              "key": "cr",
+              "value": 3.9,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "cd",
+              "value": 21.8,
+              "rolls": 3,
+              "pips": "●●●○○"
+            },
+            {
+              "key": "defPercent",
+              "value": 12.4,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "def",
+              "value": 46,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 29.6,
+          "qualityBadge": "Decent",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15046_5.png"
+        },
+        {
+          "id": 38513,
+          "name": "Obsidian Codex (Goblet)",
+          "setId": 15038,
+          "setName": "Obsidian Codex",
+          "setBonusText": {
+            "twoPiece": "While the equipping character is in Nightsoul's Blessing and is on the field, their DMG dealt is increased by 15%.",
+            "fourPiece": "After the equipping character consumes 1 Nightsoul point while on the field, CRIT Rate increases by 40% for 6s. This effect can trigger once every 1s."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "goblet",
+          "mainStat": {
+            "key": "em",
+            "value": 187
+          },
+          "subStats": [
+            {
+              "key": "cd",
+              "value": 33.4,
+              "rolls": 5,
+              "pips": "●●●●●"
+            },
+            {
+              "key": "cr",
+              "value": 3.1,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "er",
+              "value": 6.5,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "defPercent",
+              "value": 7.3,
+              "rolls": 1,
+              "pips": "●○○○○"
+            }
+          ],
+          "cv": 39.6,
+          "qualityBadge": "Good",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15038_1.png"
+        },
+        {
+          "id": 37534,
+          "name": "Scroll of the Hero of Cinder City (Circlet)",
+          "setId": 15037,
+          "setName": "Scroll of the Hero of Cinder City",
+          "setBonusText": {
+            "twoPiece": "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
+            "fourPiece": "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack."
+          },
+          "rarity": 5,
+          "level": 20,
+          "slot": "circlet",
+          "mainStat": {
+            "key": "cr",
+            "value": 31.1
+          },
+          "subStats": [
+            {
+              "key": "er",
+              "value": 9.1,
+              "rolls": 2,
+              "pips": "●●○○○"
+            },
+            {
+              "key": "atkPercent",
+              "value": 19.2,
+              "rolls": 4,
+              "pips": "●●●●○"
+            },
+            {
+              "key": "hpPercent",
+              "value": 5.3,
+              "rolls": 1,
+              "pips": "●○○○○"
+            },
+            {
+              "key": "atk",
+              "value": 35,
+              "rolls": 2,
+              "pips": "●●○○○"
+            }
+          ],
+          "cv": 0,
+          "qualityBadge": "Subpar",
+          "icon": "https://enka.network/ui/UI_RelicIcon_15037_3.png"
+        }
+      ],
+      "artifactSets": {
+        "15037": 1,
+        "15038": 1,
+        "15046": 3
+      },
+      "activeSetBonuses": [
+        {
+          "setId": 15046,
+          "name": "Long Night's Oath",
+          "setName": "Long Night's Oath",
+          "count": 3,
+          "twoPieceActive": true,
+          "fourPieceActive": false,
+          "twoPieceText": "Increases ATK by 18%.",
+          "twoPiece": "Increases ATK by 18%.",
+          "activeTier": "2pc"
+        }
+      ],
+      "totalCv": 128.2,
+      "akashaCv": 190.4,
+      "qualityBadge": "Subpar",
+      "icon": "/icons/characters/10000136.png",
+      "gachaSplash": "/icons/characters/10000136_gacha.png",
+      "akasha": {
+        "calculationId": "local-10000136",
+        "category": "ELECTRO BUILD",
+        "ranking": 0,
+        "outOf": 0,
+        "topPercent": 0,
+        "topStats": {
+          "hp": 14729,
+          "atk": 1091,
+          "def": 839,
+          "em": 517,
+          "er": 177.5,
+          "dmgBonus": 0,
+          "cr": 52.8,
+          "cd": 173.6,
+          "sampleSize": 1,
+          "sourceLabel": "BUILD BENCHMARK"
+        },
+        "source": "local"
+      },
+      "damageCalc": null
+    }
+  ],
+  "ttl": 50,
+  "fetchedAt": "2026-11-13T18:34:38.770Z",
+  "akashaUpdatedAt": 1793889012020,
+  "fromCache": true
+}

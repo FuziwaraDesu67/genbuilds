@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+/// <reference types="vitest/globals" />
 import { parseEnkaResponse } from '../src/lib/enka/parser';
 import { EnkaResponseSchema } from '../src/lib/enka/types';
 import sampleResponse from './fixtures/enka-response.json';
@@ -78,7 +78,27 @@ describe('Enka Parser', () => {
     expect(flower!.level).toBe(20);
     expect(flower!.rarity).toBe(5);
     expect(flower!.mainStat.key).toBe('hp');
+    expect(flower!.mainStat.value).toBe(4780);
     expect(flower!.subStats).toHaveLength(4);
+    // Normalized percentage substats (7.8 instead of 0.078)
+    expect(flower!.subStats[0].key).toBe('cr');
+    expect(flower!.subStats[0].value).toBe(7.8);
+    expect(flower!.subStats[0].pips).toBeDefined();
+    expect(flower!.subStats[1].key).toBe('cd');
+    expect(flower!.subStats[1].value).toBe(21.8);
+    // Piece CV calculation (2 * 7.8 + 21.8 = 37.4)
+    expect(flower!.cv).toBe(37.4);
+    expect(flower!.qualityBadge).toBe('Good');
+
+    // Check sands with percentage main stat normalized (0.466 -> 46.6)
+    const sands = artifacts.find(a => a.slot === 'sands');
+    expect(sands).toBeDefined();
+    expect(sands!.mainStat.key).toBe('hpPercent');
+    expect(sands!.mainStat.value).toBe(46.6);
+
+    // Check character total build CV and badge
+    expect(parsed.characters[0].totalCv).toBeGreaterThan(0);
+    expect(parsed.characters[0].qualityBadge).toBeDefined();
   });
 
   it('should correctly count artifact sets', () => {
@@ -109,8 +129,10 @@ describe('Enka Parser', () => {
     const artifacts = parsed.characters[0].artifacts;
     const flower = artifacts.find(a => a.slot === 'flower');
 
-    // Check that rolls are estimated
+    // Check that rolls and pips are estimated
     expect(flower!.subStats[0].rolls).toBeGreaterThan(0);
+    expect(flower!.subStats[0].pips).toBeDefined();
+    expect(flower!.subStats[0].pips).toMatch(/^[●○★]+$/);
   });
 
   it('should handle missing avatarInfoList', () => {

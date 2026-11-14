@@ -1,10 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #0a0e27;
-  --foreground: #e8eaf6;
+  color-scheme: dark;
+  --background: #000000;
+  --foreground: #fafafa;
+  --color-background: #000000;
+  --color-foreground: #fafafa;
+  --radius: 0.5rem;
+  --primary: #38bdf8;
+  --primary-foreground: #000000;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+}
+
+.dark {
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+.retro {
+  font-family: 'Press Start 2P', 'Courier New', monospace, 'Lucida Console';
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  image-rendering: pixelated;
 }
 
 * {
@@ -99,4 +120,43 @@ body {
 
 .count-up {
   animation: countUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Constellation orbital ring & live breathing aura */
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes constellationBreathe {
+  0%, 100% {
+    box-shadow: 0 0 12px var(--const-glow), inset 0 0 8px var(--const-glow);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 22px var(--const-glow), 0 0 6px var(--const-bright), inset 0 0 10px var(--const-glow);
+    transform: scale(1.03);
+  }
+}
+@keyframes constellationFlow {
+  0% { stroke-dashoffset: 32; }
+  100% { stroke-dashoffset: 0; }
+}
+.orbit-ring {
+  animation: orbitSpin 14s linear infinite;
+}
+.constellation-breathe {
+  animation: constellationBreathe 3s ease-in-out infinite;
+}
+.constellation-flow {
+  stroke-dasharray: 6 3;
+  animation: constellationFlow 2.2s linear infinite;
+}
+
+/* Hide scrollbar for Chrome, Safari, Edge, Firefox */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

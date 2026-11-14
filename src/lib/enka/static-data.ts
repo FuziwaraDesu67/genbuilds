@@ -1,8 +1,32 @@
-import { Element } from './types';
+import { Element, QualityBadge } from './types';
 import { getGameCharacter, getCharacterIconPath, FIGHT_PROP_NAMES, TEXT_MAP } from './game-data.generated';
+import {
+  ARTIFACT_SET_DATA,
+  ARTIFACT_SET_LIST,
+  getArtifactSetBonus,
+  getArtifactSetBonusByName,
+  getArtifactSetDetails,
+  getArtifactSetName,
+  getActiveArtifactSetBonuses,
+} from './artifact-set-data';
+import {
+  WEAPON_DATA,
+  WEAPON_LIST,
+  getWeaponPassive,
+  getWeaponMetadata,
+} from './weapon-data';
+import {
+  CHARACTER_TALENT_BOOSTS,
+  evaluateTalentBoosts,
+} from './talent-boost-data';
+import { getConfiguredCharacters as getDamageConfiguredCharacters } from '../damage-calc/configs';
 
 // Re-export text resolver and icon functions for other modules
 export { resolveTextHash, getCharacterIconPath, getArtifactIconPath } from './game-data.generated';
+export * from './artifact-set-data';
+export * from './weapon-data';
+export * from './constellation-data';
+export * from './talent-boost-data';
 
 // Fight prop mappings (stat IDs from Enka API)
 export const FIGHT_PROPS: Record<string, string> = {
@@ -69,8 +93,15 @@ export const ARTIFACT_SETS: Record<number, string> = {
   15008: 'Emblem of Severed Fate',
   15020: 'Golden Troupe',
   15025: 'Obsidian Codex',
-  14001: 'Gladiator\'s Finale',
-  15007: 'Shimenawa\'s Reminiscence',
+  15038: 'Obsidian Codex',
+  15037: 'Scroll of the Hero of Cinder City',
+  15039: 'Night of the Sky-Scorching Sun',
+  15040: 'Finale of the Deep Gallantry',
+  15042: 'Spindle of the Ancient Flute',
+  15046: "Long Night's Oath",
+  15048: 'Obsidian Guard',
+  14001: "Gladiator's Finale",
+  15007: "Shimenawa's Reminiscence",
   15006: 'Pale Flame',
   15014: 'Vermillion Hereafter',
   15015: 'Echoes of an Offering',
@@ -80,6 +111,16 @@ export const ARTIFACT_SETS: Record<number, string> = {
   15003: 'Heart of Depth',
   15005: 'Crimson Witch of Flames',
   15027: 'Scroll of the Hero of Cinder City',
+  ...Object.entries(ARTIFACT_SET_DATA).reduce(
+    (acc, [id, def]) => {
+      const numId = Number(id);
+      if (!acc[numId]) {
+        acc[numId] = def.name;
+      }
+      return acc;
+    },
+    {} as Record<number, string>
+  ),
 };
 
 // Element color mappings for UI
@@ -125,8 +166,6 @@ export function getCharacterData(id: number) {
 
 // Get configured characters (those with damage calculation)
 export function getConfiguredCharacters(): number[] {
-  // Import here to avoid circular dependency
-  const { getConfiguredCharacters: getDamageConfiguredCharacters } = require('../damage-calc/configs');
   return getDamageConfiguredCharacters();
 }
 
@@ -138,16 +177,72 @@ export function getStatName(propId: string): string {
   return propId;
 }
 
-// Estimate substat roll count
+// Estimate authentic substat roll count bounded in [1..6]
 export function estimateRollCount(statKey: string, value: number): number {
   const rolls = SUBSTAT_ROLLS[statKey];
-  if (!rolls) return 0;
+  if (!rolls || value <= 0) return 0;
 
+  const minRoll = rolls[0];
+  const maxRoll = rolls[3];
   const avgRoll = (rolls[0] + rolls[1] + rolls[2] + rolls[3]) / 4;
-  return Math.round(value / avgRoll);
+
+  let estimated = Math.round(value / avgRoll);
+  const epsilon = 0.05 * minRoll;
+
+  while (estimated < 6 && value > estimated * maxRoll + epsilon) {
+    estimated++;
+  }
+
+  while (estimated > 1 && value < estimated * minRoll - epsilon) {
+    estimated--;
+  }
+
+  return Math.max(1, Math.min(6, estimated));
+}
+
+// Derive visual roll pip representation string
+// rolls 1-5 -> ●○○○○ to ●●●●●
+// rolls 6   -> ●●●●●★
+export function deriveVisualRollPips(rolls: number, maxPips: number = 5): string {
+  const boundedRolls = Math.max(1, Math.min(rolls, 6));
+  if (boundedRolls === 6) {
+    return '●●●●●★';
+  }
+  const active = '●'.repeat(boundedRolls);
+  const inactive = '○'.repeat(Math.max(0, maxPips - boundedRolls));
+  return `${active}${inactive}`;
 }
 
 // Calculate crit value (CR * 2 + CD)
-export function calculateCritValue(cr: number, cd: number): number {
-  return cr * 2 + cd;
+// Guards negative inputs to 0, returns value to 1 decimal place
+export function calculateCritValue(cr: number = 0, cd: number = 0): number {
+  const safeCr = Math.max(0, cr || 0);
+  const safeCd = Math.max(0, cd || 0);
+  return parseFloat((safeCr * 2 + safeCd).toFixed(1));
 }
+
+// Evaluate QualityBadge for an individual artifact piece
+export function getQualityBadge(cv: number, isCirclet: boolean = false): QualityBadge {
+  if (isCirclet) {
+    if (cv >= 35.0) return 'Godly';
+    if (cv >= 30.0) return 'Great';
+    if (cv >= 20.0) return 'Good';
+    if (cv >= 10.0) return 'Decent';
+    return 'Subpar';
+  }
+  if (cv >= 50.0) return 'Godly';
+  if (cv >= 40.0) return 'Great';
+  if (cv >= 30.0) return 'Good';
+  if (cv >= 20.0) return 'Decent';
+  return 'Subpar';
+}
+
+// Evaluate QualityBadge for total artifact build CV
+export function getBuildCVTier(totalCv: number): QualityBadge {
+  if (totalCv >= 240.0) return 'Godly';
+  if (totalCv >= 220.0) return 'Great';
+  if (totalCv >= 180.0) return 'Good';
+  if (totalCv >= 140.0) return 'Decent';
+  return 'Subpar';
+}
+

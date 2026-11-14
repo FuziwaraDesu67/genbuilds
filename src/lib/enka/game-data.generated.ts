@@ -2311,6 +2311,193 @@ export const GAME_CHARACTERS: Record<number, GameCharacter> = {
       "UI_Talent_S_Jahoda_04"
     ]
   },
+  "10000125": {
+    "name": "Columbina",
+    "element": "Hydro",
+    "rarity": 5,
+    "weaponType": "Catalyst",
+    "nameTextMapHash": 112500001,
+    "sideIconName": "UI_AvatarIcon_Side_Columbina",
+    "skillOrder": [11251, 11252, 11255],
+    "consts": [
+      "UI_Talent_S_Columbina_01",
+      "UI_Talent_S_Columbina_02",
+      "UI_Talent_U_Columbina_01",
+      "UI_Talent_S_Columbina_03",
+      "UI_Talent_U_Columbina_02",
+      "UI_Talent_S_Columbina_04"
+    ]
+  },
+  "10000126": {
+    "name": "Zibai",
+    "element": "Geo",
+    "rarity": 5,
+    "weaponType": "Sword",
+    "nameTextMapHash": 112600001,
+    "sideIconName": "UI_AvatarIcon_Side_Zibai",
+    "skillOrder": [11261, 11262, 11265],
+    "consts": [
+      "UI_Talent_S_Zibai_01",
+      "UI_Talent_S_Zibai_02",
+      "UI_Talent_U_Zibai_01",
+      "UI_Talent_S_Zibai_03",
+      "UI_Talent_U_Zibai_02",
+      "UI_Talent_S_Zibai_04"
+    ]
+  },
+  "10000130": {
+    "name": "Linnea",
+    "element": "Geo",
+    "rarity": 5,
+    "weaponType": "Bow",
+    "nameTextMapHash": 113000001,
+    "sideIconName": "UI_AvatarIcon_Side_Linnea",
+    "skillOrder": [11301, 11302, 11305],
+    "consts": [
+      "UI_Talent_S_Linnea_01",
+      "UI_Talent_S_Linnea_02",
+      "UI_Talent_U_Linnea_01",
+      "UI_Talent_S_Linnea_03",
+      "UI_Talent_U_Linnea_02",
+      "UI_Talent_S_Linnea_04"
+    ]
+  },
+  "10000127": {
+    "name": "Capitano",
+    "element": "Cryo",
+    "rarity": 5,
+    "weaponType": "Sword",
+    "nameTextMapHash": 112700001,
+    "sideIconName": "UI_AvatarIcon_Side_Capitano",
+    "skillOrder": [11271, 11272, 11275],
+    "consts": [
+      "UI_Talent_S_Capitano_01",
+      "UI_Talent_S_Capitano_02",
+      "UI_Talent_U_Capitano_01",
+      "UI_Talent_S_Capitano_03",
+      "UI_Talent_U_Capitano_02",
+      "UI_Talent_S_Capitano_04"
+    ]
+  },
+  "10000128": {
+    "name": "Madame Ping",
+    "element": "Dendro",
+    "rarity": 5,
+    "weaponType": "Polearm",
+    "nameTextMapHash": 112800001,
+    "sideIconName": "UI_AvatarIcon_Side_MadamePing",
+    "skillOrder": [11281, 11282, 11285],
+    "consts": [
+      "UI_Talent_S_MadamePing_01",
+      "UI_Talent_S_MadamePing_02",
+      "UI_Talent_U_MadamePing_01",
+      "UI_Talent_S_MadamePing_03",
+      "UI_Talent_U_MadamePing_02",
+      "UI_Talent_S_MadamePing_04"
+    ]
+  },
+  "10000133": {
+    "name": "Sandrone",
+    "element": "Cryo",
+    "rarity": 5,
+    "weaponType": "Claymore",
+    "nameTextMapHash": 113300001,
+    "sideIconName": "UI_AvatarIcon_Side_Sandrone",
+    "skillOrder": [11331, 11332, 11335],
+    "consts": [
+      "UI_Talent_S_Sandrone_01",
+      "UI_Talent_S_Sandrone_02",
+      "UI_Talent_U_Sandrone_01",
+      "UI_Talent_S_Sandrone_03",
+      "UI_Talent_U_Sandrone_02",
+      "UI_Talent_S_Sandrone_04"
+    ]
+  },
+  "10000150": {
+    "name": "Odette",
+    "element": "Cryo",
+    "rarity": 5,
+    "weaponType": "Sword",
+    "nameTextMapHash": 115000001,
+    "sideIconName": "UI_AvatarIcon_Side_Odette",
+    "skillOrder": [11501, 11502, 11505],
+    "consts": [
+      "UI_Talent_S_Odette_01",
+      "UI_Talent_S_Odette_02",
+      "UI_Talent_U_Odette_01",
+      "UI_Talent_S_Odette_03",
+      "UI_Talent_U_Odette_02",
+      "UI_Talent_S_Odette_04"
+    ]
+  },
+  "10000136": {
+    "name": "Mitya",
+    "element": "Electro",
+    "rarity": 5,
+    "weaponType": "Catalyst",
+    "nameTextMapHash": 113600001,
+    "sideIconName": "UI_AvatarIcon_Side_Mitya",
+    "skillOrder": [11361, 11362, 11365],
+    "consts": [
+      "UI_Talent_S_Mitya_01",
+      "UI_Talent_S_Mitya_02",
+      "UI_Talent_U_Mitya_01",
+      "UI_Talent_S_Mitya_03",
+      "UI_Talent_U_Mitya_02",
+      "UI_Talent_S_Mitya_04"
+    ]
+  },
+  "10000137": {
+    "name": "Valeriy",
+    "element": "Electro",
+    "rarity": 4,
+    "weaponType": "Sword",
+    "nameTextMapHash": 113700001,
+    "sideIconName": "UI_AvatarIcon_Side_Valeriy",
+    "skillOrder": [11371, 11372, 11375],
+    "consts": [
+      "UI_Talent_S_Valeriy_01",
+      "UI_Talent_S_Valeriy_02",
+      "UI_Talent_U_Valeriy_01",
+      "UI_Talent_S_Valeriy_03",
+      "UI_Talent_U_Valeriy_02",
+      "UI_Talent_S_Valeriy_04"
+    ]
+  },
+  "10000140": {
+    "name": "Vodyanitsa",
+    "element": "Hydro",
+    "rarity": 5,
+    "weaponType": "Catalyst",
+    "nameTextMapHash": 114000001,
+    "sideIconName": "UI_AvatarIcon_Side_Vodyanitsa",
+    "skillOrder": [11401, 11402, 11405],
+    "consts": [
+      "UI_Talent_S_Vodyanitsa_01",
+      "UI_Talent_S_Vodyanitsa_02",
+      "UI_Talent_U_Vodyanitsa_01",
+      "UI_Talent_S_Vodyanitsa_03",
+      "UI_Talent_U_Vodyanitsa_02",
+      "UI_Talent_S_Vodyanitsa_04"
+    ]
+  },
+  "10000143": {
+    "name": "Vesna",
+    "element": "Anemo",
+    "rarity": 5,
+    "weaponType": "Sword",
+    "nameTextMapHash": 114300001,
+    "sideIconName": "UI_AvatarIcon_Side_Vesna",
+    "skillOrder": [11431, 11432, 11435],
+    "consts": [
+      "UI_Talent_S_Vesna_01",
+      "UI_Talent_S_Vesna_02",
+      "UI_Talent_U_Vesna_01",
+      "UI_Talent_S_Vesna_03",
+      "UI_Talent_U_Vesna_02",
+      "UI_Talent_S_Vesna_04"
+    ]
+  },
   "10000901": {
     "name": "Mavuika (Trial)",
     "element": "Pyro",
@@ -2376,7 +2563,7 @@ export const GAME_CHARACTERS: Record<number, GameCharacter> = {
   },
   "10000904": {
     "name": "Columbina",
-    "element": "Pyro",
+    "element": "Hydro",
     "rarity": 5,
     "weaponType": "Catalyst",
     "nameTextMapHash": 2211498234,

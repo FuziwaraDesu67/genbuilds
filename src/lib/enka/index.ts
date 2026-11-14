@@ -1,4 +1,7 @@
-export { enkaClient, EnkaClient } from './client';
+export { enkaClient, EnkaClient, DEMO_FALLBACK_UID, getVaresaMockData, getShowcase855842984Data } from './client';
 export { parseEnkaResponse } from './parser';
 export * from './types';
 export * from './static-data';
+export * from './artifact-set-data';
+export * from './weapon-data';
+export * from './talent-boost-data';

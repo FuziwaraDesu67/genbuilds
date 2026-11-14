@@ -9,6 +9,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        background: "var(--background, #000000)",
+        foreground: "var(--foreground, #fafafa)",
+        primary: {
+          DEFAULT: "var(--primary, #38bdf8)",
+          foreground: "var(--primary-foreground, #000000)",
+        },
+        muted: {
+          DEFAULT: "var(--muted, #18181b)",
+          foreground: "var(--muted-foreground, #a1a1aa)",
+        },
+        "muted-foreground": "var(--muted-foreground, #a1a1aa)",
+        black: {
+          DEFAULT: '#000000',
+          '50': '#fafafa',
+          '100': '#f5f5f5',
+          '200': '#e6e6e6',
+          '300': '#d6d6d6',
+          '400': '#a5a5a5',
+          '500': '#767676',
+          '600': '#575757',
+          '700': '#434343',
+          '800': '#292929',
+          '900': '#1a1a1a',
+          '950': '#000000',
+        },
         pyro: { DEFAULT: '#FF6B2C', dark: '#FF4500' },
         hydro: { DEFAULT: '#00BFFF', dark: '#1E90FF' },
         electro: { DEFAULT: '#9B59D6', dark: '#8A2BE2' },

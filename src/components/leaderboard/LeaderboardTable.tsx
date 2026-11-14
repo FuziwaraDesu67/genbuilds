@@ -1,88 +1,67 @@
 'use client';
 
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getCharacterData } from '@/lib/enka/static-data';
-import Image from 'next/image';
-
-interface LeaderboardEntry {
-  build: {
-    id: number;
-    uid: string;
-    avatarId: number;
-    weaponId: number;
-    constellation: number;
-    calculatedDamage: string;
-    stats: {
-      hp: number;
-      atk: number;
-      def: number;
-      cr: number;
-      cd: number;
-      em: number;
-      er: number;
-      dmgBonus: Record<string, number>;
-    };
-    artifactSets: Record<string, number>;
-  };
-  player: {
-    uid: string;
-    nickname: string;
-    ar: number;
-  };
-  rank: number;
-  percentile: number;
-}
+import { resolveWeaponName } from '@/lib/enka/weapon-data';
+import { formatNumber, formatTopPercent } from '@/lib/utils';
+import BorderGlow from '@/components/BorderGlow/BorderGlow';
+import LatticeLoader from '@/components/LatticeLoader/LatticeLoader';
+import type { LeaderboardRowItem } from '@/lib/akasha/leaderboards';
 
 interface LeaderboardTableProps {
-  entries: LeaderboardEntry[];
+  entries: LeaderboardRowItem[];
   isLoading?: boolean;
 }
 
 export function LeaderboardTable({ entries, isLoading }: LeaderboardTableProps) {
   if (isLoading) {
     return (
-      <div className="space-y-2">
-        {[...Array(8)].map((_, i) => (
-          <motion.div
-            key={`skeleton-${i}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: i * 0.05, duration: 0.8 }}
-            className="h-20 bg-white/5 rounded-lg animate-pulse"
-          />
-        ))}
+      <div className="py-16 flex flex-col items-center justify-center gap-3">
+        <LatticeLoader
+          label="Loading rankings"
+          pattern="orbit"
+          grid={4}
+          shape="round"
+          color="#22d3ee"
+          cellSize={9}
+          gap={4}
+          glow={true}
+          className="text-white/80"
+        />
       </div>
     );
   }
 
   if (entries.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-white/60 text-lg">No builds found with the current filters</p>
+      <div className="text-center py-12 rounded-xl bg-white/[0.02] border border-white/10">
+        <p className="text-white/65 text-base font-medium">No builds found with the current filters</p>
+        <p className="text-white/40 text-xs mt-1">
+          Try lowering constellation filters or analyze a player showcase first.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-2">
+    <div className="relative space-y-2.5">
       <AnimatePresence mode="popLayout">
         {entries.map((entry, index) => (
           <motion.div
-            key={`${entry.build.uid}-${entry.build.avatarId}`}
-            initial={{ opacity: 0, y: 20 }}
+            key={`${entry.build.uid}-${entry.build.avatarId}-${entry.rank}`}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -16 }}
             transition={{
-              delay: index * 0.03,
-              duration: 0.4,
+              delay: Math.min(index * 0.02, 0.3),
+              duration: 0.35,
               type: 'spring',
               stiffness: 300,
-              damping: 20
+              damping: 22,
             }}
             layout
-            layoutId={`leaderboard-row-${entry.build.uid}-${entry.build.avatarId}`}
           >
-            <LeaderboardRow entry={entry} index={index} />
+            <LeaderboardRow entry={entry} />
           </motion.div>
         ))}
       </AnimatePresence>
@@ -90,113 +69,180 @@ export function LeaderboardTable({ entries, isLoading }: LeaderboardTableProps) 
   );
 }
 
-function LeaderboardRow({ entry, index }: { entry: LeaderboardEntry; index: number }) {
+const PODIUM_GLOW_MAP: Record<number, { hsl: string; colors: string[] }> = {
+  1: { hsl: '45 93 58', colors: ['#facc15', '#f59e0b', '#fef08a'] },
+  2: { hsl: '215 20 75', colors: ['#e2e8f0', '#94a3b8', '#cbd5e1'] },
+  3: { hsl: '28 85 55', colors: ['#fb923c', '#ea580c', '#fdba74'] },
+};
+
+function LeaderboardRow({ entry }: { entry: LeaderboardRowItem }) {
   const { build, player, rank, percentile } = entry;
   const character = getCharacterData(build.avatarId);
 
-  // Format damage with commas
   const damage = parseInt(build.calculatedDamage || '0');
-  const damageValue = damage;
+  const critValue = (build.critValue ?? build.stats.cr * 2 + build.stats.cd).toFixed(1);
 
-  // Calculate crit value
-  const critValue = (build.stats.cr * 2 + build.stats.cd).toFixed(1);
-
-  // Get rank badge color
-  const getRankColor = (rank: number) => {
-    if (rank === 1) return 'from-yellow-400 to-yellow-600';
-    if (rank === 2) return 'from-gray-300 to-gray-400';
-    if (rank === 3) return 'from-orange-400 to-orange-600';
-    return 'from-purple-400/20 to-purple-600/20';
+  const getRankColor = (r: number) => {
+    if (r === 1) return 'from-yellow-400 to-amber-600';
+    if (r === 2) return 'from-slate-300 to-slate-500';
+    if (r === 3) return 'from-orange-400 to-orange-600';
+    return 'from-white/10 to-white/5';
   };
 
-  const getRankTextColor = (rank: number) => {
-    if (rank <= 3) return 'text-white';
-    return 'text-white/90';
-  };
+  const charIconSrc =
+    character?.iconUrl || `/icons/characters/${build.avatarId}.png`;
 
-  return (
-    <a
-      href={`/u/${build.uid}`}
-      className="block group"
-    >
-      <div className="bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-lg p-4 transition-all border border-white/10 hover:border-white/20">
-        <div className="flex items-center gap-4">
-          {/* Rank */}
-          <div className={`flex-shrink-0 w-16 h-16 rounded-lg bg-gradient-to-br ${getRankColor(rank)} flex items-center justify-center`}>
-            <span className={`text-2xl font-bold ${getRankTextColor(rank)}`}>
-              #{rank}
-            </span>
-          </div>
+  const rowContent = (
+    <div className="flex flex-wrap md:flex-nowrap items-center gap-4">
+      {/* Rank */}
+      <div
+        className={`flex-shrink-0 w-14 h-14 rounded-lg bg-gradient-to-br ${getRankColor(
+          rank
+        )} flex items-center justify-center shadow-inner`}
+      >
+        <span className={`text-xl font-bold ${rank <= 3 ? 'text-white' : 'text-white/90'}`}>
+          #{rank}
+        </span>
+      </div>
 
-          {/* Character Icon */}
-          <div className="flex-shrink-0 w-16 h-16 relative">
-            <div className="w-full h-full rounded-full bg-white/10 overflow-hidden border-2 border-white/20">
-              {character?.iconUrl && (
-                <Image
-                  src={character.iconUrl}
-                  alt={character.name}
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-cover"
-                />
-              )}
-            </div>
-            {/* Constellation Badge */}
-            {build.constellation > 0 && (
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-xs font-bold text-white border-2 border-gray-900">
-                C{build.constellation}
-              </div>
-            )}
-          </div>
-
-          {/* Player Info */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-baseline gap-2">
-              <h3 className="text-lg font-semibold text-white truncate group-hover:text-purple-300 transition-colors">
-                {player.nickname}
-              </h3>
-              <span className="text-sm text-white/40">UID: {build.uid}</span>
-            </div>
-            <div className="flex items-center gap-4 mt-1 text-sm text-white/60">
-              <span>AR {player.ar}</span>
-              <span>•</span>
-              <span>Top {percentile.toFixed(1)}%</span>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="hidden md:flex items-center gap-6 text-sm">
-            <div className="text-center">
-              <div className="text-white/40 text-xs mb-1">CRIT</div>
-              <div className="text-white font-medium">
-                {build.stats.cr.toFixed(1)}% / {build.stats.cd.toFixed(1)}%
-              </div>
-              <div className="text-white/40 text-xs">CV: {critValue}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-white/40 text-xs mb-1">ATK</div>
-              <div className="text-white font-medium">{Math.round(build.stats.atk)}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-white/40 text-xs mb-1">ER</div>
-              <div className="text-white font-medium">{build.stats.er.toFixed(1)}%</div>
-            </div>
-          </div>
-
-          {/* Damage */}
-          <div className="flex-shrink-0 text-right">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.02 }}
-              className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
-            >
-              {damage.toLocaleString()}
-            </motion.div>
-            <div className="text-xs text-white/40 mt-1">DMG</div>
-          </div>
+      {/* Character Icon + Constellation */}
+      <div className="flex-shrink-0 w-12 h-12 relative">
+        <div className="w-full h-full rounded-full bg-white/10 overflow-hidden border border-white/25">
+          <img
+            src={charIconSrc}
+            alt={character?.name || `Character ${build.avatarId}`}
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              const cleanName = (character?.name || '').replace(/\s+/g, '');
+              if (cleanName && !target.src.includes('enka.network')) {
+                target.src = `https://enka.network/ui/UI_AvatarIcon_${cleanName}.png`;
+              } else {
+                target.style.display = 'none';
+              }
+            }}
+          />
+        </div>
+        <div className="absolute -bottom-1 -right-1 px-1 py-0.2 rounded-full bg-zinc-900 border border-white/25 text-[10px] font-bold text-amber-300">
+          C{build.constellation}
         </div>
       </div>
+
+      {/* Player Info */}
+      <div className="flex-1 min-w-[160px]">
+        <div className="flex items-center gap-2 flex-wrap">
+          <h3 className="text-base font-semibold text-white truncate group-hover:text-cyan-200 transition-colors">
+            {player.nickname}
+          </h3>
+          {player.region && (
+            <span className="px-1.5 py-0.2 rounded bg-amber-400/90 text-slate-950 text-[10px] font-bold uppercase">
+              {player.region}
+            </span>
+          )}
+          <span className="text-xs font-mono text-white/40">UID: {build.uid}</span>
+        </div>
+        <div className="flex items-center gap-3 mt-1 text-xs text-white/60">
+          <span>AR {player.ar}</span>
+          <span>•</span>
+          <span className="text-emerald-400 font-semibold">
+            Top {formatTopPercent(percentile)}
+          </span>
+        </div>
+      </div>
+
+      {/* Weapon + Artifact Sets */}
+      <div className="hidden lg:flex items-center gap-3 shrink-0">
+        {build.weaponIcon && (
+          <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-lg px-2 py-1">
+            <img
+              src={build.weaponIcon}
+              alt={resolveWeaponName(build.weaponId, build.weaponName)}
+              className="w-7 h-7 object-contain"
+            />
+            <div className="text-xs">
+              <div className="text-zinc-200 font-medium max-w-[140px] truncate">
+                {resolveWeaponName(build.weaponId, build.weaponName)}
+              </div>
+              <div className="text-[10px] font-bold text-amber-300">
+                R{build.refinement || 1}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {build.artifactSetList && build.artifactSetList.length > 0 && (
+          <div className="flex items-center gap-1">
+            {build.artifactSetList.slice(0, 2).map((s) => (
+              <div
+                key={s.name}
+                className="relative w-8 h-8 rounded-md bg-black/45 border border-white/10 p-0.5"
+                title={`${s.name} (${s.count}pc)`}
+              >
+                <img src={s.icon} alt={s.name} className="w-full h-full object-contain" />
+                <span className="absolute -bottom-1 -right-1 px-1 rounded bg-zinc-900 border border-white/20 text-[9px] font-bold text-emerald-300">
+                  {s.count}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Build Stats */}
+      <div className="hidden sm:flex items-center gap-5 text-xs font-mono shrink-0">
+        <div className="text-center min-w-[110px]">
+          <div className="text-white/40 text-[10px] mb-0.5 font-sans">CRIT / CV</div>
+          <div className="text-white font-semibold">
+            {build.stats.cr.toFixed(1)}% / {build.stats.cd.toFixed(1)}%
+          </div>
+          <div className="text-amber-300 text-[11px] font-bold">{critValue} CV</div>
+        </div>
+        <div className="text-center min-w-[54px]">
+          <div className="text-white/40 text-[10px] mb-0.5 font-sans">ATK</div>
+          <div className="text-white font-semibold">{formatNumber(build.stats.atk)}</div>
+        </div>
+        <div className="text-center min-w-[54px]">
+          <div className="text-white/40 text-[10px] mb-0.5 font-sans">ER</div>
+          <div className="text-white font-semibold">{build.stats.er.toFixed(1)}%</div>
+        </div>
+      </div>
+
+      {/* Damage */}
+      <div className="flex-shrink-0 text-right min-w-[100px]">
+        <div className="text-xl font-bold bg-gradient-to-r from-cyan-300 to-purple-400 bg-clip-text text-transparent font-mono">
+          {damage.toLocaleString('en-US')}
+        </div>
+        <div className="text-[10px] text-white/45 mt-0.5 uppercase tracking-wider">Combo DMG</div>
+      </div>
+    </div>
+  );
+
+  const podiumGlow = PODIUM_GLOW_MAP[rank];
+
+  return (
+    <a href={`/u/${build.uid}`} className="block group">
+      {podiumGlow ? (
+        <BorderGlow
+          glowColor={podiumGlow.hsl}
+          colors={podiumGlow.colors}
+          backgroundColor="rgba(17, 24, 39, 0.84)"
+          borderRadius={12}
+          glowRadius={24}
+          glowIntensity={rank === 1 ? 1.15 : 0.9}
+          fillOpacity={0.32}
+          animated={rank === 1}
+          overflowVisible={true}
+          className="w-full"
+        >
+          <div className="p-3.5 sm:p-4 rounded-[12px] transition-colors group-hover:bg-white/[0.04]">
+            {rowContent}
+          </div>
+        </BorderGlow>
+      ) : (
+        <div className="bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-sm rounded-xl p-3.5 sm:p-4 transition-all border border-white/10 hover:border-white/25">
+          {rowContent}
+        </div>
+      )}
     </a>
   );
 }

@@ -17,12 +17,23 @@ import {
   ARTIFACT_SLOTS,
   ARTIFACT_SETS,
   estimateRollCount,
+  deriveVisualRollPips,
+  calculateCritValue,
+  getQualityBadge,
+  getBuildCVTier,
   getEnkaIconUrl,
   FIGHT_PROPS,
   resolveTextHash,
   getCharacterIconPath,
   getArtifactIconPath,
+  getWeaponPassive,
+  resolveWeaponName,
+  getArtifactSetBonus,
+  getActiveArtifactSetBonuses,
+  evaluateTalentBoosts,
 } from './static-data';
+import { getNameCardUrl } from './namecard-data';
+import { getServerRegion } from '../utils';
 
 // Helper to safely resolve names that might already be strings in tests
 function getResolvedName(hashOrName: string | number | undefined, fallback = 'Unknown'): string {
@@ -30,6 +41,23 @@ function getResolvedName(hashOrName: string | number | undefined, fallback = 'Un
   if (typeof hashOrName === 'string' && isNaN(Number(hashOrName))) return hashOrName;
   const resolved = resolveTextHash(hashOrName);
   return resolved.startsWith('Unknown') ? fallback : resolved;
+}
+
+export function isPercentageStat(key: string): boolean {
+  return (
+    ['cr', 'cd', 'er', 'hpPercent', 'atkPercent', 'defPercent', 'healingBonus'].includes(key) ||
+    key.includes('DmgBonus')
+  );
+}
+
+export function normalizeArtifactStat(key: string, val: number): number {
+  if (isPercentageStat(key)) {
+    if (val > 0 && val <= 1.0) {
+      return parseFloat((val * 100).toFixed(1));
+    }
+    return parseFloat(val.toFixed(1));
+  }
+  return val;
 }
 
 type RawAvatarInfo = NonNullable<z.infer<typeof EnkaResponseSchema>['avatarInfoList']>[number];
@@ -47,20 +75,35 @@ export function parseEnkaResponse(rawResponse: z.infer<typeof EnkaResponseSchema
 }
 
 function parsePlayerInfo(raw: z.infer<typeof EnkaResponseSchema>): PlayerInfo {
-  const { playerInfo, uid } = raw;
+  const { playerInfo, uid, region } = raw;
+  const profileAvatarId = playerInfo.profilePicture?.avatarId;
 
   return {
     uid,
     nickname: playerInfo.nickname,
     level: playerInfo.level,
+    region: getServerRegion(uid, region),
+    worldLevel: playerInfo.worldLevel,
     signature: playerInfo.signature,
     nameCardId: playerInfo.nameCardId,
-    profilePictureId: playerInfo.profilePicture?.avatarId,
+    nameCardUrl: getNameCardUrl(playerInfo.nameCardId),
+    profilePictureId: profileAvatarId,
+    profilePicture: profileAvatarId ? getCharacterIconPath(profileAvatarId) : undefined,
+    finishAchievementNum: playerInfo.finishAchievementNum,
+    towerFloorIndex: playerInfo.towerFloorIndex,
+    towerLevelIndex: playerInfo.towerLevelIndex,
+    towerStarIndex: playerInfo.towerStarIndex,
+    theaterActIndex: playerInfo.theaterActIndex,
+    theaterStarIndex: playerInfo.theaterStarIndex,
+    theaterModeIndex: playerInfo.theaterModeIndex,
+    stygianIndex: playerInfo.stygianIndex,
+    stygianSeconds: playerInfo.stygianSeconds,
   };
 }
 
 function parseCharacter(raw: RawAvatarInfo): Character | null {
   const charData = getCharacterData(raw.avatarId);
+  const constellation = raw.talentIdList?.length || 0;
 
   // For unknown characters, create basic fallback data
   if (!charData) {
@@ -77,6 +120,22 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
     };
 
     const element = elementMap[raw.fightPropMap['40']?.toString() || ''] || 'Pyro';
+    const talents = parseTalents(raw.skillLevelMap);
+    talents.boosted = evaluateTalentBoosts(raw.avatarId, constellation);
+    const artifacts = parseArtifacts(raw.equipList);
+    const artifactSets = countArtifactSets(artifacts);
+    const activeSetBonuses = getActiveArtifactSetBonuses(artifactSets, artifacts);
+    const totalCv = parseFloat(
+      artifacts.reduce((sum, a) => sum + (a.cv || 0), 0).toFixed(1)
+    );
+    const circlet = artifacts.find(a => a.slot === 'circlet');
+    let circletMainCv = 0;
+    if (circlet?.mainStat) {
+      if (circlet.mainStat.key === 'cr') circletMainCv = circlet.mainStat.value * 2;
+      else if (circlet.mainStat.key === 'cd') circletMainCv = circlet.mainStat.value;
+    }
+    const akashaCv = parseFloat((totalCv + circletMainCv).toFixed(1));
+    const qualityBadge = getBuildCVTier(totalCv);
 
     return {
       id: raw.avatarId,
@@ -84,18 +143,19 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
       element,
       rarity: 4, // Default rarity
       level: parseInt(raw.propMap['4001']?.val || '1'),
-      constellation: raw.talentIdList?.length || 0,
-      friendshipLevel: raw.fetterInfo.expLevel || 0,
-      talents: {
-        normal: 1,
-        skill: 1,
-        burst: 1
-      },
+      constellation,
+      friendshipLevel: raw.fetterInfo?.expLevel || 0,
+      talents,
       stats: parseStats(raw.fightPropMap),
       weapon: parseWeapon(raw.equipList),
-      artifacts: parseArtifacts(raw.equipList),
-      artifactSets: countArtifactSets(parseArtifacts(raw.equipList)),
+      artifacts,
+      artifactSets,
+      activeSetBonuses,
+      totalCv,
+      akashaCv,
+      qualityBadge,
       icon: getEnkaIconUrl(`UI_AvatarIcon_${raw.avatarId}`),
+      gachaSplash: `/icons/characters/${raw.avatarId}_gacha.png`,
     };
   }
 
@@ -103,8 +163,20 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
   const weapon = parseWeapon(raw.equipList);
   const artifacts = parseArtifacts(raw.equipList);
   const artifactSets = countArtifactSets(artifacts);
-  const talents = parseTalents(raw.skillLevelMap);
-  const constellation = raw.talentIdList?.length || 0;
+  const activeSetBonuses = getActiveArtifactSetBonuses(artifactSets, artifacts);
+  const talents = parseTalents(raw.skillLevelMap, charData.skillOrder);
+  talents.boosted = evaluateTalentBoosts(raw.avatarId, constellation);
+  const totalCv = parseFloat(
+    artifacts.reduce((sum, a) => sum + (a.cv || 0), 0).toFixed(1)
+  );
+  const circlet = artifacts.find(a => a.slot === 'circlet');
+  let circletMainCv = 0;
+  if (circlet?.mainStat) {
+    if (circlet.mainStat.key === 'cr') circletMainCv = circlet.mainStat.value * 2;
+    else if (circlet.mainStat.key === 'cd') circletMainCv = circlet.mainStat.value;
+  }
+  const akashaCv = parseFloat((totalCv + circletMainCv).toFixed(1));
+  const qualityBadge = getBuildCVTier(totalCv);
 
   return {
     id: raw.avatarId,
@@ -113,13 +185,18 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
     rarity: charData.rarity,
     level: parseInt(raw.propMap['4001']?.val || '1'),
     constellation,
-    friendshipLevel: raw.fetterInfo.expLevel,
+    friendshipLevel: raw.fetterInfo?.expLevel || 0,
     talents,
     stats,
     weapon,
     artifacts,
     artifactSets,
+    activeSetBonuses,
+    totalCv,
+    akashaCv,
+    qualityBadge,
     icon: getCharacterIconPath(raw.avatarId),
+    gachaSplash: `/icons/characters/${raw.avatarId}_gacha.png`,
   };
 }
 
@@ -170,16 +247,22 @@ function parseWeapon(equipList: RawAvatarInfo['equipList']): Weapon {
     };
   }
 
+  const resolvedFromNameHash = getResolvedName(flat.nameTextMapHash, '');
+  const weaponName = resolveWeaponName(itemId, resolvedFromNameHash);
+  const passiveById = getWeaponPassive(itemId, refinement);
+  const passive = passiveById.passiveName ? passiveById : getWeaponPassive(weaponName, refinement);
+
   return {
     id: itemId,
-    name: getResolvedName(flat.nameTextMapHash, `Weapon ${itemId}`),
-
+    name: weaponName,
     rarity: flat.rankLevel,
     level: weapon.level,
     ascension: weapon.promoteLevel || 0,
     refinement,
     baseAtk: flat.weaponStats?.[0]?.statValue || 0,
     subStat,
+    passiveName: passive.passiveName,
+    passiveDescription: passive.passiveDescription,
     icon: getEnkaIconUrl(flat.icon),
   };
 }
@@ -187,7 +270,7 @@ function parseWeapon(equipList: RawAvatarInfo['equipList']): Weapon {
 function parseArtifacts(equipList: RawAvatarInfo['equipList']): Artifact[] {
   return equipList
     .filter((e: any) => e.reliquary)
-    .map((equip: any) => {
+    .map((equip: any): Artifact | null => {
       const { flat, reliquary, itemId } = equip;
 
       if (!reliquary || !flat.reliquaryMainstat) {
@@ -196,36 +279,64 @@ function parseArtifacts(equipList: RawAvatarInfo['equipList']): Artifact[] {
 
       const slot = ARTIFACT_SLOTS[flat.equipType || ''] || 'flower';
       const setId = parseInt(flat.icon.split('_')[2]) || 0;
+      const setName = getResolvedName(flat.setNameTextMapHash, ARTIFACT_SETS[setId] || 'Unknown Set');
+      const setBonus = getArtifactSetBonus(setId, setName);
 
+      const mainStatKey = getStatName(flat.reliquaryMainstat.mainPropId);
+      const mainStatValue = normalizeArtifactStat(mainStatKey, flat.reliquaryMainstat.statValue);
       const mainStat = {
-        key: getStatName(flat.reliquaryMainstat.mainPropId),
-        value: flat.reliquaryMainstat.statValue,
+        key: mainStatKey,
+        value: mainStatValue,
       };
+
+      const rawPieceName = getResolvedName(flat.nameTextMapHash, '');
+      const pieceName = rawPieceName && !rawPieceName.startsWith('Artifact')
+        ? rawPieceName
+        : `${setName} (${slot.charAt(0).toUpperCase() + slot.slice(1)})`;
 
       const subStats = (flat.reliquarySubstats || []).map((sub: any) => {
         const key = getStatName(sub.appendPropId);
-        // Convert percentage stats (CR, CD, ER, DMG%, etc.) from decimal to percentage
-        const isPercentageStat = ['cr', 'cd', 'er', 'hpPercent', 'atkPercent', 'defPercent'].includes(key) || key.includes('DmgBonus');
-        const displayValue = isPercentageStat ? sub.statValue * 100 : sub.statValue;
+        const normalizedValue = normalizeArtifactStat(key, sub.statValue);
+        const rolls = estimateRollCount(key, normalizedValue);
+        const pips = deriveVisualRollPips(rolls);
 
         return {
           key,
-          value: sub.statValue,
-          rolls: estimateRollCount(key, displayValue),
+          value: normalizedValue,
+          rolls,
+          pips,
         };
       });
 
+      const crSub = subStats.find((s: any) => s.key === 'cr');
+      const cdSub = subStats.find((s: any) => s.key === 'cd');
+      const crVal = crSub ? crSub.value : 0;
+      const cdVal = cdSub ? cdSub.value : 0;
+      const pieceCv = calculateCritValue(crVal, cdVal);
+      const qualityBadge = getQualityBadge(pieceCv, slot === 'circlet');
+
+      // Use Enka CDN icon URL for authentic high-resolution artifact art
+      const enkaIcon = flat.icon ? getEnkaIconUrl(flat.icon) : '';
+      const localIcon = getArtifactIconPath(setId, parseInt(flat.icon.split('_').pop() || '1'));
+      const relicIcon = enkaIcon || localIcon;
+
       return {
         id: itemId,
-        name: getResolvedName(flat.nameTextMapHash, `Artifact ${itemId}`),
+        name: pieceName,
         setId,
-        setName: getResolvedName(flat.setNameTextMapHash, ARTIFACT_SETS[setId] || 'Unknown Set'),
+        setName,
+        setBonusText: setBonus ? {
+          twoPiece: setBonus.twoPiece,
+          fourPiece: setBonus.fourPiece,
+        } : undefined,
         rarity: flat.rankLevel,
         level: reliquary.level - 1, // Enka returns level+1
         slot,
         mainStat,
         subStats,
-        icon: getArtifactIconPath(setId, parseInt(flat.icon.split('_').pop() || '1')),
+        cv: pieceCv,
+        qualityBadge,
+        icon: relicIcon,
       };
     })
     .filter((a): a is Artifact => a !== null);
@@ -241,8 +352,23 @@ function countArtifactSets(artifacts: Artifact[]): Record<number, number> {
   return counts;
 }
 
-function parseTalents(skillLevelMap: Record<string, number>): TalentLevels {
-  // Sort by skill ID (keys) ascending. Usually: Normal < Skill < Burst
+function parseTalents(
+  skillLevelMap: Record<string, number>,
+  skillOrder?: number[]
+): TalentLevels {
+  if (
+    skillOrder &&
+    skillOrder.length >= 3 &&
+    skillOrder.filter((id) => skillLevelMap[id] !== undefined).length >= 2
+  ) {
+    return {
+      normal: skillLevelMap[skillOrder[0]] || 1,
+      skill: skillLevelMap[skillOrder[1]] || 1,
+      burst: skillLevelMap[skillOrder[2]] || 1,
+    };
+  }
+
+  // Fallback: Sort by skill ID (keys) ascending. Usually: Normal < Skill < Burst
   const sortedKeys = Object.keys(skillLevelMap).sort((a, b) => Number(a) - Number(b));
 
   return {

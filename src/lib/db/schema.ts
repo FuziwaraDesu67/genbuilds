@@ -1,4 +1,4 @@
-import { pgTable, text, integer, decimal, jsonb, timestamp, serial, unique, index } from 'drizzle-orm/pg-core';
+import { pgTable, text, integer, decimal, jsonb, timestamp, serial, unique, index, boolean } from 'drizzle-orm/pg-core';
 
 export const players = pgTable('players', {
   uid: text('uid').primaryKey(),
@@ -27,7 +27,36 @@ export const builds = pgTable('builds', {
   uidIdx: index('idx_builds_uid').on(table.uid),
 }));
 
+export const users = pgTable('users', {
+  id: text('id').primaryKey(), // Generated UUID or string
+  username: text('username').notNull().unique(),
+  email: text('email').unique(),
+  passwordHash: text('password_hash'),
+  linkedUid: text('linked_uid'),
+  isVerified: boolean('is_verified').default(false).notNull(),
+  verificationCode: text('verification_code'),
+  avatarUrl: text('avatar_url'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const favorites = pgTable('favorites', {
+  id: serial('id').primaryKey(),
+  userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  targetUid: text('target_uid').notNull(),
+  targetNickname: text('target_nickname'),
+  targetAvatarUrl: text('target_avatar_url'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (table) => ({
+  uniqueUserTarget: unique().on(table.userId, table.targetUid),
+  userIdIdx: index('idx_favorites_user_id').on(table.userId),
+}));
+
 export type Player = typeof players.$inferSelect;
 export type NewPlayer = typeof players.$inferInsert;
 export type Build = typeof builds.$inferSelect;
 export type NewBuild = typeof builds.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
+export type Favorite = typeof favorites.$inferSelect;
+export type NewFavorite = typeof favorites.$inferInsert;

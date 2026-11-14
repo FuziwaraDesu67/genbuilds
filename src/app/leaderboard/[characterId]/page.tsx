@@ -1,66 +1,72 @@
 import { Metadata } from 'next';
 import { getCharacterData } from '@/lib/enka/static-data';
+import { getLeaderboardCharactersSummary } from '@/lib/akasha/leaderboards';
 import LeaderboardClient from '@/app/leaderboard/LeaderboardClient';
 import { notFound } from 'next/navigation';
-import { getConfiguredCharacters } from '@/lib/damage-calc/configs';
+
+export const dynamic = 'force-dynamic';
 
 interface PageProps {
   params: { characterId: string };
+  searchParams?: { calc?: string };
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const characterId = parseInt(params.characterId);
-  const character = getCharacterData(characterId);
+  const local = getCharacterData(characterId);
+  const summaries = await getLeaderboardCharactersSummary();
+  const matched = summaries.find((s) => s.characterId === characterId);
+  const charName = matched?.name || local?.name;
 
-  if (!character) {
+  if (!charName) {
     return {
-      title: 'Character Not Found',
+      title: 'Character Not Found | GENBUILDS',
     };
   }
 
   return {
-    title: `${character.name!} Leaderboard | Genshin Leaderboard`,
-    description: `View the top ${character.name!} builds and damage rankings in Genshin Impact`,
+    title: `${charName} Leaderboard | GENBUILDS`,
+    description: `View the top ${charName} builds and damage rankings in Genshin Impact`,
   };
 }
 
-export default function LeaderboardPage({ params }: PageProps) {
+export default async function LeaderboardPage({ params, searchParams }: PageProps) {
   const characterId = parseInt(params.characterId);
-  const character = getCharacterData(characterId);
-  const configuredCharacters = getConfiguredCharacters();
-
-  if (!character) {
+  if (isNaN(characterId)) {
     notFound();
   }
 
-  // Check if this character has damage calculation configured
-  const hasConfig = configuredCharacters.includes(characterId);
+  const summaries = await getLeaderboardCharactersSummary();
+  const matched = summaries.find((s) => s.characterId === characterId);
+  const local = getCharacterData(characterId);
 
-  if (!hasConfig) {
-    return (
-      <div className="min-h-screen py-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">{character.name}</h1>
-            <p className="text-white/60 text-lg">
-              Damage calculation is not yet configured for this character.
-            </p>
-            <p className="text-white/40 mt-2">
-              Only the following characters are currently supported for leaderboards.
-            </p>
-            <div className="mt-8">
-              <a
-                href="/leaderboard"
-                className="inline-block px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
-              >
-                View Available Characters
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  if (!matched && !local) {
+    notFound();
   }
 
-  return <LeaderboardClient characterId={characterId} />;
+  return (
+    <LeaderboardClient
+      characterId={characterId}
+      characterMeta={
+        matched
+          ? {
+              name: matched.name,
+              element: matched.element,
+              iconUrl: matched.iconUrl,
+              totalBuilds: matched.totalBuilds,
+              categories: matched.categories,
+              defaultCalculationId: matched.defaultCalculationId,
+            }
+          : {
+              name: local!.name,
+              element: local!.element,
+              iconUrl: local!.iconUrl,
+              totalBuilds: 0,
+              categories: [],
+              defaultCalculationId: String(characterId),
+            }
+      }
+      initialCalculationId={searchParams?.calc}
+    />
+  );
 }
