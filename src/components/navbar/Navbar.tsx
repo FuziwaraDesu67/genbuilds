@@ -118,12 +118,6 @@ export default function Navbar() {
                 My Showcase
               </Link>
             )}
-            <Link
-              href="/u/855842984"
-              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5 transition"
-            >
-              Demo Profile
-            </Link>
           </nav>
         </div>
 
@@ -133,7 +127,7 @@ export default function Navbar() {
             type="text"
             value={searchUid}
             onChange={(e) => setSearchUid(e.target.value.replace(/\D/g, '').slice(0, 10))}
-            placeholder="Search UID (e.g. 855842984)..."
+            placeholder="Search UID..."
             className="w-full pl-9 pr-4 py-1.5 rounded-full bg-slate-900/80 border border-white/10 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition"
           />
           <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-2.5 pointer-events-none" />

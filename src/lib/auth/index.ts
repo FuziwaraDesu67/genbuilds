@@ -19,23 +19,7 @@ const AUTH_SECRET = process.env.AUTH_SECRET || 'aether-rank-jwt-secret-key-gensh
 const memoryUsers = new Map<string, User>();
 const memoryFavorites = new Map<string, Array<{ targetUid: string; targetNickname?: string; targetAvatarUrl?: string }>>();
 
-// Pre-seed a convenient demo account if in memory mode
-const DEMO_USER: User = {
-  id: 'usr_demo_anirudh',
-  username: 'Anirudh',
-  email: 'anirudh@aetherrank.gg',
-  passwordHash: '',
-  linkedUid: '855842984',
-  isVerified: true,
-  verificationCode: 'AK-8558',
-  avatarUrl: 'https://enka.network/ui/UI_AvatarIcon_Citlali.png',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-};
-memoryUsers.set('usr_demo_anirudh', DEMO_USER);
-memoryFavorites.set('usr_demo_anirudh', [
-  { targetUid: '1813164100', targetNickname: 'Addy (Varesa)', targetAvatarUrl: 'https://enka.network/ui/UI_AvatarIcon_Chevreuse.png' },
-]);
+// In-memory fallback starts clean with no pre-seeded personal accounts
 
 // ── Web Crypto Helpers (Built-in, zero native dependencies) ────────────────
 async function getSecretKey(): Promise<CryptoKey> {

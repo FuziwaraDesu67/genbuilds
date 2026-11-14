@@ -227,7 +227,7 @@ export default function AuthModal() {
                     type="text"
                     value={linkedUid}
                     onChange={(e) => setLinkedUid(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                    placeholder="e.g. 855842984"
+                    placeholder="e.g. 800000000"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-white/10 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-cyan-400 transition"
                   />
                   <Shield className="w-4 h-4 text-zinc-500 absolute right-3.5 top-3 pointer-events-none" />
@@ -332,7 +332,7 @@ export default function AuthModal() {
                   type="text"
                   value={linkedUid}
                   onChange={(e) => setLinkedUid(e.target.value.replace(/\D/g, '').slice(0, 10))}
-                  placeholder="e.g. 855842984"
+                  placeholder="e.g. 800000000"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-white/10 text-white placeholder-zinc-500 text-sm focus:outline-none focus:border-cyan-400 transition"
                 />
               </div>
