@@ -33,6 +33,7 @@ import {
   evaluateTalentBoosts,
 } from './static-data';
 import { getNameCardUrl } from './namecard-data';
+import { calculateDamage } from '../damage-calc/engine';
 import { getServerRegion } from '../utils';
 
 // Helper to safely resolve names that might already be strings in tests
@@ -137,7 +138,7 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
     const akashaCv = parseFloat((totalCv + circletMainCv).toFixed(1));
     const qualityBadge = getBuildCVTier(totalCv);
 
-    return {
+    const fallbackChar: Character = {
       id: raw.avatarId,
       name: `Unknown Character (${raw.avatarId})`,
       element,
@@ -157,6 +158,14 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
       icon: getEnkaIconUrl(`UI_AvatarIcon_${raw.avatarId}`),
       gachaSplash: `/icons/characters/${raw.avatarId}_gacha.png`,
     };
+
+    try {
+      fallbackChar.damageCalc = calculateDamage(fallbackChar);
+    } catch {
+      // Graceful fallback
+    }
+
+    return fallbackChar;
   }
 
   const stats = parseStats(raw.fightPropMap);
@@ -178,7 +187,7 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
   const akashaCv = parseFloat((totalCv + circletMainCv).toFixed(1));
   const qualityBadge = getBuildCVTier(totalCv);
 
-  return {
+  const char: Character = {
     id: raw.avatarId,
     name: charData.name,
     element: charData.element,
@@ -198,6 +207,14 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
     icon: getCharacterIconPath(raw.avatarId),
     gachaSplash: `/icons/characters/${raw.avatarId}_gacha.png`,
   };
+
+  try {
+    char.damageCalc = calculateDamage(char);
+  } catch {
+    // Graceful fallback
+  }
+
+  return char;
 }
 
 function parseStats(fightPropMap: Record<string, number>): CharacterStats {

@@ -607,8 +607,6 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                   : `${getEffectiveAkashaCv(char).toFixed(1)} CV`;
                 const rankNumLabel = isRankedAkasha
                   ? `${formatCompactCount(akasha!.ranking)}/${formatCompactCount(akasha!.outOf)}`
-                  : char.damageCalc?.totalDamage
-                  ? `${formatCompactCount(char.damageCalc.totalDamage)} DMG`
                   : 'Unranked';
                 const isSelected = char.id === selectedCharacterId;
                 const theme = ELEMENT_THEMES[char.element] || ELEMENT_THEMES.Pyro;

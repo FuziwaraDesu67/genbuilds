@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import type { Character, Element, Artifact, ArtifactSubStat } from '@/lib/enka/types';
+import { calculateDamage } from '@/lib/damage-calc';
 import { ELEMENT_COLORS, getBuildCVTier, getActiveArtifactSetBonuses, calculateCritValue, getConstellationDetail, getConstellationRoman } from '@/lib/enka/static-data';
 import { getGameCharacter } from '@/lib/enka/game-data.generated';
 import { getWeaponPassive, resolveWeaponName } from '@/lib/enka/weapon-data';
@@ -260,6 +261,17 @@ export default function AkashaShowcaseCard({
   const [isExporting, setIsExporting] = useState(false);
   const [showDamageBreakdown, setShowDamageBreakdown] = useState(false);
   const [activeConst, setActiveConst] = useState<number | null>(null);
+
+  // Dynamically calculate KQM rotation damage distribution if not pre-attached
+  const damageCalcResult = useMemo(() => {
+    if (character.damageCalc && character.damageCalc.totalDamage) return character.damageCalc;
+    try {
+      return calculateDamage(character);
+    } catch (e) {
+      console.warn('Damage calculation fallback error for', character.name, e);
+      return null;
+    }
+  }, [character]);
   const [hoveredRadarPoint, setHoveredRadarPoint] = useState<{
     series: 'build' | 'avg';
     index: number;
@@ -1090,9 +1102,7 @@ export default function AkashaShowcaseCard({
                     </span>
                   </div>
                   <div className="font-mono text-xs text-zinc-500">
-                    {character.damageCalc?.totalDamage
-                      ? `${formatNumber(character.damageCalc.totalDamage)} Est. DMG`
-                      : 'Unranked on Akasha'}
+                    Unranked on Akasha
                   </div>
                 </>
               )}
@@ -1345,14 +1355,14 @@ export default function AkashaShowcaseCard({
             </span>
           </div>
 
-          {character.damageCalc ? (() => {
-            const dist = character.damageCalc.distribution || {
+          {damageCalcResult ? (() => {
+            const dist = damageCalcResult.distribution || {
               normalChargedPercent: 74,
               skillPercent: 12,
               burstPercent: 14,
-              normalChargedDamage: Math.round(character.damageCalc.totalDamage * 0.74),
-              skillDamage: character.damageCalc.skillDamage || Math.round(character.damageCalc.totalDamage * 0.12),
-              burstDamage: character.damageCalc.burstDamage || Math.round(character.damageCalc.totalDamage * 0.14),
+              normalChargedDamage: Math.round(damageCalcResult.totalDamage * 0.74),
+              skillDamage: damageCalcResult.skillDamage || Math.round(damageCalcResult.totalDamage * 0.12),
+              burstDamage: damageCalcResult.burstDamage || Math.round(damageCalcResult.totalDamage * 0.14),
             };
 
             return (
@@ -1415,28 +1425,28 @@ export default function AkashaShowcaseCard({
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
                   <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
                     <span className="text-zinc-400 text-[11px] block">Total Rotation DMG</span>
-                    <p className="font-bold text-cyan-400 text-base font-mono mt-0.5">{formatNumber(character.damageCalc.totalDamage)}</p>
+                    <p className="font-bold text-cyan-400 text-base font-mono mt-0.5">{formatNumber(damageCalcResult.totalDamage)}</p>
                   </div>
                   <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
                     <span className="text-zinc-400 text-[11px] block">Skill Strike DMG</span>
-                    <p className="font-bold text-white text-base font-mono mt-0.5">{formatNumber(character.damageCalc.skillDamage || 0)}</p>
+                    <p className="font-bold text-white text-base font-mono mt-0.5">{formatNumber(damageCalcResult.skillDamage || 0)}</p>
                   </div>
                   <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
                     <span className="text-zinc-400 text-[11px] block">Burst Finisher DMG</span>
-                    <p className="font-bold text-white text-base font-mono mt-0.5">{formatNumber(character.damageCalc.burstDamage || 0)}</p>
+                    <p className="font-bold text-white text-base font-mono mt-0.5">{formatNumber(damageCalcResult.burstDamage || 0)}</p>
                   </div>
                   <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
                     <span className="text-zinc-400 text-[11px] block">Crit Average (Exp.)</span>
-                    <p className="font-bold text-amber-300 text-base font-mono mt-0.5">{formatNumber(character.damageCalc.averageDamage || 0)}</p>
+                    <p className="font-bold text-amber-300 text-base font-mono mt-0.5">{formatNumber(damageCalcResult.averageDamage || 0)}</p>
                   </div>
                 </div>
 
                 {/* Rotation Steps Preview */}
-                {character.damageCalc.rotation && character.damageCalc.rotation.length > 0 && (
+                {damageCalcResult.rotation && damageCalcResult.rotation.length > 0 && (
                   <div className="pt-1 text-[11px] font-sans text-zinc-400 flex items-start gap-2 bg-white/[0.02] p-2 rounded-lg border border-white/[0.05]">
                     <span className="font-mono text-cyan-400 font-semibold shrink-0">Rotation:</span>
                     <span className="text-zinc-300">
-                      {character.damageCalc.rotation.join(' → ')}
+                      {damageCalcResult.rotation.join(' → ')}
                     </span>
                   </div>
                 )}
