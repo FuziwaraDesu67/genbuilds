@@ -842,25 +842,25 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
               return (
                 <div className="rounded-2xl overflow-hidden border border-white/[0.08] bg-[#0c0e15]/90 backdrop-blur-xl shadow-2xl">
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-sm text-zinc-200">
-                      <thead className="bg-[#131622]/95 text-zinc-400 uppercase text-[11px] tracking-wider font-semibold border-b border-zinc-800/80">
+                    <table className="w-full text-left text-sm text-zinc-200 min-w-[1020px]">
+                      <thead className="bg-[#10131d] text-zinc-400 uppercase text-[11px] tracking-wider font-semibold border-b border-white/[0.06] select-none">
                         <tr>
-                          <th className="py-3 px-3 w-10 text-center">#</th>
-                          <th className="py-3 px-3">Character</th>
-                          <th className="py-3 px-2.5 text-center">Const.</th>
-                          <th className="py-3 px-3">Weapon</th>
-                          <th className="py-3 px-3">Sets</th>
-                          <th className="py-3 px-3">Crit Value</th>
-                          <th className="py-3 px-3">Elem. DMG</th>
-                          <th className="py-3 px-3">ATK</th>
-                          <th className="py-3 px-3">EM</th>
-                          <th className="py-3 px-3">ER</th>
+                          <th className="py-3.5 px-3 w-12 text-center font-mono">#</th>
+                          <th className="py-3.5 px-4 min-w-[210px]">Character</th>
+                          <th className="py-3.5 px-3 min-w-[70px] text-center">Const.</th>
+                          <th className="py-3.5 px-4 min-w-[210px]">Weapon</th>
+                          <th className="py-3.5 px-4 min-w-[200px]">Sets</th>
+                          <th className="py-3.5 px-4 min-w-[165px]">Crit Value</th>
+                          <th className="py-3.5 px-4 min-w-[95px] text-right">Elem. DMG</th>
+                          <th className="py-3.5 px-4 min-w-[85px] text-right">ATK</th>
+                          <th className="py-3.5 px-4 min-w-[75px] text-right">EM</th>
+                          <th className="py-3.5 px-4 min-w-[80px] text-right">ER</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-zinc-800/40 font-mono">
+                      <tbody className="divide-y divide-white/[0.04]">
                         {filteredCharacters.length === 0 ? (
                           <tr>
-                            <td colSpan={10} className="py-10 text-center text-zinc-400 font-sans">
+                            <td colSpan={10} className="py-12 text-center text-zinc-400 font-sans">
                               No {selectedElementFilter} characters found in showcase.
                               <button
                                 onClick={() => setSelectedElementFilter('All')}
@@ -893,14 +893,6 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                             });
                             const fourPieceSet = Object.values(setCountMap).find(s => s.count >= 4);
                             const twoPieceSets = Object.values(setCountMap).filter(s => s.count >= 2);
-                            let setBadgeText = 'Rainbow';
-                            if (fourPieceSet) {
-                              setBadgeText = `4pc ${fourPieceSet.name}`;
-                            } else if (twoPieceSets.length >= 2) {
-                              setBadgeText = '2pc + 2pc';
-                            } else if (twoPieceSets.length === 1) {
-                              setBadgeText = `2pc ${twoPieceSets[0].name}`;
-                            }
 
                             // Weapon rarity & framing
                             const weaponRarity = char.weapon.rarity || 4;
@@ -931,7 +923,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 }
                               >
                                 {/* Index */}
-                                <td className="py-3 px-3 text-center text-xs font-mono">
+                                <td className="py-3.5 px-3 text-center text-xs font-mono">
                                   <span className={cn(
                                     "transition-colors",
                                     isSelected ? "font-bold text-white" : "text-zinc-500 group-hover:text-zinc-300"
@@ -941,11 +933,11 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Character: Avatar + Name + Subtitle */}
-                                <td className="py-3 px-3 font-sans">
-                                  <div className="flex items-center gap-3">
+                                <td className="py-3.5 px-4 font-sans">
+                                  <div className="flex items-center gap-3.5">
                                     <div
-                                      className="relative w-10 h-10 rounded-xl overflow-hidden bg-zinc-950 border shrink-0 shadow-md transition-colors"
-                                      style={{ borderColor: isSelected ? theme.color : `rgba(${theme.glowRgb}, 0.35)` }}
+                                      className="relative w-12 h-12 rounded-xl overflow-hidden bg-zinc-950 border shrink-0 shadow-md transition-colors"
+                                      style={{ borderColor: isSelected ? theme.color : `rgba(${theme.glowRgb}, 0.4)` }}
                                     >
                                       <img
                                         src={char.icon}
@@ -962,10 +954,10 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                         }}
                                       />
                                       <div
-                                        className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-zinc-950/95 border flex items-center justify-center p-0.5 shadow-sm"
-                                        style={{ borderColor: theme.color }}
+                                        className="absolute -bottom-1 -right-1 w-5.5 h-5.5 rounded-full bg-zinc-950/95 border-2 flex items-center justify-center p-0.5 shadow-md"
+                                        style={{ borderColor: theme.color, color: theme.color }}
                                       >
-                                        <ElementIcon element={char.element} size={11} />
+                                        <ElementIcon element={char.element} size={13} />
                                       </div>
                                     </div>
 
@@ -973,15 +965,15 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                       <span className="text-sm font-bold text-white whitespace-nowrap group-hover:text-amber-200 transition-colors">
                                         {char.name}
                                       </span>
-                                      <div className="flex items-center gap-1.5 text-[10px] font-mono text-zinc-400 whitespace-nowrap">
+                                      <div className="flex items-center gap-1.5 text-xs font-sans mt-0.5 whitespace-nowrap">
                                         <span style={{ color: theme.color }} className="font-semibold">{char.element}</span>
-                                        <span className="text-zinc-600">•</span>
-                                        <span>Lv. {char.level || 90}</span>
+                                        <span className="text-zinc-500">•</span>
+                                        <span className="font-mono text-zinc-300 font-medium">Lv. {char.level || 90}</span>
                                         {isRanked && (
                                           <>
-                                            <span className="text-zinc-600">•</span>
+                                            <span className="text-zinc-500">•</span>
                                             <span
-                                              className="px-1 py-0.2 rounded font-bold font-mono text-[9px] shrink-0"
+                                              className="px-1.5 py-0.2 rounded font-bold font-mono text-[10px] shrink-0"
                                               style={{
                                                 backgroundColor: topPct! <= 1 ? 'rgba(251, 191, 36, 0.2)' : 'rgba(16, 185, 129, 0.15)',
                                                 color: topPct! <= 1 ? '#fbbf24' : '#34d399',
@@ -998,22 +990,22 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Constellation */}
-                                <td className="py-3 px-2.5 text-center">
+                                <td className="py-3.5 px-3 text-center whitespace-nowrap">
                                   {char.constellation === 0 ? (
                                     <span className="px-2 py-0.5 rounded-md bg-zinc-900/80 border border-zinc-700/60 text-xs font-mono font-medium text-zinc-400">
                                       C0
                                     </span>
                                   ) : char.constellation === 6 ? (
-                                    <span className="px-2 py-0.5 rounded-md font-mono text-xs font-black bg-amber-500/20 border border-amber-400/60 text-amber-300 shadow-[0_0_8px_rgba(251,191,36,0.25)] inline-flex items-center gap-0.5">
+                                    <span className="px-2 py-0.5 rounded-md font-mono text-xs font-bold bg-amber-500/15 border border-amber-400/40 text-amber-300 inline-flex items-center gap-1 shadow-sm">
                                       <Crown className="w-3 h-3 text-amber-300 shrink-0" />
                                       <span>C6</span>
                                     </span>
                                   ) : (
                                     <span
-                                      className="px-2 py-0.5 rounded-md font-mono text-xs font-bold border inline-block"
+                                      className="px-2 py-0.5 rounded-md font-mono text-xs font-semibold border inline-block"
                                       style={{
-                                        backgroundColor: `rgba(${theme.glowRgb}, 0.16)`,
-                                        borderColor: `rgba(${theme.glowRgb}, 0.45)`,
+                                        backgroundColor: `rgba(${theme.glowRgb}, 0.14)`,
+                                        borderColor: `rgba(${theme.glowRgb}, 0.4)`,
                                         color: theme.color,
                                       }}
                                     >
@@ -1023,20 +1015,22 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Weapon */}
-                                <td className="py-3 px-3 font-sans">
-                                  <div className="flex items-center gap-2.5">
+                                <td className="py-3.5 px-4 font-sans">
+                                  <div className="flex items-center gap-3">
                                     <div
                                       className={cn(
-                                        "w-8 h-8 rounded-lg overflow-hidden p-0.5 shrink-0 border relative shadow-sm",
+                                        "w-11 h-11 rounded-xl overflow-hidden p-1 shrink-0 border relative shadow-md transition-transform group-hover:scale-105",
                                         is5StarWeapon
-                                          ? "border-amber-400/60 bg-gradient-to-br from-amber-500/25 via-amber-950/40 to-black shadow-[0_0_8px_rgba(245,158,11,0.25)]"
-                                          : "border-purple-400/50 bg-gradient-to-br from-purple-500/20 via-purple-950/30 to-black shadow-[0_0_8px_rgba(168,85,247,0.2)]"
+                                          ? "border-amber-400/45 bg-gradient-to-b from-amber-500/20 via-amber-950/30 to-[#0c0e15] shadow-[0_2px_10px_rgba(245,158,11,0.15)]"
+                                          : weaponRarity === 4
+                                          ? "border-purple-400/40 bg-gradient-to-b from-purple-500/20 via-purple-950/30 to-[#0c0e15] shadow-[0_2px_10px_rgba(168,85,247,0.15)]"
+                                          : "border-sky-400/30 bg-gradient-to-b from-sky-500/20 via-sky-950/30 to-[#0c0e15]"
                                       )}
                                     >
                                       <img
                                         src={char.weapon.icon}
                                         alt={resolvedWeaponName}
-                                        className="w-full h-full object-contain"
+                                        className="w-full h-full object-contain filter drop-shadow(0 2px 4px rgba(0,0,0,0.6))"
                                         onError={(e) => {
                                           const target = e.target as HTMLImageElement;
                                           if (!target.src.includes('enka.network')) {
@@ -1045,81 +1039,131 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                         }}
                                       />
                                     </div>
-                                    <div className="flex flex-col min-w-0">
+                                    <div className="flex flex-col min-w-0 pr-1">
                                       <span
-                                        className="truncate max-w-[150px] text-xs font-semibold text-zinc-100 group-hover:text-white"
+                                        className="truncate max-w-[190px] text-xs font-bold text-zinc-100 group-hover:text-white transition-colors"
                                         title={resolvedWeaponName}
                                       >
                                         {resolvedWeaponName}
                                       </span>
-                                      <span className="text-[10px] font-mono text-zinc-400">
-                                        Lv. {char.weapon.level || 90}
-                                      </span>
+                                      <div className="flex items-center gap-2 mt-0.5">
+                                        <span className="text-xs font-mono font-medium text-zinc-300">
+                                          Lv. {char.weapon.level || 90}
+                                        </span>
+                                        <span
+                                          className={cn(
+                                            "px-1.5 py-0.2 rounded text-[10px] font-mono font-bold shrink-0",
+                                            char.weapon.refinement === 5
+                                              ? "bg-amber-500/20 border border-amber-400/40 text-amber-300"
+                                              : "bg-white/[0.06] border border-white/10 text-zinc-300"
+                                          )}
+                                        >
+                                          R{char.weapon.refinement}
+                                        </span>
+                                      </div>
                                     </div>
-                                    <span
-                                      className={cn(
-                                        "px-1.5 py-0.5 rounded text-[10px] font-mono font-bold shrink-0 ml-auto",
-                                        char.weapon.refinement === 5
-                                          ? "bg-amber-500/20 border border-amber-400/50 text-amber-300 shadow-[0_0_6px_rgba(245,158,11,0.2)]"
-                                          : "bg-zinc-800/90 border border-zinc-700 text-zinc-300"
-                                      )}
-                                    >
-                                      R{char.weapon.refinement}
-                                    </span>
                                   </div>
                                 </td>
 
                                 {/* Artifact Sets */}
-                                <td className="py-3 px-3">
-                                  <div className="flex items-center gap-2">
-                                    <div className="flex items-center -space-x-1 shrink-0">
-                                      {(char.artifacts || []).slice(0, 2).map((art, aIdx) => (
+                                <td className="py-3.5 px-4 font-sans">
+                                  {fourPieceSet ? (
+                                    <div className="flex items-center gap-2.5">
+                                      <div
+                                        className="w-9 h-9 rounded-lg overflow-hidden border border-white/10 bg-zinc-950/90 p-0.5 shrink-0 shadow-sm relative group/art"
+                                        title={fourPieceSet.name}
+                                      >
                                         <img
-                                          key={aIdx}
-                                          src={art.icon}
-                                          alt={art.setName}
-                                          className="w-7 h-7 rounded-md object-contain border border-zinc-700/80 p-0.5 bg-black/60 shrink-0 shadow"
-                                          title={art.setName}
+                                          src={fourPieceSet.icon}
+                                          alt={fourPieceSet.name}
+                                          className="w-full h-full object-contain"
                                         />
-                                      ))}
+                                      </div>
+                                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs whitespace-nowrap shadow-sm">
+                                        <span className="text-amber-400 font-bold font-mono text-[11px]">4pc</span>
+                                        <span className="text-zinc-200 font-medium truncate max-w-[140px]" title={fourPieceSet.name}>
+                                          {fourPieceSet.name}
+                                        </span>
+                                      </div>
                                     </div>
-                                    <span
-                                      className={cn(
-                                        "text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded border truncate max-w-[110px]",
-                                        fourPieceSet
-                                          ? "bg-emerald-500/10 border-emerald-400/30 text-emerald-300"
-                                          : twoPieceSets.length >= 2
-                                          ? "bg-sky-500/10 border-sky-400/30 text-sky-300"
-                                          : "bg-zinc-800/80 border-zinc-700 text-zinc-400"
-                                      )}
-                                      title={setBadgeText}
-                                    >
-                                      {setBadgeText}
-                                    </span>
-                                  </div>
+                                  ) : twoPieceSets.length >= 2 ? (
+                                    <div className="flex items-center gap-2.5">
+                                      <div className="flex items-center gap-1 shrink-0">
+                                        <div
+                                          className="w-8 h-8 rounded-lg overflow-hidden border border-white/10 bg-zinc-950/90 p-0.5 shrink-0 shadow-sm"
+                                          title={twoPieceSets[0].name}
+                                        >
+                                          <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
+                                        </div>
+                                        <div
+                                          className="w-8 h-8 rounded-lg overflow-hidden border border-white/10 bg-zinc-950/90 p-0.5 shrink-0 shadow-sm"
+                                          title={twoPieceSets[1].name}
+                                        >
+                                          <img src={twoPieceSets[1].icon} alt={twoPieceSets[1].name} className="w-full h-full object-contain" />
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs whitespace-nowrap shadow-sm">
+                                        <span className="text-sky-400 font-bold font-mono text-[11px]">2pc+2pc</span>
+                                        <span
+                                          className="text-zinc-300 font-medium truncate max-w-[130px]"
+                                          title={`${twoPieceSets[0].name} + ${twoPieceSets[1].name}`}
+                                        >
+                                          {twoPieceSets[0].name.split(' ')[0]} / {twoPieceSets[1].name.split(' ')[0]}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  ) : twoPieceSets.length === 1 ? (
+                                    <div className="flex items-center gap-2.5">
+                                      <div
+                                        className="w-9 h-9 rounded-lg overflow-hidden border border-white/10 bg-zinc-950/90 p-0.5 shrink-0 shadow-sm"
+                                        title={twoPieceSets[0].name}
+                                      >
+                                        <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
+                                      </div>
+                                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs whitespace-nowrap shadow-sm">
+                                        <span className="text-sky-400 font-bold font-mono text-[11px]">2pc</span>
+                                        <span className="text-zinc-200 font-medium truncate max-w-[140px]" title={twoPieceSets[0].name}>
+                                          {twoPieceSets[0].name}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div className="flex items-center gap-2.5">
+                                      <div className="w-9 h-9 rounded-lg overflow-hidden border border-zinc-800 bg-zinc-950/60 p-0.5 shrink-0 flex items-center justify-center">
+                                        {char.artifacts?.[0]?.icon ? (
+                                          <img src={char.artifacts[0].icon} alt="Artifact" className="w-full h-full object-contain opacity-50" />
+                                        ) : (
+                                          <span className="text-[10px] font-mono text-zinc-600">—</span>
+                                        )}
+                                      </div>
+                                      <span className="px-2.5 py-1 rounded-lg bg-zinc-900/60 border border-zinc-800 text-zinc-400 text-xs font-mono">
+                                        Rainbow
+                                      </span>
+                                    </div>
+                                  )}
                                 </td>
 
                                 {/* Crit Value */}
-                                <td className="py-3 px-3 whitespace-nowrap">
+                                <td className="py-3.5 px-4 whitespace-nowrap">
                                   <div className="flex items-center gap-2 font-mono">
-                                    <span className="text-zinc-300 text-xs">
+                                    <span className="text-zinc-300 text-xs font-medium tracking-tight">
                                       {(char.stats.cr || 0).toFixed(1)} : {(char.stats.cd || 0).toFixed(1)}
                                     </span>
                                     {charCv >= 220 ? (
-                                      <span className="px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-400/60 shadow-[0_0_10px_rgba(251,191,36,0.3)] inline-flex items-center gap-1 shrink-0">
-                                        <Sparkles className="w-2.5 h-2.5 text-amber-300 shrink-0" />
-                                        <ShinyText text={formattedCharCv} color="#fcd34d" shineColor="#ffffff" speed={2} className="text-xs font-black" />
+                                      <span className="px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-400/30 text-amber-300 font-bold text-xs shrink-0 flex items-center gap-1 shadow-sm">
+                                        <Sparkles className="w-2.5 h-2.5 text-amber-300/80 shrink-0" />
+                                        <span>{formattedCharCv}</span>
                                       </span>
                                     ) : charCv >= 200 ? (
-                                      <span className="px-2 py-0.5 rounded-full bg-purple-500/15 border border-purple-400/40 text-purple-300 font-black text-xs shrink-0">
+                                      <span className="px-2 py-0.5 rounded-md bg-violet-500/10 border border-violet-400/25 text-violet-200 font-semibold text-xs shrink-0">
                                         {formattedCharCv}
                                       </span>
                                     ) : charCv >= 170 ? (
-                                      <span className="px-2 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 font-bold text-xs shrink-0">
+                                      <span className="px-2 py-0.5 rounded-md bg-white/[0.05] border border-white/10 text-zinc-200 font-medium text-xs shrink-0">
                                         {formattedCharCv}
                                       </span>
                                     ) : (
-                                      <span className="px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-medium text-xs shrink-0">
+                                      <span className="px-2 py-0.5 rounded-md bg-zinc-900/60 border border-zinc-800/60 text-zinc-400 font-normal text-xs shrink-0">
                                         {formattedCharCv}
                                       </span>
                                     )}
@@ -1127,10 +1171,10 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Elemental DMG */}
-                                <td className="py-3 px-3 text-sm font-mono whitespace-nowrap">
+                                <td className="py-3.5 px-4 text-right whitespace-nowrap">
                                   {elemDmg > 0 ? (
-                                    <span className="font-bold font-mono text-xs flex items-center gap-1" style={{ color: theme.color }}>
-                                      <span>+{elemDmg.toFixed(1)}%</span>
+                                    <span className="font-semibold font-mono text-xs tabular-nums" style={{ color: theme.color }}>
+                                      +{elemDmg.toFixed(1)}%
                                     </span>
                                   ) : (
                                     <span className="text-zinc-600 font-mono text-xs">—</span>
@@ -1138,23 +1182,23 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* ATK */}
-                                <td className="py-3 px-3 text-xs font-mono font-medium text-zinc-100">
+                                <td className="py-3.5 px-4 text-right text-xs font-mono font-medium text-zinc-200 tabular-nums">
                                   {formatNumber(char.stats.atk)}
                                 </td>
 
                                 {/* EM */}
-                                <td className="py-3 px-3 text-xs font-mono">
+                                <td className="py-3.5 px-4 text-right text-xs font-mono tabular-nums">
                                   <span className={cn(
-                                    char.stats.em > 100 ? "text-emerald-300 font-semibold" : "text-zinc-200"
+                                    char.stats.em > 100 ? "text-emerald-400 font-medium" : "text-zinc-200"
                                   )}>
                                     {char.stats.em}
                                   </span>
                                 </td>
 
                                 {/* ER */}
-                                <td className="py-3 px-3 text-xs font-mono whitespace-nowrap">
+                                <td className="py-3.5 px-4 text-right text-xs font-mono tabular-nums whitespace-nowrap">
                                   <span className={cn(
-                                    (char.stats.er || 100) > 140 ? "text-sky-300 font-semibold" : "text-zinc-200"
+                                    (char.stats.er || 100) > 140 ? "text-sky-400 font-medium" : "text-zinc-200"
                                   )}>
                                     {(char.stats.er || 100).toFixed(1)}%
                                   </span>
