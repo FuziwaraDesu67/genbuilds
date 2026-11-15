@@ -926,28 +926,14 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                     : undefined
                                 }
                               >
-                                {/* Index / Rank */}
+                                {/* Index / Number */}
                                 <td className="py-3 px-3 text-center text-xs font-mono">
-                                  {index === 0 ? (
-                                    <div className="w-7 h-7 mx-auto rounded-full bg-[rgba(201,166,107,0.16)] border border-[rgba(201,166,107,0.6)] text-[#c9a66b] font-bold text-[13px] flex items-center justify-center shadow-sm">
-                                      1
-                                    </div>
-                                  ) : index === 1 ? (
-                                    <div className="w-7 h-7 mx-auto rounded-full bg-[rgba(200,200,210,0.12)] border border-[rgba(200,200,210,0.4)] text-zinc-200 font-bold text-[13px] flex items-center justify-center">
-                                      2
-                                    </div>
-                                  ) : index === 2 ? (
-                                    <div className="w-7 h-7 mx-auto rounded-full bg-[rgba(180,140,110,0.12)] border border-[rgba(180,140,110,0.4)] text-amber-200 font-bold text-[13px] flex items-center justify-center">
-                                      3
-                                    </div>
-                                  ) : (
-                                    <span className={cn(
-                                      "text-sm font-medium transition-colors",
-                                      isSelected ? "text-white font-bold" : "text-[#65625d] group-hover:text-zinc-300"
-                                    )}>
-                                      {index + 1}
-                                    </span>
-                                  )}
+                                  <span className={cn(
+                                    "text-sm font-medium transition-colors",
+                                    isSelected ? "text-white font-bold" : "text-[#65625d] group-hover:text-zinc-300"
+                                  )}>
+                                    {index + 1}
+                                  </span>
                                 </td>
 
                                 {/* Character: Avatar + Name + Subtitle */}
