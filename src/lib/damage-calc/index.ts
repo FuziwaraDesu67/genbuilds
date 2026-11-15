@@ -1,2 +1,19 @@
-export { calculateDamage, calculateCritValue, type DamageCalculationResult } from './engine';
-export { damageConfigs, hasDamageConfig, getConfiguredCharacters, type DamageConfig } from './configs';
+export {
+  calculateDamage,
+  calculateCritValue,
+  calculateKqmDefMultiplier,
+  calculateKqmResMultiplier,
+  calculateKqmAmplifyingReaction,
+  calculateKqmAdditiveReactionBonus,
+  calculateKqmAverageCritMultiplier,
+  getKqmLevelMultiplier,
+  KQM_STANDARD_ENEMY,
+  type DamageCalculationResult,
+} from './engine';
+
+export {
+  damageConfigs,
+  hasDamageConfig,
+  getConfiguredCharacters,
+  type DamageConfig,
+} from './configs';
