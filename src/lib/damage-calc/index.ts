@@ -9,6 +9,7 @@ export {
   getKqmLevelMultiplier,
   KQM_STANDARD_ENEMY,
   type DamageCalculationResult,
+  type DamageDistribution,
 } from './engine';
 
 export {

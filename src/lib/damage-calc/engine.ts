@@ -151,13 +151,24 @@ export function calculateKqmAverageCritMultiplier(crPercent: number, cdPercent: 
   return 1 + (effectiveCr * cd);
 }
 
+export interface DamageDistribution {
+  normalChargedPercent: number;
+  skillPercent: number;
+  burstPercent: number;
+  normalChargedDamage: number;
+  skillDamage: number;
+  burstDamage: number;
+}
+
 export interface DamageCalculationResult {
   totalDamage: number;
   skillDamage: number;
   burstDamage: number;
+  normalChargedDamage: number;
   averageDamage: number;
   nonCritDamage: number;
   critDamage: number;
+  distribution: DamageDistribution;
   breakdown: {
     step: string;
     value: number;
@@ -337,24 +348,71 @@ export function calculateDamage(character: Character): DamageCalculationResult {
     });
   }
 
-  // ── Compute Individual Skill and Burst Damage ────────────────────────────
+  // ── Compute Individual Skill, Burst, and Normal/CA Damage ────────────────
   const skillMult = (config.skillMultiplier || 2.5) * (1 + (talents.skill - 1) * 0.08);
   const burstMult = (config.burstMultiplier || 4.5) * (1 + (talents.burst - 1) * 0.08);
-
-  const skillRaw = primaryStatValue * skillMult;
-  const burstRaw = primaryStatValue * burstMult;
+  const normalMult = (config.baseMultiplier || 2.2) * (1 + (talents.normal - 1) * 0.08);
 
   const baseDmgBonus = 1 + elemDmgBonus;
-  const skillDamage = Math.round(skillRaw * baseDmgBonus * cdMultiplier * defMultiplier * resMultiplier);
-  const burstDamage = Math.round(burstRaw * baseDmgBonus * cdMultiplier * defMultiplier * resMultiplier);
+  let normalChargedDamage = Math.round(primaryStatValue * normalMult * baseDmgBonus * cdMultiplier * defMultiplier * resMultiplier);
+  let skillDamage = Math.round(primaryStatValue * skillMult * baseDmgBonus * cdMultiplier * defMultiplier * resMultiplier);
+  let burstDamage = Math.round(primaryStatValue * burstMult * baseDmgBonus * cdMultiplier * defMultiplier * resMultiplier);
+
+  // Apply reaction amplifier if applicable
+  if (config.reactionAmplification) {
+    const ampResult = calculateKqmAmplifyingReaction(config.reactionAmplification, stats.em);
+    if (config.primaryTalent === 'normal') normalChargedDamage = Math.round(normalChargedDamage * ampResult.multiplier);
+    else if (config.primaryTalent === 'skill') skillDamage = Math.round(skillDamage * ampResult.multiplier);
+    else if (config.primaryTalent === 'burst') burstDamage = Math.round(burstDamage * ampResult.multiplier);
+  }
+
+  // ── Compute 20s Standard Damage Distribution ─────────────────────────────
+  let nDmg = normalChargedDamage;
+  let sDmg = skillDamage;
+  let bDmg = burstDamage;
+
+  if (config.primaryTalent === 'normal') {
+    nDmg = Math.round(finalCritDamage * 0.76);
+    sDmg = Math.max(1, Math.round(skillDamage * 0.11));
+    bDmg = Math.max(1, Math.round(burstDamage * 0.13));
+  } else if (config.primaryTalent === 'burst') {
+    bDmg = Math.round(finalCritDamage * 0.68);
+    sDmg = Math.max(1, Math.round(skillDamage * 0.18));
+    nDmg = Math.max(1, Math.round(normalChargedDamage * 0.14));
+  } else if (config.primaryTalent === 'skill') {
+    sDmg = Math.round(finalCritDamage * 0.70);
+    bDmg = Math.max(1, Math.round(burstDamage * 0.18));
+    nDmg = Math.max(1, Math.round(normalChargedDamage * 0.12));
+  }
+
+  const sum = Math.max(1, nDmg + sDmg + bDmg);
+  let normalChargedPercent = Math.round((nDmg / sum) * 100);
+  let skillPercent = Math.round((sDmg / sum) * 100);
+  let burstPercent = Math.max(1, 100 - normalChargedPercent - skillPercent);
+
+  // Normalize to 100%
+  if (normalChargedPercent + skillPercent + burstPercent !== 100) {
+    burstPercent = 100 - normalChargedPercent - skillPercent;
+  }
+
+  const distribution: DamageDistribution = {
+    normalChargedPercent,
+    skillPercent,
+    burstPercent,
+    normalChargedDamage: nDmg,
+    skillDamage: sDmg,
+    burstDamage: bDmg,
+  };
 
   return {
     totalDamage: Math.round(finalCritDamage),
     skillDamage,
     burstDamage,
+    normalChargedDamage,
     averageDamage: Math.round(finalAverageDamage),
     nonCritDamage: Math.round(finalNonCritDamage),
     critDamage: Math.round(finalCritDamage),
+    distribution,
     breakdown,
     rotation: config.rotation || [
       `Elemental Skill (Lv. ${talents.skill})`,

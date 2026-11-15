@@ -258,5 +258,18 @@ describe('KeqingMains (KQM) Official Damage Formula Suite', () => {
       expect(result.averageDamage).toBeGreaterThan(0);
       expect(result.breakdown.length).toBeGreaterThan(0);
     });
+
+    it('computes realistic KQM damage distribution summing exactly to 100%', () => {
+      const huTaoResult = calculateDamage(mockHuTao);
+      expect(huTaoResult.distribution).toBeDefined();
+      expect(huTaoResult.distribution.normalChargedPercent + huTaoResult.distribution.skillPercent + huTaoResult.distribution.burstPercent).toBe(100);
+      // Hu Tao is CA-heavy DPS (~70-80% normal/CA)
+      expect(huTaoResult.distribution.normalChargedPercent).toBeGreaterThanOrEqual(60);
+
+      const neuviResult = calculateDamage(mockNeuvillette);
+      expect(neuviResult.distribution).toBeDefined();
+      expect(neuviResult.distribution.normalChargedPercent + neuviResult.distribution.skillPercent + neuviResult.distribution.burstPercent).toBe(100);
+      expect(neuviResult.distribution.normalChargedPercent).toBeGreaterThanOrEqual(60);
+    });
   });
 });

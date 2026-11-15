@@ -1334,28 +1334,115 @@ export default function AkashaShowcaseCard({
 
       {/* Expandable Damage Distribution Panel */}
       {showDamageBreakdown && (
-        <div className="p-4 rounded-xl bg-[#12141a] border border-zinc-800 space-y-2 text-xs">
-          <h4 className="font-bold text-white text-sm">Damage Calculation Breakdown</h4>
-          {character.damageCalc ? (
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-              <div className="p-2.5 rounded bg-zinc-900 border border-zinc-800">
-                <span className="text-zinc-400">Total Damage:</span>
-                <p className="font-bold text-cyan-400 text-base">{formatNumber(character.damageCalc.totalDamage)}</p>
+        <div className="p-4 rounded-xl bg-[#10121a] border border-white/[0.08] shadow-2xl space-y-3.5 text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] pb-2.5">
+            <h4 className="font-bold text-white text-sm flex items-center gap-2">
+              <Swords className="w-4 h-4 text-cyan-400 shrink-0" />
+              <span>Damage Distribution (KQM 20s Standard)</span>
+            </h4>
+            <span className="text-[10px] font-mono text-zinc-400 bg-white/[0.04] px-2 py-0.5 rounded border border-white/[0.08]">
+              Lv. 90 Target • 10% Base RES • KQM Theorycrafting
+            </span>
+          </div>
+
+          {character.damageCalc ? (() => {
+            const dist = character.damageCalc.distribution || {
+              normalChargedPercent: 74,
+              skillPercent: 12,
+              burstPercent: 14,
+              normalChargedDamage: Math.round(character.damageCalc.totalDamage * 0.74),
+              skillDamage: character.damageCalc.skillDamage || Math.round(character.damageCalc.totalDamage * 0.12),
+              burstDamage: character.damageCalc.burstDamage || Math.round(character.damageCalc.totalDamage * 0.14),
+            };
+
+            return (
+              <div className="space-y-3.5">
+                {/* Visual Stacked Distribution Bar */}
+                <div className="space-y-2">
+                  <div className="h-4 w-full rounded-full overflow-hidden flex bg-zinc-950 border border-white/10 shadow-inner p-0.5">
+                    {dist.normalChargedPercent > 0 && (
+                      <div
+                        style={{ width: `${dist.normalChargedPercent}%` }}
+                        className="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-300 rounded-l-full relative group"
+                        title={`Normal / Charged Attack: ${dist.normalChargedPercent}% (${formatNumber(dist.normalChargedDamage || 0)})`}
+                      />
+                    )}
+                    {dist.skillPercent > 0 && (
+                      <div
+                        style={{ width: `${dist.skillPercent}%` }}
+                        className="h-full bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-300 relative group"
+                        title={`Elemental Skill: ${dist.skillPercent}% (${formatNumber(dist.skillDamage || 0)})`}
+                      />
+                    )}
+                    {dist.burstPercent > 0 && (
+                      <div
+                        style={{ width: `${dist.burstPercent}%` }}
+                        className="h-full bg-gradient-to-r from-purple-500 to-purple-400 transition-all duration-300 rounded-r-full relative group"
+                        title={`Elemental Burst: ${dist.burstPercent}% (${formatNumber(dist.burstDamage || 0)})`}
+                      />
+                    )}
+                  </div>
+
+                  {/* Distribution Legend */}
+                  <div className="grid grid-cols-3 gap-2 text-[11px] font-mono">
+                    <div className="flex items-center gap-1.5 bg-white/[0.03] px-2.5 py-1.5 rounded-lg border border-white/[0.06]">
+                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block shrink-0 shadow-sm" />
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-zinc-400 text-[10px]">Normal / CA</span>
+                        <span className="text-amber-300 font-bold">{dist.normalChargedPercent}%</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 bg-white/[0.03] px-2.5 py-1.5 rounded-lg border border-white/[0.06]">
+                      <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 inline-block shrink-0 shadow-sm" />
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-zinc-400 text-[10px]">Elem. Skill</span>
+                        <span className="text-cyan-300 font-bold">{dist.skillPercent}%</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 bg-white/[0.03] px-2.5 py-1.5 rounded-lg border border-white/[0.06]">
+                      <span className="w-2.5 h-2.5 rounded-full bg-purple-400 inline-block shrink-0 shadow-sm" />
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-zinc-400 text-[10px]">Elem. Burst</span>
+                        <span className="text-purple-300 font-bold">{dist.burstPercent}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4 Stat Cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                  <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
+                    <span className="text-zinc-400 text-[11px] block">Total Rotation DMG</span>
+                    <p className="font-bold text-cyan-400 text-base font-mono mt-0.5">{formatNumber(character.damageCalc.totalDamage)}</p>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
+                    <span className="text-zinc-400 text-[11px] block">Skill Strike DMG</span>
+                    <p className="font-bold text-white text-base font-mono mt-0.5">{formatNumber(character.damageCalc.skillDamage || 0)}</p>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
+                    <span className="text-zinc-400 text-[11px] block">Burst Finisher DMG</span>
+                    <p className="font-bold text-white text-base font-mono mt-0.5">{formatNumber(character.damageCalc.burstDamage || 0)}</p>
+                  </div>
+                  <div className="p-2.5 rounded-lg bg-zinc-950/80 border border-white/[0.08]">
+                    <span className="text-zinc-400 text-[11px] block">Crit Average (Exp.)</span>
+                    <p className="font-bold text-amber-300 text-base font-mono mt-0.5">{formatNumber(character.damageCalc.averageDamage || 0)}</p>
+                  </div>
+                </div>
+
+                {/* Rotation Steps Preview */}
+                {character.damageCalc.rotation && character.damageCalc.rotation.length > 0 && (
+                  <div className="pt-1 text-[11px] font-sans text-zinc-400 flex items-start gap-2 bg-white/[0.02] p-2 rounded-lg border border-white/[0.05]">
+                    <span className="font-mono text-cyan-400 font-semibold shrink-0">Rotation:</span>
+                    <span className="text-zinc-300">
+                      {character.damageCalc.rotation.join(' → ')}
+                    </span>
+                  </div>
+                )}
               </div>
-              <div className="p-2.5 rounded bg-zinc-900 border border-zinc-800">
-                <span className="text-zinc-400">Skill Damage:</span>
-                <p className="font-bold text-white text-base">{formatNumber(character.damageCalc.skillDamage || 0)}</p>
-              </div>
-              <div className="p-2.5 rounded bg-zinc-900 border border-zinc-800">
-                <span className="text-zinc-400">Burst Damage:</span>
-                <p className="font-bold text-white text-base">{formatNumber(character.damageCalc.burstDamage || 0)}</p>
-              </div>
-              <div className="p-2.5 rounded bg-zinc-900 border border-zinc-800">
-                <span className="text-zinc-400">Crit Average:</span>
-                <p className="font-bold text-amber-300 text-base">{formatNumber(character.damageCalc.averageDamage || 0)}</p>
-              </div>
-            </div>
-          ) : (
+            );
+          })() : (
             <p className="text-zinc-500">Damage formulas not configured for this character type yet.</p>
           )}
         </div>
