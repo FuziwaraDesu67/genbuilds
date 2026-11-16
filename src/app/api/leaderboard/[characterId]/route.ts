@@ -5,6 +5,7 @@ import {
   getLeaderboardCharactersSummary,
 } from '@/lib/akasha/leaderboards';
 import { calculateEffectiveCv } from '@/lib/utils';
+import { CHASCA_BENCHMARK_BUILDS } from '@/lib/akasha/chasca-benchmarks';
 import { z } from 'zod';
 
 const querySchema = z.object({
@@ -90,6 +91,153 @@ export async function GET(
           source: 'akasha',
         });
       }
+    }
+
+    // 2.5. Dedicated Chasca Benchmark Pool & DB Merging
+    if (characterId === 10000104) {
+      const benchmarkRows = CHASCA_BENCHMARK_BUILDS.map((bm) => {
+        const eff = calculateEffectiveCv({
+          stats: { cr: bm.stats.cr, cd: bm.stats.cd },
+          artifactSets: bm.artifactSets,
+        });
+
+        return {
+          rank: 0,
+          uid: bm.uid,
+          player: {
+            nickname: bm.nickname,
+            profilePicture: bm.profilePicture,
+          },
+          build: {
+            id: bm.id,
+            uid: bm.uid,
+            characterId: 10000104,
+            characterName: 'Chasca',
+            avatarId: 10000104,
+            constellation: bm.constellation,
+            level: bm.level,
+            weapon: bm.weapon,
+            weaponId: bm.weapon.id,
+            weaponName: bm.weapon.name,
+            weaponIcon: bm.weapon.icon,
+            refinement: bm.weapon.refinement,
+            artifactSets: bm.artifactSets,
+            artifactSetList: bm.artifactSetList,
+            critValue: bm.critValue,
+            effectiveCv: eff.effectiveArtifactCv,
+            overallCombatCv: eff.overallCombatCv,
+            setBonusCr: eff.effectiveSetBonusCr,
+            setBonusName: eff.activeBonusName,
+            isCvCapped: eff.isCapped,
+            stats: {
+              ...bm.stats,
+              dmgBonus: {},
+            },
+            calculatedDamage: String(bm.calculatedDamage),
+            damage: bm.calculatedDamage,
+            score: bm.calculatedDamage,
+          },
+          calculation: {
+            id: '10000104',
+            name: 'Shadows of the Night Winds',
+            weapon: bm.weapon.name,
+          },
+        };
+      });
+
+      let combined = [...benchmarkRows] as any[];
+      if (process.env.DATABASE_URL) {
+        try {
+          const dbResults = await getLeaderboard(10000104, {
+            weaponId,
+            minConstellation,
+            limit: 100,
+            offset: 0,
+          });
+
+          for (const row of dbResults) {
+            const rowUid = row.build?.uid || (row as any).player?.uid || (row as any).uid;
+            if (rowUid === '855842984') continue;
+
+            const stats = (row.build?.stats as any) || {};
+            const cr = Number(stats.cr || 0);
+            const cd = Number(stats.cd || 0);
+            const artifactSets = (row.build?.artifactSets as any) || {};
+            const effResult = calculateEffectiveCv({
+              stats: { cr, cd },
+              artifactSets,
+            });
+
+            const enriched = {
+              ...row,
+              uid: rowUid,
+              build: {
+                ...row.build,
+                effectiveCv: effResult.effectiveArtifactCv,
+                overallCombatCv: effResult.overallCombatCv,
+                setBonusCr: effResult.effectiveSetBonusCr,
+                setBonusName: effResult.activeBonusName,
+                isCvCapped: effResult.isCapped,
+              },
+            };
+
+            const existingIdx = combined.findIndex((b) => b.uid === rowUid);
+            if (existingIdx >= 0) {
+              combined[existingIdx] = enriched;
+            } else {
+              combined.push(enriched);
+            }
+          }
+        } catch {
+          // Keep benchmark pool if DB fails or is unreachable
+        }
+      }
+
+      let filtered = combined.filter((row: any) => {
+        if (row.uid === '855842984') return false;
+        if (weaponId && row.build?.weapon?.id !== weaponId && row.build?.weaponId !== weaponId) {
+          return false;
+        }
+        if (weaponName) {
+          const wName = (row.build?.weapon?.name || row.build?.weaponName || '').toLowerCase();
+          if (!wName.includes(weaponName.toLowerCase())) return false;
+        }
+        if (minConstellation !== undefined && (row.build?.constellation ?? 0) < minConstellation) {
+          return false;
+        }
+        return true;
+      });
+
+      if (rankingType === 'overallCv' || rankingType === 'effectiveCv') {
+        filtered.sort((a: any, b: any) => {
+          const cvB = b.build.overallCombatCv ?? b.build.effectiveCv ?? 0;
+          const cvA = a.build.overallCombatCv ?? a.build.effectiveCv ?? 0;
+          return cvB - cvA;
+        });
+      } else {
+        filtered.sort((a: any, b: any) => {
+          const dmgB = Number(b.build.calculatedDamage || b.build.damage || 0);
+          const dmgA = Number(a.build.calculatedDamage || a.build.damage || 0);
+          return dmgB - dmgA;
+        });
+      }
+
+      const total = filtered.length;
+      filtered.forEach((e: any, idx: number) => {
+        e.rank = idx + 1;
+        e.percentile = parseFloat(Math.max(0.01, (e.rank / total) * 100).toFixed(2));
+      });
+
+      const paginated = filtered.slice(safeOffset, safeOffset + safeLimit);
+
+      return NextResponse.json({
+        results: paginated,
+        total,
+        limit: safeLimit,
+        offset: safeOffset,
+        hasMore: safeOffset + safeLimit < total,
+        source: 'local',
+      });
     }
 
     // 3. Fallback to PostgreSQL database if configured

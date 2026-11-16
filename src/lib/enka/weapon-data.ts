@@ -657,6 +657,28 @@ export const WEAPON_LIST: WeaponMetadata[] = [
     },
   },
   {
+    id: 14435,
+    name: 'Waveriding Whirl',
+    type: 'Catalyst',
+    rarity: 4,
+    baseAtkLv90: 454,
+    subStat: { type: 'er', key: 'er', label: 'Energy Recharge', displayLabel: 'Energy Recharge', valueLv90: 55.9 },
+    passiveName: 'Flowing Waves',
+    descriptionTemplate: 'Swimming consumes {swim}% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by {hp}% for 10s.',
+    refinements: {
+      1: 'Swimming consumes 15% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 20% for 10s.',
+      2: 'Swimming consumes 17.5% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 25% for 10s.',
+      3: 'Swimming consumes 20% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 30% for 10s.',
+      4: 'Swimming consumes 22.5% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 35% for 10s.',
+      5: 'Swimming consumes 25% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 40% for 10s.',
+      r1: 'Swimming consumes 15% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 20% for 10s.',
+      r2: 'Swimming consumes 17.5% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 25% for 10s.',
+      r3: 'Swimming consumes 20% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 30% for 10s.',
+      r4: 'Swimming consumes 22.5% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 35% for 10s.',
+      r5: 'Swimming consumes 25% less Stamina. Additionally, after using an Elemental Skill, Max HP is increased by 40% for 10s.',
+    },
+  },
+  {
     id: 14401,
     name: 'Favonius Codex',
     type: 'Catalyst',
@@ -1206,6 +1228,8 @@ const WEAPON_ID_ALIASES: Record<number, number> = {
   12501: 12502, // Wolf's Gravestone
   14513: 14512, // Tome of the Eternal Flow
   15508: 15509, // Aqua Simulacra
+  11520: 11517, // Peak Patrol Song (Enka / in-game ID 11520 -> canonical 11517)
+  14522: 14515, // Surf's Up (Enka / in-game ID 14522 -> canonical 14515)
 };
 
 function normalizeName(name: string): string {

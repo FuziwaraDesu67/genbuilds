@@ -838,25 +838,22 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
               return (
                 <div className="rounded-[14px] overflow-hidden border border-[#2b2b30] bg-[#111113] shadow-2xl">
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-sm text-[#ece9e2] min-w-[1040px]">
+                    <table className="w-full text-left text-sm text-[#ece9e2]">
                       <thead className="bg-[#141417] text-[#65625d] uppercase text-[11px] tracking-[1px] font-semibold border-b border-[#2b2b30] select-none">
                         <tr>
-                          <th className="py-3 px-3 w-12 text-center font-mono">#</th>
-                          <th className="py-3 px-4 min-w-[260px]">CHARACTER</th>
-                          <th className="py-3 px-3 min-w-[65px] text-center">CONST.</th>
-                          <th className="py-3 px-4 min-w-[270px]">WEAPON</th>
-                          <th className="py-3 px-4 min-w-[230px]">SETS</th>
-                          <th className="py-3 px-4 min-w-[260px] text-[#c9a66b]">CRIT VALUE</th>
-                          <th className="py-3 px-4 min-w-[85px] text-right">ELEM. DMG</th>
-                          <th className="py-3 px-4 min-w-[75px] text-right">ATK</th>
-                          <th className="py-3 px-4 min-w-[65px] text-right">EM</th>
-                          <th className="py-3 px-4 min-w-[80px] text-right">ER</th>
+                          <th className="py-3 px-3 w-10 text-center font-mono">#</th>
+                          <th className="py-3 px-4">CHARACTER</th>
+                          <th className="py-3 px-3 w-16 text-center">CONST.</th>
+                          <th className="py-3 px-4">WEAPON</th>
+                          <th className="py-3 px-4">SETS</th>
+                          <th className="py-3 px-4">CRIT VALUE</th>
+                          <th className="py-3 px-4 text-right">ELEM. DMG</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-[#232328]">
                         {filteredCharacters.length === 0 ? (
                           <tr>
-                            <td colSpan={10} className="py-12 text-center text-[#8e8a84] font-sans">
+                            <td colSpan={7} className="py-12 text-center text-[#8e8a84] font-sans">
                               No {selectedElementFilter} characters found in showcase.
                               <button
                                 onClick={() => setSelectedElementFilter('All')}
@@ -899,78 +896,60 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                             const isRanked = Boolean(char.akasha && char.akasha.topPercent > 0);
                             const topPct = char.akasha?.topPercent;
 
-                            // Ratio bars calculation
-                            const crVal = Math.max(0, char.stats.cr || 0);
-                            const cdVal = Math.max(0, char.stats.cd || 0);
-                            const cdHalf = cdVal / 2;
-                            const totalRatio = crVal + cdHalf || 1;
-                            const crBarPct = Math.min(85, Math.max(12, Math.round((crVal / totalRatio) * 100)));
-                            const cdBarPct = 100 - crBarPct;
-
                             return (
                               <tr
                                 key={char.id}
                                 onClick={() => handleSelectCharacter(char)}
                                 className={cn(
-                                  "cursor-pointer transition-all duration-150 border-l-[3.5px] group select-none",
+                                  "cursor-pointer transition-all duration-150 border-l-2 group select-none",
                                   isSelected
-                                    ? "bg-[#222228] border-l-current"
-                                    : "bg-[#1c1c1f] border-l-transparent hover:bg-[#202025]"
+                                    ? "bg-[#251b18] border-l-[#ff6a1f]"
+                                    : "bg-[#16161a] border-l-transparent hover:bg-[#1c1c22]"
                                 )}
-                                style={
-                                  isSelected
-                                    ? {
-                                        borderLeftColor: theme.color,
-                                        backgroundColor: '#222228',
-                                      }
-                                    : undefined
-                                }
                               >
                                 {/* Index / Number */}
-                                <td className="py-3 px-3 text-center text-xs font-mono">
+                                <td className="py-3.5 px-3 text-center text-xs font-mono">
                                   <span className={cn(
                                     "text-sm font-medium transition-colors",
-                                    isSelected ? "text-white font-bold" : "text-[#65625d] group-hover:text-zinc-300"
+                                    isSelected ? "text-white font-bold" : "text-[#71717a] group-hover:text-zinc-300"
                                   )}>
                                     {index + 1}
                                   </span>
                                 </td>
 
                                 {/* Character: Avatar + Name + Subtitle */}
-                                <td className="py-3 px-4 font-sans">
+                                <td className="py-3.5 px-4 font-sans">
                                   <div className="flex items-center gap-3">
-                                    <div
-                                      className="relative w-[46px] h-[46px] rounded-full overflow-hidden shrink-0 border-2 shadow-md transition-transform group-hover:scale-105"
-                                      style={{
-                                        borderColor: theme.color,
-                                        backgroundColor: `rgba(${theme.glowRgb}, 0.14)`,
-                                      }}
-                                    >
-                                      <img
-                                        src={char.icon}
-                                        alt={char.name}
-                                        className="w-full h-full object-cover"
-                                        onError={(e) => {
-                                          const target = e.target as HTMLImageElement;
-                                          const norm = char.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-                                          if (!target.src.includes(norm)) {
-                                            target.src = `/icons/characters/${norm}.png`;
-                                          } else if (!target.src.includes('enka.network')) {
-                                            target.src = `https://enka.network/ui/UI_AvatarIcon_${char.name.replace(/\s+/g, '')}.png`;
-                                          }
-                                        }}
-                                      />
+                                    <div className="relative w-11 h-11 shrink-0">
+                                      <div className="w-11 h-11 rounded-[14px] overflow-hidden border border-white/10 bg-[#1e1e24] shadow-md transition-transform group-hover:scale-105">
+                                        <img
+                                          src={char.icon}
+                                          alt={char.name}
+                                          className="w-full h-full object-cover"
+                                          onError={(e) => {
+                                            const target = e.target as HTMLImageElement;
+                                            const norm = char.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                                            if (!target.src.includes(norm)) {
+                                              target.src = `/icons/characters/${norm}.png`;
+                                            } else if (!target.src.includes('enka.network')) {
+                                              target.src = `https://enka.network/ui/UI_AvatarIcon_${char.name.replace(/\s+/g, '')}.png`;
+                                            }
+                                          }}
+                                        />
+                                      </div>
+                                      <div
+                                        className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border border-black/80 flex items-center justify-center p-0.5 shadow"
+                                        style={{ backgroundColor: theme.color }}
+                                      >
+                                        <ElementIcon element={char.element} size={10} className="text-white drop-shadow-sm" />
+                                      </div>
                                     </div>
 
                                     <div className="flex flex-col min-w-0">
-                                      <span className="text-[15px] font-semibold text-[#ece9e2] whitespace-nowrap group-hover:text-white transition-colors">
+                                      <span className="text-[14px] font-semibold text-[#ece9e2] whitespace-nowrap group-hover:text-white transition-colors">
                                         {char.name}
                                       </span>
                                       <div className="flex items-center gap-1.5 text-xs font-sans mt-0.5 whitespace-nowrap">
-                                        <span
-                                          className="w-1.5 h-1.5 rounded-full shrink-0"
-                                          style={{ backgroundColor: theme.color }}
-                                        />
                                         <span style={{ color: theme.color }} className="font-medium text-xs">
                                           {char.element}
                                         </span>
@@ -981,7 +960,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                         {isRanked && (
                                           <>
                                             <span className="text-[#65625d]">•</span>
-                                            <span className="bg-[rgba(143,167,119,0.14)] border border-[rgba(143,167,119,0.3)] text-[#8fa777] text-[10px] font-semibold px-1.5 py-0.5 rounded-[5px] shrink-0 font-mono">
+                                            <span className="bg-[#122416] border border-[#2b5934] text-[#4ade80] text-[10px] font-semibold px-1.5 py-0.5 rounded-[5px] shrink-0 font-mono">
                                               top {formatTopPercent(topPct!)}
                                             </span>
                                           </>
@@ -992,22 +971,17 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Constellation */}
-                                <td className="py-3 px-3 text-center whitespace-nowrap">
+                                <td className="py-3.5 px-3 text-center whitespace-nowrap">
                                   {char.constellation === 0 ? (
-                                    <span className="bg-[rgba(142,138,132,0.1)] border border-white/5 text-[#8e8a84] px-[9px] py-[4px] rounded-[7px] text-[12px] font-semibold font-mono inline-block">
+                                    <span className="px-2 py-0.5 rounded-[6px] text-[11px] font-semibold font-mono bg-[#1a1a20] border border-[#27272a] text-[#71717a] inline-block">
                                       C0
-                                    </span>
-                                  ) : char.constellation === 6 ? (
-                                    <span className="bg-[rgba(201,166,107,0.16)] border border-[#c9a66b]/40 text-[#c9a66b] px-[9px] py-[4px] rounded-[7px] text-[12px] font-bold font-mono inline-flex items-center gap-1 shadow-sm">
-                                      <Crown className="w-3 h-3 text-[#c9a66b] shrink-0" />
-                                      <span>C6</span>
                                     </span>
                                   ) : (
                                     <span
-                                      className="px-[9px] py-[4px] rounded-[7px] text-[12px] font-semibold font-mono border inline-block"
+                                      className="px-2 py-0.5 rounded-[6px] text-[11px] font-semibold font-mono border inline-block"
                                       style={{
-                                        backgroundColor: `rgba(${theme.glowRgb}, 0.16)`,
-                                        borderColor: `rgba(${theme.glowRgb}, 0.35)`,
+                                        backgroundColor: `${theme.color}15`,
+                                        borderColor: `${theme.color}40`,
                                         color: theme.color,
                                       }}
                                     >
@@ -1017,11 +991,11 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Weapon */}
-                                <td className="py-3 px-4 font-sans">
+                                <td className="py-3.5 px-4 font-sans">
                                   <div className="flex items-center gap-3">
                                     <div
                                       className={cn(
-                                        "w-[44px] h-[44px] rounded-[11px] overflow-hidden p-1 shrink-0 border relative shadow-sm transition-transform group-hover:scale-105",
+                                        "w-10 h-10 rounded-[10px] overflow-hidden p-1 shrink-0 border relative shadow-sm transition-transform group-hover:scale-105",
                                         is5StarWeapon
                                           ? "bg-[rgba(201,166,107,0.12)] border-[rgba(201,166,107,0.55)]"
                                           : weaponRarity === 4
@@ -1043,7 +1017,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                     </div>
                                     <div className="flex flex-col min-w-0 pr-1">
                                       <span
-                                        className="truncate max-w-[190px] text-sm font-semibold text-[#ece9e2] group-hover:text-white transition-colors"
+                                        className="text-sm font-semibold text-[#ece9e2] group-hover:text-white transition-colors whitespace-nowrap"
                                         title={resolvedWeaponName}
                                       >
                                         {resolvedWeaponName}
@@ -1054,10 +1028,10 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                         </span>
                                         <span
                                           className={cn(
-                                            "px-1.5 py-0.5 rounded-[5px] text-[10px] font-mono font-semibold shrink-0 border",
+                                            "px-1.5 py-0.2 rounded text-[10px] font-mono font-semibold shrink-0 border",
                                             char.weapon.refinement === 5
-                                              ? "bg-[rgba(201,166,107,0.14)] border-[#c9a66b]/30 text-[#c9a66b]"
-                                              : "bg-[rgba(142,138,132,0.14)] border-white/5 text-[#8e8a84]"
+                                              ? "bg-[#2a2212] border-[#c9a66b]/40 text-[#c9a66b]"
+                                              : "bg-[#1a1a20] border-[#27272a] text-[#8e8a84]"
                                           )}
                                         >
                                           R{char.weapon.refinement}
@@ -1068,11 +1042,11 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Artifact Sets */}
-                                <td className="py-3 px-4 font-sans">
+                                <td className="py-3.5 px-4 font-sans">
                                   {fourPieceSet ? (
                                     <div className="flex items-center gap-2.5">
                                       <div
-                                        className="w-[38px] h-[38px] rounded-[10px] bg-[#25252a] border border-[#2b2b30] p-1 shrink-0 overflow-hidden shadow-sm"
+                                        className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center"
                                         title={fourPieceSet.name}
                                       >
                                         <img
@@ -1081,33 +1055,22 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                           className="w-full h-full object-contain"
                                         />
                                       </div>
-                                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#1c1c1f] border border-[#2b2b30] text-xs whitespace-nowrap shadow-sm">
-                                        <span className="text-[#c9a66b] font-bold font-mono text-[11px]">4pc</span>
-                                        <span className="text-[#ece9e2] font-medium truncate max-w-[145px]" title={fourPieceSet.name}>
+                                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
+                                        <span className="text-[#e6ca65] font-bold font-mono text-[11px]">4pc</span>
+                                        <span className="text-[#ece9e2] font-medium truncate max-w-[200px]" title={fourPieceSet.name}>
                                           {fourPieceSet.name}
                                         </span>
                                       </div>
                                     </div>
                                   ) : twoPieceSets.length >= 2 ? (
                                     <div className="flex items-center gap-2.5">
-                                      <div className="flex items-center gap-1 shrink-0">
-                                        <div
-                                          className="w-[34px] h-[34px] rounded-[8px] bg-[#25252a] border border-[#2b2b30] p-0.5 shrink-0 shadow-sm"
-                                          title={twoPieceSets[0].name}
-                                        >
-                                          <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
-                                        </div>
-                                        <div
-                                          className="w-[34px] h-[34px] rounded-[8px] bg-[#25252a] border border-[#2b2b30] p-0.5 shrink-0 shadow-sm"
-                                          title={twoPieceSets[1].name}
-                                        >
-                                          <img src={twoPieceSets[1].icon} alt={twoPieceSets[1].name} className="w-full h-full object-contain" />
-                                        </div>
+                                      <div className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
+                                        <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
                                       </div>
-                                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#1c1c1f] border border-[#2b2b30] text-xs whitespace-nowrap shadow-sm">
+                                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
                                         <span className="text-[#4da8e8] font-bold font-mono text-[11px]">2pc+2pc</span>
                                         <span
-                                          className="text-[#ece9e2] font-medium truncate max-w-[130px]"
+                                          className="text-[#ece9e2] font-medium truncate max-w-[200px]"
                                           title={`${twoPieceSets[0].name} + ${twoPieceSets[1].name}`}
                                         >
                                           {twoPieceSets[0].name.split(' ')[0]} / {twoPieceSets[1].name.split(' ')[0]}
@@ -1116,29 +1079,26 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                     </div>
                                   ) : twoPieceSets.length === 1 ? (
                                     <div className="flex items-center gap-2.5">
-                                      <div
-                                        className="w-[38px] h-[38px] rounded-[10px] bg-[#25252a] border border-[#2b2b30] p-1 shrink-0 overflow-hidden shadow-sm"
-                                        title={twoPieceSets[0].name}
-                                      >
+                                      <div className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
                                         <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
                                       </div>
-                                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#1c1c1f] border border-[#2b2b30] text-xs whitespace-nowrap shadow-sm">
+                                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
                                         <span className="text-[#4da8e8] font-bold font-mono text-[11px]">2pc</span>
-                                        <span className="text-[#ece9e2] font-medium truncate max-w-[145px]" title={twoPieceSets[0].name}>
+                                        <span className="text-[#ece9e2] font-medium truncate max-w-[200px]" title={twoPieceSets[0].name}>
                                           {twoPieceSets[0].name}
                                         </span>
                                       </div>
                                     </div>
                                   ) : (
                                     <div className="flex items-center gap-2.5">
-                                      <div className="w-[38px] h-[38px] rounded-[10px] bg-[#25252a] border border-[#2b2b30] p-1 shrink-0 flex items-center justify-center">
+                                      <div className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
                                         {char.artifacts?.[0]?.icon ? (
                                           <img src={char.artifacts[0].icon} alt="Artifact" className="w-full h-full object-contain opacity-50" />
                                         ) : (
                                           <span className="text-[10px] font-mono text-[#65625d]">—</span>
                                         )}
                                       </div>
-                                      <span className="px-2.5 py-1 rounded-lg bg-[#1c1c1f] border border-[#2b2b30] text-[#8e8a84] text-xs font-mono">
+                                      <span className="px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-[#8e8a84] text-xs font-mono">
                                         Rainbow
                                       </span>
                                     </div>
@@ -1146,51 +1106,38 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Crit Value */}
-                                <td className="py-3 px-4 whitespace-nowrap">
+                                <td className="py-3.5 px-4 whitespace-nowrap">
                                   <div className="flex items-center gap-3">
-                                    <div className="flex flex-col gap-1 min-w-[125px]">
-                                      <span className="text-[#ece9e2] text-xs font-medium font-mono tracking-tight flex items-center gap-1.5">
-                                        <span>{(char.stats.cr || 0).toFixed(1)} : {(char.stats.cd || 0).toFixed(1)}</span>
-                                        {char.setBonusCr ? (
-                                          <span
-                                            className="text-[10px] text-[#c9a66b] font-mono font-semibold"
-                                            title={`${char.isCvCapped ? 'Capped at 100% CR' : 'Set Bonus'}: +${char.setBonusCr}% CR`}
-                                          >
-                                            (+{char.setBonusCr}%)
-                                          </span>
-                                        ) : null}
-                                      </span>
-                                      {/* Dual Ratio Bar */}
-                                      <div className="w-[125px] h-[4.5px] flex gap-[2px] rounded-full overflow-hidden bg-black/40">
-                                        <div
-                                          style={{ width: `${crBarPct}%` }}
-                                          className="bg-[#c9a66b] h-full rounded-l-full"
-                                        />
-                                        <div
-                                          style={{ width: `${cdBarPct}%` }}
-                                          className="bg-[#b8694f] h-full rounded-r-full"
-                                        />
-                                      </div>
-                                    </div>
+                                    <span className="text-[#ece9e2] text-xs font-medium font-mono tracking-tight flex items-center gap-1.5">
+                                      <span>{(char.stats.cr || 0).toFixed(1)} : {(char.stats.cd || 0).toFixed(1)}</span>
+                                      {char.setBonusCr ? (
+                                        <span
+                                          className="text-[10px] text-[#c9a66b] font-mono font-semibold"
+                                          title={`${char.isCvCapped ? 'Capped at 100% CR' : 'Set Bonus'}: +${char.setBonusCr}% CR`}
+                                        >
+                                          (+{char.setBonusCr}%)
+                                        </span>
+                                      ) : null}
+                                    </span>
 
                                     {charCv >= 220 ? (
                                       <span
-                                        className="px-2.5 py-1 rounded-[8px] bg-[rgba(201,166,107,0.14)] border border-[rgba(201,166,107,0.5)] text-[#c9a66b] font-bold text-xs shrink-0 flex items-center gap-1 shadow-sm font-mono"
+                                        className="px-2.5 py-0.5 rounded-[6px] bg-[#221c10] border border-[#c9a66b]/60 text-[#e6ca65] font-bold text-xs shrink-0 flex items-center gap-1 font-mono shadow-sm"
                                         title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
                                       >
-                                        <Sparkles className="w-2.5 h-2.5 text-[#c9a66b] shrink-0" />
+                                        <Sparkles className="w-2.5 h-2.5 text-[#e6ca65] shrink-0" />
                                         <span>{formattedCharCv}</span>
                                       </span>
                                     ) : charCv >= 190 ? (
                                       <span
-                                        className="px-2.5 py-1 rounded-[8px] bg-[rgba(154,134,184,0.14)] border border-[rgba(154,134,184,0.4)] text-[#9a86b8] font-semibold text-xs shrink-0 font-mono"
+                                        className="px-2.5 py-0.5 rounded-[6px] bg-[#1a1524] border border-[#7c5fa6]/50 text-[#bba1de] font-semibold text-xs shrink-0 font-mono"
                                         title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
                                       >
                                         {formattedCharCv}
                                       </span>
                                     ) : (
                                       <span
-                                        className="px-2.5 py-1 rounded-[8px] bg-[rgba(142,138,132,0.08)] border border-[rgba(142,138,132,0.2)] text-[#8e8a84] font-normal text-xs shrink-0 font-mono"
+                                        className="px-2.5 py-0.5 rounded-[6px] bg-[#18181c] border border-[#27272a] text-[#71717a] font-normal text-xs shrink-0 font-mono"
                                         title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
                                       >
                                         {formattedCharCv}
@@ -1200,37 +1147,14 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Elemental DMG */}
-                                <td className="py-3 px-4 text-right whitespace-nowrap font-mono">
+                                <td className="py-3.5 px-4 text-right whitespace-nowrap font-mono">
                                   {elemDmg > 0 ? (
                                     <span className="font-semibold text-xs tabular-nums" style={{ color: theme.color }}>
                                       +{elemDmg.toFixed(1)}%
                                     </span>
                                   ) : (
-                                    <span className="text-[#65625d] text-xs">—</span>
+                                    <span className="text-[#52525b] text-xs font-mono">—</span>
                                   )}
-                                </td>
-
-                                {/* ATK */}
-                                <td className="py-3 px-4 text-right text-xs font-mono font-medium text-[#ece9e2] tabular-nums">
-                                  {formatNumber(char.stats.atk)}
-                                </td>
-
-                                {/* EM */}
-                                <td className="py-3 px-4 text-right text-xs font-mono tabular-nums">
-                                  <span className={cn(
-                                    char.stats.em > 100 ? "text-[#8fa777] font-semibold" : "text-[#8e8a84]"
-                                  )}>
-                                    {char.stats.em}
-                                  </span>
-                                </td>
-
-                                {/* ER */}
-                                <td className="py-3 px-4 text-right text-xs font-mono tabular-nums whitespace-nowrap">
-                                  <span className={cn(
-                                    (char.stats.er || 100) > 140 ? "text-[#7fa9bc] font-semibold" : "text-[#8e8a84]"
-                                  )}>
-                                    {(char.stats.er || 100).toFixed(1)}%
-                                  </span>
                                 </td>
                               </tr>
                             );

@@ -230,6 +230,17 @@ export async function getLeaderboardCharactersSummary(): Promise<LeaderboardChar
     const local = getCharacterData(id);
     if (!local || !local.name || !local.element) continue;
 
+    const isChasca = id === 10000104;
+    const chascaWeapons: AkashaCategoryWeaponOption[] = isChasca ? [
+      { calculationId: '10000104-15514', name: "Astral Vulture's Crimson Plumage", icon: 'UI_EquipIcon_Bow_FearsomeFeather', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
+      { calculationId: '10000104-15512', name: 'The First Great Magic', icon: 'UI_EquipIcon_Bow_Pledge', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
+      { calculationId: '10000104-15509', name: 'Aqua Simulacra', icon: 'UI_EquipIcon_Bow_Kirin', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
+      { calculationId: '10000104-15424', name: 'Scion of the Blazing Sun', icon: 'UI_EquipIcon_Bow_Sunfrost', refinement: 5, rarity: 4, substat: 'CRIT Rate' },
+      { calculationId: '10000104-15427', name: 'Chain Breaker', icon: 'UI_EquipIcon_Bow_Isikhulu', refinement: 5, rarity: 4, substat: 'ATK' },
+      { calculationId: '10000104-15502', name: "Amos' Bow", icon: 'UI_EquipIcon_Bow_Amos', refinement: 1, rarity: 5, substat: 'ATK' },
+      { calculationId: '10000104-15501', name: 'Skyward Harp', icon: 'UI_EquipIcon_Bow_Dvalin', refinement: 1, rarity: 5, substat: 'CRIT Rate' },
+    ] : [];
+
     byChar.set(id, {
       characterId: id,
       name: local.name,
@@ -237,16 +248,16 @@ export async function getLeaderboardCharactersSummary(): Promise<LeaderboardChar
       rarity: local.rarity || 5,
       weaponType: local.weaponType || 'Sword',
       iconUrl: local.iconUrl,
-      totalBuilds: 0,
+      totalBuilds: isChasca ? 16 : 0,
       defaultCalculationId: String(id),
       categories: [
         {
           calculationId: String(id),
           short: local.element.toUpperCase(),
-          name: `${local.name} Local Build Rankings`,
-          details: 'Local database rankings computed from analyzed UID showcases.',
-          count: 0,
-          weapons: [],
+          name: isChasca ? 'Shadows of the Night Winds' : `${local.name} Local Build Rankings`,
+          details: isChasca ? 'Rankings computed from analyzed Natlan Chasca showcases and benchmark builds.' : 'Local database rankings computed from analyzed UID showcases.',
+          count: isChasca ? 16 : 0,
+          weapons: chascaWeapons,
         },
       ],
       source: 'local',
