@@ -4,6 +4,7 @@ import {
   fetchAkashaLeaderboardEntries,
   getLeaderboardCharactersSummary,
 } from '@/lib/akasha/leaderboards';
+import { calculateEffectiveCv } from '@/lib/utils';
 import { z } from 'zod';
 
 const querySchema = z.object({
@@ -117,8 +118,43 @@ export async function GET(
         }),
       ]);
 
+      const enrichedResults = results.map((row: any) => {
+        const stats = row.build?.stats || {};
+        const cr = Number(stats.cr || 0);
+        const cd = Number(stats.cd || 0);
+        const artifactSets = row.build?.artifactSets || {};
+        const effResult = calculateEffectiveCv({
+          stats: { cr, cd },
+          artifactSets,
+        });
+
+        return {
+          ...row,
+          build: {
+            ...row.build,
+            effectiveCv: effResult.effectiveArtifactCv,
+            overallCombatCv: effResult.overallCombatCv,
+            setBonusCr: effResult.effectiveSetBonusCr,
+            setBonusName: effResult.activeBonusName,
+            isCvCapped: effResult.isCapped,
+          },
+        };
+      });
+
+      if (rankingType === 'overallCv' || rankingType === 'effectiveCv') {
+        enrichedResults.sort((a: any, b: any) => {
+          const cvB = b.build.overallCombatCv ?? b.build.effectiveCv ?? 0;
+          const cvA = a.build.overallCombatCv ?? a.build.effectiveCv ?? 0;
+          return cvB - cvA;
+        });
+        enrichedResults.forEach((e: any, idx: number) => {
+          e.rank = safeOffset + idx + 1;
+          e.percentile = parseFloat(Math.max(0.01, (e.rank / (total || enrichedResults.length)) * 100).toFixed(2));
+        });
+      }
+
       return NextResponse.json({
-        results,
+        results: enrichedResults,
         total,
         limit: safeLimit,
         offset: safeOffset,
