@@ -115,4 +115,22 @@ describe('Chasca Benchmark Profiles & Showcase Verification', () => {
       expect(json.characters[0].weapon.name).toBeDefined();
     }
   });
+
+  it('/api/leaderboard/10000104 returns builds with weaponName, weaponIcon and artifactSetList', async () => {
+    const { GET } = await import('@/app/api/leaderboard/[characterId]/route');
+    const { NextRequest } = await import('next/server');
+
+    const req = new NextRequest('http://localhost:3000/api/leaderboard/10000104');
+    const res = await GET(req, { params: { characterId: '10000104' } });
+    expect(res.status).toBe(200);
+
+    const json = await res.json();
+    expect(json.results.length).toBeGreaterThan(0);
+    for (const r of json.results) {
+      expect(r.build.weaponName).toBeDefined();
+      expect(r.build.weaponIcon).toMatch(/^https:\/\/enka\.network\/ui\//);
+      expect(r.build.artifactSetList.length).toBeGreaterThan(0);
+      expect(r.build.artifactSetList[0].icon).toMatch(/^https:\/\/enka\.network\/ui\//);
+    }
+  });
 });
