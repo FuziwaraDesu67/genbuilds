@@ -424,64 +424,98 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
             </div>
           </div>
 
-          {/* Right: Live Fetched Player Badges */}
-          <div className="flex flex-wrap items-center gap-2 md:justify-end">
-            <span
-              className="px-2.5 py-1 rounded-lg bg-amber-400 text-slate-950 text-xs font-semibold tracking-wider uppercase shadow-sm"
-              title="Server Region"
-            >
-              {serverRegion}
-            </span>
-            {achievements !== undefined && (
+          {/* Right: Live Fetched Player Badges (Authentic Enka / Game Design) */}
+          <div className="flex flex-col items-start md:items-end gap-1.5 shrink-0">
+            {/* Row 1: Region, Achievements, Adventure Rank */}
+            <div className="flex items-center gap-1.5">
               <span
-                className="px-2.5 py-1 rounded-lg bg-black/65 backdrop-blur-md border border-white/15 text-zinc-100 text-xs font-medium flex items-center gap-1.5 shadow-sm"
-                title="Achievements Unlocked"
+                className="h-6 px-2 py-0.5 rounded-[3px] bg-[#FAF17B] text-[#1E1B18] text-xs font-black tracking-wide uppercase leading-none flex items-center shadow-sm select-none"
+                title={`Server: ${serverRegion}`}
               >
-                <Trophy className="w-3.5 h-3.5 text-amber-400" />
-                <CountUp
-                  to={achievements}
-                  separator=","
-                  duration={0.85}
-                  trigger="load"
-                />
+                {serverRegion}
               </span>
-            )}
-            <span
-              className="px-2.5 py-1 rounded-lg bg-black/65 backdrop-blur-md border border-white/15 text-zinc-100 text-xs font-medium shadow-sm"
-              title="Adventure Rank"
-            >
-              AR{data.player.level}
-            </span>
-            {stygianSeconds !== undefined && stygianSeconds > 0 && (
-              <span
-                className="px-2.5 py-1 rounded-lg bg-black/65 backdrop-blur-md border border-white/15 text-zinc-100 text-xs font-medium flex items-center gap-1 shadow-sm"
-                title={
-                  data.player.stygianIndex
-                    ? `Stygian Onslaught Difficulty ${data.player.stygianIndex}`
-                    : 'Stygian Onslaught Clear Time'
-                }
-              >
-                <Timer className="w-3.5 h-3.5 text-purple-300" />
-                <span>{stygianSeconds}s</span>
-              </span>
-            )}
-            {theaterAct !== undefined && theaterAct > 0 && (
-              <span
-                className="px-2.5 py-1 rounded-lg bg-black/65 backdrop-blur-md border border-white/15 text-zinc-100 text-xs font-medium flex items-center gap-1 shadow-sm"
-                title="Imaginarium Theater (Stella / Act)"
-              >
-                <Layers className="w-3.5 h-3.5 text-cyan-300" />
-                <span>{theaterStars ?? 0}/{theaterAct}</span>
-              </span>
-            )}
-            {abyssBadge && (
-              <span
-                className="px-2.5 py-1 rounded-lg bg-black/65 backdrop-blur-md border border-white/15 text-zinc-100 text-xs font-medium flex items-center gap-1 shadow-sm"
-                title="Spiral Abyss"
-              >
-                <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                <span>{abyssBadge}</span>
-              </span>
+              {achievements !== undefined && (
+                <span
+                  className="h-6 px-2 py-0.5 rounded-[3px] bg-[#B5852E] text-white text-xs font-bold leading-none flex items-center gap-1 shadow-sm select-none"
+                  title={`Achievements Unlocked: ${achievements}`}
+                >
+                  <img
+                    src="/icons/game/achievements.png"
+                    alt="Achievements"
+                    className="w-3.5 h-3.5 object-contain shrink-0"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://enka.network/img/achievements.png';
+                    }}
+                  />
+                  <span>{achievements}</span>
+                </span>
+              )}
+              {data.player.level !== undefined && (
+                <span
+                  className="h-6 px-2 py-0.5 rounded-[3px] bg-[#B5852E] text-white text-xs font-bold leading-none flex items-center shadow-sm select-none"
+                  title={`Adventure Rank ${data.player.level}`}
+                >
+                  AR{data.player.level}
+                </span>
+              )}
+            </div>
+
+            {/* Row 2: Stygian Onslaught, Imaginarium Theater, Spiral Abyss */}
+            {(stygianSeconds !== undefined || theaterStars !== undefined || theaterAct !== undefined || abyssBadge) && (
+              <div className="flex items-center gap-1.5">
+                {stygianSeconds !== undefined && stygianSeconds > 0 && (
+                  <span
+                    className="h-6 px-2 py-0.5 rounded-[3px] bg-[#008287] text-white text-xs font-bold leading-none flex items-center gap-1 shadow-sm select-none"
+                    title={
+                      data.player.stygianIndex
+                        ? `Stygian Onslaught Difficulty ${data.player.stygianIndex} Clear: ${stygianSeconds}s`
+                        : `Stygian Onslaught Clear Time: ${stygianSeconds}s`
+                    }
+                  >
+                    <img
+                      src={`/icons/game/stygian_medal_${data.player.stygianIndex || 4}.png`}
+                      alt="Stygian Onslaught"
+                      className="w-4 h-4 object-contain shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = `https://enka.network/ui/UI_LeyLineChallenge_Medal_${data.player.stygianIndex || 4}.png`;
+                      }}
+                    />
+                    <span>{stygianSeconds}s</span>
+                  </span>
+                )}
+                {(theaterStars !== undefined || theaterAct !== undefined) && (
+                  <span
+                    className="h-6 px-2 py-0.5 rounded-[3px] bg-[#B5852E] text-white text-xs font-bold leading-none flex items-center gap-1 shadow-sm select-none"
+                    title={`Imaginarium Theater Stars: ${theaterStars ?? theaterAct}`}
+                  >
+                    <img
+                      src="/icons/game/theater_star.png"
+                      alt="Imaginarium Theater"
+                      className="w-3.5 h-3.5 object-contain shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://enka.network/ui/UI_Icon_Tower_Star1.png';
+                      }}
+                    />
+                    <span>{theaterStars ?? theaterAct}</span>
+                  </span>
+                )}
+                {abyssBadge && (
+                  <span
+                    className="h-6 px-2 py-0.5 rounded-[3px] bg-[#B5852E] text-white text-xs font-bold leading-none flex items-center gap-1 shadow-sm select-none"
+                    title={`Spiral Abyss Stars: ${abyssBadge}`}
+                  >
+                    <img
+                      src="/icons/game/abyss.png"
+                      alt="Spiral Abyss"
+                      className="w-3.5 h-3.5 object-contain shrink-0"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://enka.network/img/abyss.png';
+                      }}
+                    />
+                    <span>{abyssBadge}</span>
+                  </span>
+                )}
+              </div>
             )}
           </div>
         </div>
