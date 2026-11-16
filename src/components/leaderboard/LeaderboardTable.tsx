@@ -190,12 +190,24 @@ function LeaderboardRow({ entry }: { entry: LeaderboardRowItem }) {
 
       {/* Build Stats */}
       <div className="hidden sm:flex items-center gap-5 text-xs font-mono shrink-0">
-        <div className="text-center min-w-[110px]">
+        <div className="text-center min-w-[125px]">
           <div className="text-white/40 text-[10px] mb-0.5 font-sans">CRIT / CV</div>
           <div className="text-white font-semibold">
             {build.stats.cr.toFixed(1)}% / {build.stats.cd.toFixed(1)}%
           </div>
-          <div className="text-amber-300 text-[11px] font-bold">{critValue} CV</div>
+          <div className="flex items-center justify-center gap-1">
+            <span className="text-amber-300 text-[11px] font-bold">
+              {build.effectiveCv !== undefined ? `${build.effectiveCv} CV` : `${critValue} CV`}
+            </span>
+            {build.setBonusCr ? (
+              <span
+                className="text-[9px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-sans"
+                title={`${build.setBonusName || 'Set bonus'}: +${build.setBonusCr}% CR (${build.isCvCapped ? 'Capped at 100%' : 'Active'})`}
+              >
+                +{build.setBonusCr}%
+              </span>
+            ) : null}
+          </div>
         </div>
         <div className="text-center min-w-[54px]">
           <div className="text-white/40 text-[10px] mb-0.5 font-sans">ATK</div>

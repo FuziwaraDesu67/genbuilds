@@ -33,6 +33,7 @@ import {
   evaluateTalentBoosts,
 } from './static-data';
 import { getNameCardUrl } from './namecard-data';
+import { calculateEffectiveCv } from '../utils';
 import { calculateDamage } from '../damage-calc/engine';
 import { getServerRegion } from '../utils';
 
@@ -165,6 +166,19 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
       // Graceful fallback
     }
 
+    const effFallback = calculateEffectiveCv({
+      stats: fallbackChar.stats,
+      artifacts: fallbackChar.artifacts,
+      artifactSets: fallbackChar.artifactSets,
+      activeSetBonuses: fallbackChar.activeSetBonuses,
+      totalCv,
+      akashaCv,
+    });
+    fallbackChar.effectiveCv = effFallback.effectiveArtifactCv;
+    fallbackChar.setBonusCr = effFallback.effectiveSetBonusCr;
+    fallbackChar.setBonusCv = parseFloat((effFallback.effectiveSetBonusCr * 2).toFixed(1));
+    fallbackChar.isCvCapped = effFallback.isCapped;
+
     return fallbackChar;
   }
 
@@ -213,6 +227,19 @@ function parseCharacter(raw: RawAvatarInfo): Character | null {
   } catch {
     // Graceful fallback
   }
+
+  const effChar = calculateEffectiveCv({
+    stats: char.stats,
+    artifacts: char.artifacts,
+    artifactSets: char.artifactSets,
+    activeSetBonuses: char.activeSetBonuses,
+    totalCv,
+    akashaCv,
+  });
+  char.effectiveCv = effChar.effectiveArtifactCv;
+  char.setBonusCr = effChar.effectiveSetBonusCr;
+  char.setBonusCv = parseFloat((effChar.effectiveSetBonusCr * 2).toFixed(1));
+  char.isCvCapped = effChar.isCapped;
 
   return char;
 }

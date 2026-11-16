@@ -1149,8 +1149,16 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 <td className="py-3 px-4 whitespace-nowrap">
                                   <div className="flex items-center gap-3">
                                     <div className="flex flex-col gap-1 min-w-[125px]">
-                                      <span className="text-[#ece9e2] text-xs font-medium font-mono tracking-tight">
-                                        {(char.stats.cr || 0).toFixed(1)} : {(char.stats.cd || 0).toFixed(1)}
+                                      <span className="text-[#ece9e2] text-xs font-medium font-mono tracking-tight flex items-center gap-1.5">
+                                        <span>{(char.stats.cr || 0).toFixed(1)} : {(char.stats.cd || 0).toFixed(1)}</span>
+                                        {char.setBonusCr ? (
+                                          <span
+                                            className="text-[10px] text-[#c9a66b] font-mono font-semibold"
+                                            title={`${char.isCvCapped ? 'Capped at 100% CR' : 'Set Bonus'}: +${char.setBonusCr}% CR`}
+                                          >
+                                            (+{char.setBonusCr}%)
+                                          </span>
+                                        ) : null}
                                       </span>
                                       {/* Dual Ratio Bar */}
                                       <div className="w-[125px] h-[4.5px] flex gap-[2px] rounded-full overflow-hidden bg-black/40">
@@ -1166,16 +1174,25 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                     </div>
 
                                     {charCv >= 220 ? (
-                                      <span className="px-2.5 py-1 rounded-[8px] bg-[rgba(201,166,107,0.14)] border border-[rgba(201,166,107,0.5)] text-[#c9a66b] font-bold text-xs shrink-0 flex items-center gap-1 shadow-sm font-mono">
+                                      <span
+                                        className="px-2.5 py-1 rounded-[8px] bg-[rgba(201,166,107,0.14)] border border-[rgba(201,166,107,0.5)] text-[#c9a66b] font-bold text-xs shrink-0 flex items-center gap-1 shadow-sm font-mono"
+                                        title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
+                                      >
                                         <Sparkles className="w-2.5 h-2.5 text-[#c9a66b] shrink-0" />
                                         <span>{formattedCharCv}</span>
                                       </span>
                                     ) : charCv >= 190 ? (
-                                      <span className="px-2.5 py-1 rounded-[8px] bg-[rgba(154,134,184,0.14)] border border-[rgba(154,134,184,0.4)] text-[#9a86b8] font-semibold text-xs shrink-0 font-mono">
+                                      <span
+                                        className="px-2.5 py-1 rounded-[8px] bg-[rgba(154,134,184,0.14)] border border-[rgba(154,134,184,0.4)] text-[#9a86b8] font-semibold text-xs shrink-0 font-mono"
+                                        title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
+                                      >
                                         {formattedCharCv}
                                       </span>
                                     ) : (
-                                      <span className="px-2.5 py-1 rounded-[8px] bg-[rgba(142,138,132,0.08)] border border-[rgba(142,138,132,0.2)] text-[#8e8a84] font-normal text-xs shrink-0 font-mono">
+                                      <span
+                                        className="px-2.5 py-1 rounded-[8px] bg-[rgba(142,138,132,0.08)] border border-[rgba(142,138,132,0.2)] text-[#8e8a84] font-normal text-xs shrink-0 font-mono"
+                                        title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
+                                      >
                                         {formattedCharCv}
                                       </span>
                                     )}

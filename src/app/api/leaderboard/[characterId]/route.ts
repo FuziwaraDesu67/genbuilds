@@ -8,6 +8,7 @@ import { z } from 'zod';
 
 const querySchema = z.object({
   calculationId: z.string().optional(),
+  rankingType: z.enum(['damage', 'overallCv', 'effectiveCv']).optional(),
   weaponId: z.string().optional().transform((val) => (val ? parseInt(val) : undefined)),
   weaponName: z.string().optional(),
   minConstellation: z.string().optional().transform((val) => (val !== undefined && val !== '' ? parseInt(val) : undefined)),
@@ -33,6 +34,7 @@ export async function GET(
     const searchParams = Object.fromEntries(request.nextUrl.searchParams);
     const {
       calculationId,
+      rankingType,
       weaponId,
       weaponName,
       minConstellation,
@@ -74,6 +76,7 @@ export async function GET(
         totalPool: resolvedPool,
         minConstellation,
         weaponName,
+        rankingType,
       });
 
       if (akashaRes && (akashaRes.entries.length > 0 || akashaRes.total > 0)) {

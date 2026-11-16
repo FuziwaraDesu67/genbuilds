@@ -42,6 +42,7 @@ export default function LeaderboardClient({
   const [selectedCalcId, setSelectedCalcId] = useState<string>(
     initialCalculationId || characterMeta?.defaultCalculationId || String(characterId)
   );
+  const [rankingType, setRankingType] = useState<'damage' | 'overallCv'>('damage');
   const [entries, setEntries] = useState<LeaderboardRowItem[]>([]);
   const [totalEntries, setTotalEntries] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,6 +76,7 @@ export default function LeaderboardClient({
       if (selectedCalcId) {
         params.append('calculationId', selectedCalcId);
       }
+      params.append('rankingType', rankingType);
       if (activePoolCount > 0) {
         params.append('totalPool', activePoolCount.toString());
       }
@@ -102,7 +104,7 @@ export default function LeaderboardClient({
     } finally {
       setIsLoading(false);
     }
-  }, [filters.weaponName, filters.minConstellation, characterId, selectedCalcId, activePoolCount]);
+  }, [filters.weaponName, filters.minConstellation, characterId, selectedCalcId, activePoolCount, rankingType]);
 
   useEffect(() => {
     if (!charName) {
@@ -258,6 +260,37 @@ export default function LeaderboardClient({
 
           <div className="flex flex-wrap items-end justify-between gap-4 pt-1">
             <div className="flex flex-wrap items-end gap-4">
+              <div>
+                <label className="block text-xs font-medium text-white/60 mb-1">
+                  Ranking Metric
+                </label>
+                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-zinc-900 border border-white/15">
+                  <button
+                    type="button"
+                    onClick={() => setRankingType('damage')}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+                      rankingType === 'damage'
+                        ? 'bg-cyan-500/25 text-cyan-300 border border-cyan-400/50 shadow-sm'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                  >
+                    ⚔️ Damage
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRankingType('overallCv')}
+                    className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+                      rankingType === 'overallCv'
+                        ? 'bg-amber-500/25 text-amber-300 border border-amber-400/50 shadow-sm'
+                        : 'text-zinc-400 hover:text-white'
+                    }`}
+                    title="Ranks builds by Overall Combat CV with artifact set Crit Rate bonuses included (capped at 100% CR)"
+                  >
+                    ✦ Overall CV (Capped)
+                  </button>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-medium text-white/60 mb-1">
                   Min Constellation

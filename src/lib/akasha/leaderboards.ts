@@ -2,6 +2,7 @@ import type { Element } from '../enka/types';
 import { getCharacterData } from '../enka/static-data';
 import { getConfiguredCharacters } from '../damage-calc/configs';
 import { cacheKeys, getCachedJson, setCachedJson } from '../redis';
+import { calculateEffectiveCv } from '../utils';
 
 const AKASHA_BASE_URL = 'https://akasha.cv/api';
 const CATEGORIES_TTL_SECONDS = 3600;
@@ -106,6 +107,11 @@ export interface LeaderboardRowItem {
     constellation: number;
     calculatedDamage: string;
     critValue?: number;
+    effectiveCv?: number;
+    overallCombatCv?: number;
+    setBonusCr?: number;
+    setBonusName?: string;
+    isCvCapped?: boolean;
     stats: {
       hp: number;
       atk: number;
@@ -267,6 +273,7 @@ export async function fetchAkashaLeaderboardEntries(
     totalPool?: number;
     minConstellation?: number;
     weaponName?: string;
+    rankingType?: 'damage' | 'overallCv' | 'effectiveCv';
   } = {}
 ): Promise<{ entries: LeaderboardRowItem[]; total: number; source: 'akasha' | 'local' } | null> {
   if (isOfflineOrTestEnv() || !calculationId) return null;
@@ -313,6 +320,12 @@ export async function fetchAkashaLeaderboardEntries(
       }
     }
 
+    const effResult = calculateEffectiveCv({
+      stats: { cr, cd },
+      artifactSets,
+      akashaCv: typeof row.critValue === 'number' ? row.critValue : undefined,
+    });
+
     return {
       build: {
         id: row._id || `${row.uid}-${rank}`,
@@ -325,6 +338,11 @@ export async function fetchAkashaLeaderboardEntries(
         constellation: Number(row.constellation) || 0,
         calculatedDamage: String(Math.round(Number(row.calculation?.result) || 0)),
         critValue: typeof row.critValue === 'number' ? parseFloat(row.critValue.toFixed(1)) : undefined,
+        effectiveCv: effResult.effectiveArtifactCv,
+        overallCombatCv: effResult.overallCombatCv,
+        setBonusCr: effResult.effectiveSetBonusCr,
+        setBonusName: effResult.activeBonusName,
+        isCvCapped: effResult.isCapped,
         stats: {
           hp: Math.round(Number(stats.maxHp?.value) || 0),
           atk: Math.round(Number(stats.atk?.value) || 0),
@@ -356,6 +374,18 @@ export async function fetchAkashaLeaderboardEntries(
   if (options.weaponName) {
     const q = options.weaponName.toLowerCase();
     entries = entries.filter((e) => (e.build.weaponName || '').toLowerCase() === q);
+  }
+
+  if (options.rankingType === 'overallCv' || options.rankingType === 'effectiveCv') {
+    entries.sort((a, b) => {
+      const cvB = b.build.overallCombatCv ?? b.build.effectiveCv ?? (b.build.stats.cr * 2 + b.build.stats.cd);
+      const cvA = a.build.overallCombatCv ?? a.build.effectiveCv ?? (a.build.stats.cr * 2 + a.build.stats.cd);
+      return cvB - cvA;
+    });
+    entries.forEach((e, idx) => {
+      e.rank = offset + idx + 1;
+      e.percentile = parseFloat(Math.max(0.01, (e.rank / totalPool) * 100).toFixed(2));
+    });
   }
 
   return {

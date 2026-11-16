@@ -34,6 +34,20 @@ export const ARTIFACT_SET_LIST: ArtifactSetDefinition[] = [
     twoPiece: "When a nearby party member triggers a Nightsoul Burst, the equipping character regenerates 6 Elemental Energy.",
     fourPiece: "After the equipping character triggers an Elemental Reaction related to their Elemental Type, all nearby party members gain a 12% Elemental DMG Bonus for the Elemental Types involved in the reaction for 15s. If the equipping character is in Nightsoul's Blessing when triggering this, all nearby party members gain an additional 28% Elemental DMG Bonus for the Elemental Types involved in the reaction for 20s. The equipping character can trigger this effect even when off-field. DMG bonuses from artifact sets with the same name do not stack.",
   },
+  {
+    id: 15051,
+    name: "Night of the Sky's Unveiling",
+    aliases: [15052],
+    twoPiece: 'Increases Elemental DMG by 15%.',
+    fourPiece: 'Increases CRIT Rate by 30% when entering combat or initiating Nightsoul alignment.',
+  },
+  {
+    id: 15053,
+    name: 'Scarlet Proof',
+    aliases: [15054],
+    twoPiece: 'Increases ATK by 18%.',
+    fourPiece: 'Increases CRIT Rate by 16% when dealing damage with Normal, Charged, or Elemental attacks.',
+  },
 
   // ─── Fontaine Sets ────────────────────────────────────────────
   {
@@ -496,4 +510,183 @@ export function getActiveArtifactSetBonuses(
   }
 
   return activeBonuses;
+}
+
+/**
+ * Rules defining artifact sets that provide Crit Rate bonuses.
+ */
+export interface SetCritRateBonusRule {
+  id?: number;
+  name: string;
+  aliases?: (number | string)[];
+  requiredPieces: number;
+  critRateBonus: number; // e.g. 40.0 for 40%
+  description: string;
+}
+
+export const SET_CRIT_RATE_BONUS_RULES: SetCritRateBonusRule[] = [
+  {
+    id: 15038,
+    name: 'Obsidian Codex',
+    aliases: [15025, 'Obsidian Codex', 'obsidian codex'],
+    requiredPieces: 4,
+    critRateBonus: 40.0,
+    description: '+40% CRIT Rate when consuming Nightsoul points on field',
+  },
+  {
+    id: 15031,
+    name: 'Marechaussee Hunter',
+    aliases: [15021, 'Marechaussee Hunter', 'marechaussee hunter'],
+    requiredPieces: 4,
+    critRateBonus: 36.0,
+    description: '+36% CRIT Rate (12% × 3 stacks) on HP increase/decrease',
+  },
+  {
+    id: 15051,
+    name: "Night of the Sky's Unveiling",
+    aliases: [15052, "Night of the Sky's Unveiling", "night of the sky's unveiling", "Night of the Sky's"],
+    requiredPieces: 4,
+    critRateBonus: 30.0,
+    description: "+30% CRIT Rate from Night of the Sky's Unveiling 4pc",
+  },
+  {
+    id: 15053,
+    name: 'Scarlet Proof',
+    aliases: [15054, 'Scarlet Proof', 'scarlet proof'],
+    requiredPieces: 4,
+    critRateBonus: 16.0,
+    description: '+16% CRIT Rate from Scarlet Proof 4pc',
+  },
+  {
+    id: 15003,
+    name: 'Blizzard Strayer',
+    aliases: [15003, 'Blizzard Strayer', 'blizzard strayer'],
+    requiredPieces: 4,
+    critRateBonus: 20.0,
+    description: '+20% CRIT Rate against Cryo-affected enemies (up to +40% if Frozen)',
+  },
+  {
+    id: 10005,
+    name: 'Berserker',
+    aliases: [10005, 'Berserker', 'berserker'],
+    requiredPieces: 4,
+    critRateBonus: 36.0,
+    description: '+36% total CRIT Rate (12% 2pc + 24% 4pc when HP < 70%)',
+  },
+  {
+    id: 10005,
+    name: 'Berserker',
+    aliases: [10005, 'Berserker', 'berserker'],
+    requiredPieces: 2,
+    critRateBonus: 12.0,
+    description: '+12% CRIT Rate from Berserker 2pc',
+  },
+];
+
+export interface ActiveSetCritRateBonus {
+  name: string;
+  requiredPieces: number;
+  bonusCr: number;
+  description: string;
+}
+
+/**
+ * Calculates the total Crit Rate % bonus provided by active artifact set effects.
+ */
+export function getArtifactSetCritRateBonus(
+  artifactSets: Record<number | string, number> | ActiveSetBonus[] | undefined,
+  artifacts?: Array<{ setId: number; setName?: string }>
+): {
+  totalBonusCr: number;
+  activeBonuses: ActiveSetCritRateBonus[];
+} {
+  if (!artifactSets) {
+    return { totalBonusCr: 0, activeBonuses: [] };
+  }
+
+  const setCounts = new Map<string, number>();
+
+  if (Array.isArray(artifactSets)) {
+    for (const b of artifactSets) {
+      if (!b) continue;
+      const count = b.count || (b.fourPieceActive ? 4 : b.twoPieceActive ? 2 : 0);
+      if (b.setId) setCounts.set(String(b.setId), Math.max(setCounts.get(String(b.setId)) || 0, count));
+      if (b.setName) setCounts.set(normalizeName(b.setName), Math.max(setCounts.get(normalizeName(b.setName)) || 0, count));
+      if (b.name) setCounts.set(normalizeName(b.name), Math.max(setCounts.get(normalizeName(b.name)) || 0, count));
+    }
+  } else {
+    for (const [key, count] of Object.entries(artifactSets)) {
+      const numCount = Number(count) || 0;
+      if (numCount <= 0) continue;
+      setCounts.set(String(key), numCount);
+
+      const numId = parseInt(key, 10);
+      if (!isNaN(numId)) {
+        const details = getArtifactSetDetails(numId);
+        if (details?.name) {
+          setCounts.set(normalizeName(details.name), numCount);
+        }
+      } else {
+        setCounts.set(normalizeName(key), numCount);
+      }
+    }
+  }
+
+  if (artifacts && artifacts.length > 0) {
+    for (const art of artifacts) {
+      if (art.setId) {
+        const idStr = String(art.setId);
+        if (!setCounts.has(idStr)) {
+          const cnt = artifacts.filter((a) => a.setId === art.setId).length;
+          setCounts.set(idStr, cnt);
+        }
+        const details = getArtifactSetDetails(art.setId, art.setName);
+        if (details?.name) {
+          const norm = normalizeName(details.name);
+          if (!setCounts.has(norm)) {
+            const cnt = artifacts.filter((a) => a.setId === art.setId).length;
+            setCounts.set(norm, cnt);
+          }
+        }
+      }
+    }
+  }
+
+  let totalBonusCr = 0;
+  const activeBonuses: ActiveSetCritRateBonus[] = [];
+  const appliedSetNames = new Set<string>();
+
+  for (const rule of SET_CRIT_RATE_BONUS_RULES) {
+    if (appliedSetNames.has(rule.name)) continue;
+
+    let matchedCount = 0;
+    if (rule.id && setCounts.has(String(rule.id))) {
+      matchedCount = Math.max(matchedCount, setCounts.get(String(rule.id)) || 0);
+    }
+    const normRuleName = normalizeName(rule.name);
+    if (setCounts.has(normRuleName)) {
+      matchedCount = Math.max(matchedCount, setCounts.get(normRuleName) || 0);
+    }
+    if (rule.aliases) {
+      for (const alias of rule.aliases) {
+        const aliasStr = typeof alias === 'number' ? String(alias) : normalizeName(alias);
+        if (setCounts.has(aliasStr)) {
+          matchedCount = Math.max(matchedCount, setCounts.get(aliasStr) || 0);
+        }
+      }
+    }
+
+    if (matchedCount >= rule.requiredPieces) {
+      totalBonusCr += rule.critRateBonus;
+      activeBonuses.push({
+        name: rule.name,
+        requiredPieces: rule.requiredPieces,
+        bonusCr: rule.critRateBonus,
+        description: rule.description,
+      });
+      appliedSetNames.add(rule.name);
+    }
+  }
+
+  return { totalBonusCr, activeBonuses };
 }

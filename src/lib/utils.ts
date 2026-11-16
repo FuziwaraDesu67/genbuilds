@@ -146,19 +146,153 @@ export function formatCompactCount(num: number): string {
   return `${(num / 1_000_000).toFixed(2).replace(/\.?0+$/, '')}m`;
 }
 
+import { getArtifactSetCritRateBonus } from './enka/artifact-set-data';
+
 /**
- * Compute authentic Akasha CV (artifact substats CV + circlet CR/CD main stat).
+ * Result structure for effective Crit Value calculation with set bonuses and 100% CR cap.
  */
-export function getEffectiveAkashaCv(character?: {
+export interface EffectiveCvResult {
+  baseCr: number;
+  setBonusCr: number;
+  effectiveCr: number;
+  effectiveSetBonusCr: number;
+  sheetCd: number;
+  rawArtifactCv: number;
+  effectiveArtifactCv: number;
+  overallCombatCv: number;
+  isCapped: boolean;
+  overcapCr: number;
+  activeBonusName?: string;
+  bonusPieces?: number;
+}
+
+/**
+ * Comprehensive calculation of Effective CV with conditional artifact set Crit Rate bonuses,
+ * strictly capped at 100% total Crit Rate.
+ */
+export function calculateEffectiveCv(character?: {
   akashaCv?: number;
   totalCv?: number;
+  effectiveCv?: number;
+  stats?: { cr?: number; cd?: number };
+  artifactSets?: Record<string | number, number>;
+  activeSetBonuses?: any[];
   artifacts?: Array<{
+    setId?: number;
+    setName?: string;
     slot: string;
     cv?: number;
     mainStat?: { key?: string; value?: number };
   }>;
-}): number {
+}): EffectiveCvResult {
+  if (!character) {
+    return {
+      baseCr: 0,
+      setBonusCr: 0,
+      effectiveCr: 0,
+      effectiveSetBonusCr: 0,
+      sheetCd: 0,
+      rawArtifactCv: 0,
+      effectiveArtifactCv: 0,
+      overallCombatCv: 0,
+      isCapped: false,
+      overcapCr: 0,
+    };
+  }
+
+  // 1. Raw Artifact CV (Substats CV + Circlet Main CV)
+  const artifacts = character.artifacts || [];
+  const substatsCv = artifacts.reduce((sum, a) => sum + (a.cv || 0), 0);
+  const circlet = artifacts.find((a) => a.slot === 'circlet');
+  let circletMainCv = 0;
+  if (circlet?.mainStat) {
+    const key = circlet.mainStat.key?.toLowerCase() || '';
+    if (key === 'cr' || key.includes('critical') || key === 'critrate') {
+      circletMainCv = (circlet.mainStat.value || 0) * 2;
+    } else if (key === 'cd' || key.includes('hurt') || key === 'critdmg') {
+      circletMainCv = circlet.mainStat.value || 0;
+    }
+  }
+
+  const rawArtifactCv =
+    artifacts.length > 0
+      ? parseFloat((substatsCv + circletMainCv).toFixed(1))
+      : character.akashaCv ?? character.totalCv ?? 0;
+
+  // 2. Base sheet stats
+  const baseCr = Math.max(0, character.stats?.cr ?? 0);
+  const sheetCd = Math.max(0, character.stats?.cd ?? 0);
+
+  // 3. Set Bonus Crit Rate
+  const { totalBonusCr, activeBonuses } = getArtifactSetCritRateBonus(
+    character.artifactSets || character.activeSetBonuses,
+    character.artifacts as any
+  );
+
+  // 4. Cap at 100% Crit Rate
+  const totalCombinedCr = baseCr + totalBonusCr;
+  const isCapped = totalCombinedCr > 100;
+  const overcapCr = isCapped ? parseFloat((totalCombinedCr - 100).toFixed(1)) : 0;
+  const effectiveCr = Math.min(100, Math.max(0, totalCombinedCr));
+
+  // The actual bonus utilized without exceeding the 100% cap
+  const effectiveSetBonusCr = Math.max(0, parseFloat((effectiveCr - Math.min(100, baseCr)).toFixed(1)));
+  const setBonusCv = parseFloat((effectiveSetBonusCr * 2).toFixed(1));
+
+  // 5. Effective Artifact CV and Overall Combat CV
+  const effectiveArtifactCv = parseFloat((rawArtifactCv + setBonusCv).toFixed(1));
+  const overallCombatCv = parseFloat(((effectiveCr * 2) + sheetCd).toFixed(1));
+
+  const primaryBonus = activeBonuses[0];
+
+  return {
+    baseCr: parseFloat(baseCr.toFixed(1)),
+    setBonusCr: parseFloat(totalBonusCr.toFixed(1)),
+    effectiveCr: parseFloat(effectiveCr.toFixed(1)),
+    effectiveSetBonusCr,
+    sheetCd: parseFloat(sheetCd.toFixed(1)),
+    rawArtifactCv,
+    effectiveArtifactCv,
+    overallCombatCv,
+    isCapped,
+    overcapCr,
+    activeBonusName: primaryBonus?.name,
+    bonusPieces: primaryBonus?.requiredPieces,
+  };
+}
+
+/**
+ * Compute authentic Akasha CV (artifact substats CV + circlet CR/CD main stat).
+ * Supports optional inclusion of artifact set Crit Rate bonus (capped at 100% CR).
+ */
+export function getEffectiveAkashaCv(
+  character?: {
+    akashaCv?: number;
+    totalCv?: number;
+    effectiveCv?: number;
+    stats?: { cr?: number; cd?: number };
+    artifactSets?: Record<string | number, number>;
+    activeSetBonuses?: any[];
+    artifacts?: Array<{
+      setId?: number;
+      setName?: string;
+      slot: string;
+      cv?: number;
+      mainStat?: { key?: string; value?: number };
+    }>;
+  },
+  options: { includeSetBonus?: boolean } = { includeSetBonus: true }
+): number {
   if (!character) return 0;
+
+  if (options.includeSetBonus) {
+    if (character.effectiveCv !== undefined) {
+      return character.effectiveCv;
+    }
+    const result = calculateEffectiveCv(character);
+    return result.effectiveArtifactCv;
+  }
+
   if (character.akashaCv !== undefined) return character.akashaCv;
   const artifacts = character.artifacts || [];
   const substatsCv = artifacts.reduce((sum, a) => sum + (a.cv || 0), 0);

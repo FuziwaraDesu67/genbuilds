@@ -331,6 +331,10 @@ export interface Character {
   activeSetBonuses?: ActiveSetBonus[];
   totalCv?: number;
   akashaCv?: number;
+  effectiveCv?: number;
+  setBonusCr?: number;
+  setBonusCv?: number;
+  isCvCapped?: boolean;
   qualityBadge?: QualityBadge;
   damageCalc?: any;
   akasha?: AkashaCharacterData;

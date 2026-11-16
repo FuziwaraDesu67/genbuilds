@@ -1110,12 +1110,20 @@ export default function AkashaShowcaseCard({
 
             {/* Total Crit Value Badge */}
             <div
-              className="text-right pt-2 border-t"
+              className="text-right pt-2 border-t flex items-center justify-end gap-1.5"
               style={{ borderColor: elementTheme.divider }}
             >
               <span className="text-xs text-amber-400 font-bold tracking-tight font-mono">
                 {formattedCv}
               </span>
+              {character.setBonusCr ? (
+                <span
+                  className="text-[10px] px-1 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono"
+                  title={`${character.isCvCapped ? 'Capped at 100% CR' : 'Set Bonus'}: +${character.setBonusCr}% CR (+${character.setBonusCv || 0} CV)`}
+                >
+                  +{character.setBonusCr}%
+                </span>
+              ) : null}
             </div>
           </div>
         </div>
