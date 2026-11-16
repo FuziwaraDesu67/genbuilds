@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { EnkaResponseSchema, UIDSchema, EnkaError, EnkaErrorCodes, type EnkaData } from './types';
 import { parseEnkaResponse } from './parser';
+import { getChascaBenchmarkEnkaData, isChascaBenchmarkUid } from '../akasha/chasca-benchmarks';
 import varesaFixture from '../../../tests/fixtures/varesa-1813164100.json';
 import showcase855842984Fixture from '../../../tests/fixtures/showcase-855842984.json';
 
@@ -8,6 +9,8 @@ const ENKA_BASE_URL = 'https://enka.network/api/uid';
 
 /** Canonical demo UID for Addy (C1 Varesa) featured on the home page */
 export const DEMO_FALLBACK_UID = '1813164100';
+
+export { getChascaBenchmarkEnkaData, isChascaBenchmarkUid };
 
 /**
  * Parses and returns deterministic mock data for UID 1813164100.
@@ -36,6 +39,12 @@ export class EnkaClient {
   async fetchPlayerData(uid: string): Promise<EnkaData> {
     // Validate UID
     const validatedUid = UIDSchema.parse(uid);
+
+    // Direct resolution for Chasca benchmark showcase profiles
+    if (isChascaBenchmarkUid(validatedUid)) {
+      const benchmarkData = getChascaBenchmarkEnkaData(validatedUid);
+      if (benchmarkData) return benchmarkData;
+    }
 
     // Fast deterministic bypass in test/offline environments for demo UIDs
     const isTestOrOffline =

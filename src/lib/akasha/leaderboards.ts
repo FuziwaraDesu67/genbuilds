@@ -232,13 +232,13 @@ export async function getLeaderboardCharactersSummary(): Promise<LeaderboardChar
 
     const isChasca = id === 10000104;
     const chascaWeapons: AkashaCategoryWeaponOption[] = isChasca ? [
-      { calculationId: '10000104-15514', name: "Astral Vulture's Crimson Plumage", icon: 'UI_EquipIcon_Bow_FearsomeFeather', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
-      { calculationId: '10000104-15512', name: 'The First Great Magic', icon: 'UI_EquipIcon_Bow_Pledge', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
-      { calculationId: '10000104-15509', name: 'Aqua Simulacra', icon: 'UI_EquipIcon_Bow_Kirin', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
-      { calculationId: '10000104-15424', name: 'Scion of the Blazing Sun', icon: 'UI_EquipIcon_Bow_Sunfrost', refinement: 5, rarity: 4, substat: 'CRIT Rate' },
-      { calculationId: '10000104-15427', name: 'Chain Breaker', icon: 'UI_EquipIcon_Bow_Isikhulu', refinement: 5, rarity: 4, substat: 'ATK' },
-      { calculationId: '10000104-15502', name: "Amos' Bow", icon: 'UI_EquipIcon_Bow_Amos', refinement: 1, rarity: 5, substat: 'ATK' },
-      { calculationId: '10000104-15501', name: 'Skyward Harp', icon: 'UI_EquipIcon_Bow_Dvalin', refinement: 1, rarity: 5, substat: 'CRIT Rate' },
+      { calculationId: '10000104-15514', name: "Astral Vulture's Crimson Plumage", icon: 'https://enka.network/ui/UI_EquipIcon_Bow_Qoyllorsnova.png', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
+      { calculationId: '10000104-15512', name: 'The First Great Magic', icon: 'https://enka.network/ui/UI_EquipIcon_Bow_Pledge.png', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
+      { calculationId: '10000104-15509', name: 'Aqua Simulacra', icon: 'https://enka.network/ui/UI_EquipIcon_Bow_Kirin.png', refinement: 1, rarity: 5, substat: 'CRIT DMG' },
+      { calculationId: '10000104-15424', name: 'Scion of the Blazing Sun', icon: 'https://enka.network/ui/UI_EquipIcon_Bow_Gurabad.png', refinement: 5, rarity: 4, substat: 'CRIT Rate' },
+      { calculationId: '10000104-15427', name: 'Chain Breaker', icon: 'https://enka.network/ui/UI_EquipIcon_Bow_Isikhulu.png', refinement: 5, rarity: 4, substat: 'ATK' },
+      { calculationId: '10000104-15502', name: "Amos' Bow", icon: 'https://enka.network/ui/UI_EquipIcon_Bow_Amos.png', refinement: 1, rarity: 5, substat: 'ATK' },
+      { calculationId: '10000104-15501', name: 'Skyward Harp', icon: 'https://enka.network/ui/UI_EquipIcon_Bow_Dvalin.png', refinement: 1, rarity: 5, substat: 'CRIT Rate' },
     ] : [];
 
     byChar.set(id, {

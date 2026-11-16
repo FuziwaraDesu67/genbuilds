@@ -142,7 +142,7 @@ describe('KeqingMains (KQM) Official Damage Formula Suite', () => {
       constellation: 1,
       element: 'Pyro',
       icon: 'https://enka.network/ui/UI_AvatarIcon_Hutao.png',
-      friendship: 10,
+      friendshipLevel: 10,
       weapon: {
         id: 11510,
         name: 'Staff of Homa',
@@ -155,6 +155,7 @@ describe('KeqingMains (KQM) Official Damage Formula Suite', () => {
       },
       talents: { normal: 10, skill: 10, burst: 10 },
       artifacts: [],
+      artifactSets: {},
       stats: {
         hp: 34500,
         atk: 2950,
@@ -175,7 +176,7 @@ describe('KeqingMains (KQM) Official Damage Formula Suite', () => {
       constellation: 1,
       element: 'Hydro',
       icon: 'https://enka.network/ui/UI_AvatarIcon_Neuvillette.png',
-      friendship: 10,
+      friendshipLevel: 10,
       weapon: {
         id: 14511,
         name: 'Tome of the Eternal Flow',
@@ -188,6 +189,7 @@ describe('KeqingMains (KQM) Official Damage Formula Suite', () => {
       },
       talents: { normal: 10, skill: 10, burst: 10 },
       artifacts: [],
+      artifactSets: {},
       stats: {
         hp: 41200,
         atk: 1150,
@@ -234,10 +236,11 @@ describe('KeqingMains (KQM) Official Damage Formula Suite', () => {
         constellation: 0,
         element: 'Electro',
         icon: '',
-        friendship: 1,
+        friendshipLevel: 1,
         weapon: { id: 1, name: 'Weapon', rarity: 4, level: 90, ascension: 6, refinement: 1, baseAtk: 510, icon: '' },
         talents: { normal: 8, skill: 8, burst: 8 },
         artifacts: [],
+        artifactSets: {},
         stats: {
           hp: 18000,
           atk: 2200,

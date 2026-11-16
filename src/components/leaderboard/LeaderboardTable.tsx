@@ -75,6 +75,14 @@ const PODIUM_GLOW_MAP: Record<number, { hsl: string; colors: string[] }> = {
   3: { hsl: '28 85 55', colors: ['#fb923c', '#ea580c', '#fdba74'] },
 };
 
+function getValidIconUrl(icon?: string): string {
+  if (!icon) return '';
+  if (icon.startsWith('http://') || icon.startsWith('https://') || icon.startsWith('/')) {
+    return icon;
+  }
+  return `https://enka.network/ui/${icon}.png`;
+}
+
 function LeaderboardRow({ entry }: { entry: LeaderboardRowItem }) {
   const { build, player, rank, percentile } = entry;
   const character = getCharacterData(build.avatarId);
@@ -155,7 +163,7 @@ function LeaderboardRow({ entry }: { entry: LeaderboardRowItem }) {
         {build.weaponIcon && (
           <div className="flex items-center gap-2 bg-black/35 border border-white/10 rounded-lg px-2 py-1">
             <img
-              src={build.weaponIcon}
+              src={getValidIconUrl(build.weaponIcon)}
               alt={resolveWeaponName(build.weaponId, build.weaponName)}
               className="w-7 h-7 object-contain"
             />
@@ -178,7 +186,7 @@ function LeaderboardRow({ entry }: { entry: LeaderboardRowItem }) {
                 className="relative w-8 h-8 rounded-md bg-black/45 border border-white/10 p-0.5"
                 title={`${s.name} (${s.count}pc)`}
               >
-                <img src={s.icon} alt={s.name} className="w-full h-full object-contain" />
+                <img src={getValidIconUrl(s.icon)} alt={s.name} className="w-full h-full object-contain" />
                 <span className="absolute -bottom-1 -right-1 px-1 rounded bg-zinc-900 border border-white/20 text-[9px] font-bold text-emerald-300">
                   {s.count}
                 </span>

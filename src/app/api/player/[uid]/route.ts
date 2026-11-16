@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { enkaClient, getVaresaMockData, getShowcase855842984Data, DEMO_FALLBACK_UID } from '@/lib/enka';
+import {
+  enkaClient,
+  getVaresaMockData,
+  getShowcase855842984Data,
+  getChascaBenchmarkEnkaData,
+  isChascaBenchmarkUid,
+  DEMO_FALLBACK_UID,
+} from '@/lib/enka';
 import {
   getCachedEnkaResponse,
   cacheEnkaResponse,
@@ -22,8 +29,8 @@ export async function GET(
   const uid = params.uid;
 
   try {
-    // Rate limiting (exempt demo UID 1813164100)
-    if (uid !== DEMO_FALLBACK_UID) {
+    // Rate limiting (exempt demo UID 1813164100 and benchmark showcase UIDs)
+    if (uid !== DEMO_FALLBACK_UID && !isChascaBenchmarkUid(uid)) {
       const ip = getClientIP(request.headers);
       const rateLimit = await checkRateLimit(ip);
 

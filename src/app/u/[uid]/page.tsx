@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import ProfileClient from '@/components/profile/ProfileClient';
 import { UIDSchema, type EnkaData } from '@/lib/enka/types';
-import { enkaClient, DEMO_FALLBACK_UID } from '@/lib/enka';
+import { enkaClient, DEMO_FALLBACK_UID, isChascaBenchmarkUid } from '@/lib/enka';
 import { enrichEnkaWithAkasha } from '@/lib/akasha/client';
 
 interface ProfilePageProps {
@@ -27,10 +27,10 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     notFound();
   }
 
-  // Pre-fetch initial data during SSR for featured showcase UIDs
+  // Pre-fetch initial data during SSR for featured showcase UIDs and benchmark profiles
   // to ensure server HTML contains complete build card markup immediately
   let initialData: EnkaData | undefined;
-  if (params.uid === DEMO_FALLBACK_UID || params.uid === '855842984') {
+  if (params.uid === DEMO_FALLBACK_UID || params.uid === '855842984' || isChascaBenchmarkUid(params.uid)) {
     try {
       const fetched = await enkaClient.fetchPlayerData(params.uid);
       initialData = await enrichEnkaWithAkasha(fetched);
