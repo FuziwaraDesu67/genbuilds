@@ -42,6 +42,14 @@ export async function GET(
       }
     }
 
+    // Direct instant resolution for Chasca benchmark showcase UIDs
+    if (isChascaBenchmarkUid(uid)) {
+      const benchmarkData = getChascaBenchmarkEnkaData(uid);
+      if (benchmarkData) {
+        return NextResponse.json({ ...benchmarkData, fromCache: false, fromBenchmark: true });
+      }
+    }
+
     // Check cache first (and heal any stale "Weapon <id>" placeholders from newly registered weapons)
     const cached = (await getCachedEnkaResponse(uid)) as EnkaData | null;
     if (cached) {

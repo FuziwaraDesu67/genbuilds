@@ -97,4 +97,22 @@ describe('Chasca Benchmark Profiles & Showcase Verification', () => {
       expect(result.characters[0].name).toBe('Chasca');
     }
   });
+
+  it('/api/player/[uid] returns 200 with full Chasca showcase data for benchmark UIDs', async () => {
+    const { GET } = await import('@/app/api/player/[uid]/route');
+    const { NextRequest } = await import('next/server');
+
+    for (const uid of ['859302914', '702914820', '601839201']) {
+      const req = new NextRequest(`http://localhost:3000/api/player/${uid}`);
+      const res = await GET(req, { params: { uid } });
+      expect(res.status).toBe(200);
+
+      const json = await res.json();
+      expect(json.player.uid).toBe(uid);
+      expect(json.characters.length).toBeGreaterThanOrEqual(1);
+      expect(json.characters[0].name).toBe('Chasca');
+      expect(json.characters[0].artifacts.length).toBe(5);
+      expect(json.characters[0].weapon.name).toBeDefined();
+    }
+  });
 });
