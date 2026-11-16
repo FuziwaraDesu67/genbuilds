@@ -1400,3 +1400,43 @@ export function resolveWeaponName(weaponId: number, currentName?: string): strin
   }
   return WEAPON_DATA[weaponId]?.name || trimmed || `Weapon ${weaponId}`;
 }
+
+const KNOWN_WEAPON_ICONS: Record<number, string> = {
+  // Bows
+  15514: 'https://enka.network/ui/UI_EquipIcon_Bow_Qoyllorsnova.png',
+  15509: 'https://enka.network/ui/UI_EquipIcon_Bow_Kirin.png',
+  15508: 'https://enka.network/ui/UI_EquipIcon_Bow_Kirin.png',
+  15512: 'https://enka.network/ui/UI_EquipIcon_Bow_Pledge.png',
+  15424: 'https://enka.network/ui/UI_EquipIcon_Bow_Gurabad.png',
+  15427: 'https://enka.network/ui/UI_EquipIcon_Bow_Mechanic.png',
+  15431: 'https://enka.network/ui/UI_EquipIcon_Bow_Isikhulu.png',
+  15428: 'https://enka.network/ui/UI_EquipIcon_Bow_Isikhulu.png',
+  15501: 'https://enka.network/ui/UI_EquipIcon_Bow_Dvalin.png',
+  15502: 'https://enka.network/ui/UI_EquipIcon_Bow_Amos.png',
+  15402: 'https://enka.network/ui/UI_EquipIcon_Bow_Troupe.png',
+  15301: 'https://enka.network/ui/UI_EquipIcon_Bow_Crowfeather.png',
+  15507: 'https://enka.network/ui/UI_EquipIcon_Bow_Narukami.png',
+  15506: 'https://enka.network/ui/UI_EquipIcon_Bow_Worldbane.png',
+  15503: 'https://enka.network/ui/UI_EquipIcon_Bow_Widsith.png',
+  // Polearms
+  11510: 'https://enka.network/ui/UI_EquipIcon_Pole_Homa.png',
+  13415: 'https://enka.network/ui/UI_EquipIcon_Pole_Pauper.png',
+  13511: 'https://enka.network/ui/UI_EquipIcon_Pole_BloodMoon.png',
+  // Swords
+  11517: 'https://enka.network/ui/UI_EquipIcon_Sword_Pleroma.png',
+  11520: 'https://enka.network/ui/UI_EquipIcon_Sword_Pleroma.png',
+  11515: 'https://enka.network/ui/UI_EquipIcon_Sword_Regalis.png',
+  // Claymores
+  12513: 'https://enka.network/ui/UI_EquipIcon_Claymore_GoldenVerdict.png',
+  12515: 'https://enka.network/ui/UI_EquipIcon_Claymore_Spikewhelk.png',
+  12514: 'https://enka.network/ui/UI_EquipIcon_Claymore_Chakram.png',
+  // Catalysts
+  14515: 'https://enka.network/ui/UI_EquipIcon_Catalyst_MechaPufferfish.png',
+  14522: 'https://enka.network/ui/UI_EquipIcon_Catalyst_MechaPufferfish.png',
+  14511: 'https://enka.network/ui/UI_EquipIcon_Catalyst_Wheatley.png',
+};
+
+export function getWeaponIconUrl(weaponId?: number): string {
+  if (!weaponId) return '';
+  return KNOWN_WEAPON_ICONS[weaponId] || '';
+}

@@ -6,6 +6,8 @@ import {
 } from '@/lib/akasha/leaderboards';
 import { calculateEffectiveCv } from '@/lib/utils';
 import { CHASCA_BENCHMARK_BUILDS } from '@/lib/akasha/chasca-benchmarks';
+import { resolveWeaponName, getWeaponIconUrl } from '@/lib/enka/weapon-data';
+import { ARTIFACT_SET_DATA } from '@/lib/enka/artifact-set-data';
 import { z } from 'zod';
 
 const querySchema = z.object({
@@ -181,11 +183,64 @@ export async function GET(
               },
             };
 
+            const rBuild = (row.build || {}) as any;
             const existingIdx = combined.findIndex((b) => b.uid === rowUid);
             if (existingIdx >= 0) {
-              combined[existingIdx] = enriched;
+              const baseBm = combined[existingIdx];
+              combined[existingIdx] = {
+                ...row,
+                uid: rowUid,
+                player: {
+                  ...baseBm.player,
+                  ...row.player,
+                },
+                build: {
+                  ...baseBm.build,
+                  ...rBuild,
+                  weapon: baseBm.build?.weapon || rBuild?.weapon,
+                  weaponId: baseBm.build?.weaponId || rBuild?.weaponId,
+                  weaponName: baseBm.build?.weaponName || resolveWeaponName(rBuild?.weaponId),
+                  weaponIcon: baseBm.build?.weaponIcon || getWeaponIconUrl(rBuild?.weaponId),
+                  refinement: baseBm.build?.refinement || rBuild?.refinement || 1,
+                  artifactSets: baseBm.build?.artifactSets || rBuild?.artifactSets,
+                  artifactSetList: baseBm.build?.artifactSetList || rBuild?.artifactSetList,
+                  critValue: baseBm.build?.critValue || rBuild?.critValue,
+                  effectiveCv: effResult.effectiveArtifactCv,
+                  overallCombatCv: effResult.overallCombatCv,
+                  setBonusCr: effResult.effectiveSetBonusCr,
+                  setBonusName: effResult.activeBonusName,
+                  isCvCapped: effResult.isCapped,
+                },
+              };
             } else {
-              combined.push(enriched);
+              const wId = rBuild?.weaponId;
+              const wName = resolveWeaponName(wId, rBuild?.weaponName);
+              const wIcon = rBuild?.weaponIcon || getWeaponIconUrl(wId);
+              const artSets = rBuild?.artifactSets || {};
+              const artList =
+                Array.isArray(rBuild?.artifactSetList) && rBuild.artifactSetList.length > 0
+                  ? rBuild.artifactSetList
+                  : Object.entries(artSets).map(([setId, count]) => {
+                      const numId = parseInt(setId);
+                      const def = !isNaN(numId) ? ARTIFACT_SET_DATA[numId] : null;
+                      return {
+                        name: def?.name || `Set ${setId}`,
+                        icon: `https://enka.network/ui/UI_RelicIcon_${setId}_4.png`,
+                        count: Number(count),
+                      };
+                    });
+
+              combined.push({
+                ...enriched,
+                build: {
+                  ...enriched.build,
+                  weaponId: wId,
+                  weaponName: wName,
+                  weaponIcon: wIcon,
+                  artifactSetList: artList,
+                  critValue: rBuild?.critValue || parseFloat(((cr * 2) + cd).toFixed(1)),
+                },
+              });
             }
           }
         } catch {
@@ -276,10 +331,31 @@ export async function GET(
           artifactSets,
         });
 
+        const wId = row.build?.weaponId;
+        const wName = resolveWeaponName(wId, row.build?.weaponName);
+        const wIcon = row.build?.weaponIcon || getWeaponIconUrl(wId);
+        const artList =
+          Array.isArray(row.build?.artifactSetList) && row.build.artifactSetList.length > 0
+            ? row.build.artifactSetList
+            : Object.entries(artifactSets).map(([setId, count]) => {
+                const numId = parseInt(setId);
+                const def = !isNaN(numId) ? ARTIFACT_SET_DATA[numId] : null;
+                return {
+                  name: def?.name || `Set ${setId}`,
+                  icon: `https://enka.network/ui/UI_RelicIcon_${setId}_4.png`,
+                  count: Number(count),
+                };
+              });
+
         return {
           ...row,
           build: {
             ...row.build,
+            weaponId: wId,
+            weaponName: wName,
+            weaponIcon: wIcon,
+            artifactSetList: artList,
+            critValue: (row.build as any)?.critValue || parseFloat(((cr * 2) + cd).toFixed(1)),
             effectiveCv: effResult.effectiveArtifactCv,
             overallCombatCv: effResult.overallCombatCv,
             setBonusCr: effResult.effectiveSetBonusCr,
