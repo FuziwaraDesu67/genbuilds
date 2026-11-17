@@ -38,6 +38,27 @@ interface AuthContextType {
   refresh: () => Promise<void>;
 }
 
+const FAVORITES_STORAGE_KEY = 'genbuilds_user_favorites';
+
+function loadStoredFavorites(): UserFavorite[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(FAVORITES_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveStoredFavorites(items: UserFavorite[]) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(items));
+  } catch {}
+}
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -46,20 +67,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  // Load stored local favorites immediately on client mount
+  useEffect(() => {
+    const stored = loadStoredFavorites();
+    if (stored.length > 0) {
+      setFavorites(stored);
+    }
+  }, []);
+
   const fetchCurrentUser = useCallback(async () => {
     try {
       const res = await fetch('/api/auth/me');
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
-        setFavorites(data.favorites || []);
+        const serverFavs: UserFavorite[] = data.favorites || [];
+        const localFavs = loadStoredFavorites();
+
+        // Merge server and local favorites without duplicating targetUid
+        const mergedMap = new Map<string, UserFavorite>();
+        for (const f of localFavs) {
+          mergedMap.set(f.targetUid, f);
+        }
+        for (const f of serverFavs) {
+          mergedMap.set(f.targetUid, f);
+        }
+        const merged = Array.from(mergedMap.values());
+        setFavorites(merged);
+        saveStoredFavorites(merged);
       } else {
         setUser(null);
-        setFavorites([]);
+        // Do not wipe favorites on 401; keep locally saved favorites
+        const localFavs = loadStoredFavorites();
+        setFavorites(localFavs);
       }
     } catch {
       setUser(null);
-      setFavorites([]);
+      const localFavs = loadStoredFavorites();
+      setFavorites(localFavs);
     } finally {
       setLoading(false);
     }
@@ -114,7 +159,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await fetch('/api/auth/logout', { method: 'POST' });
     } finally {
       setUser(null);
-      setFavorites([]);
+      // Keep favorites in local storage so user doesn't lose bookmarked profiles
     }
   };
 
@@ -151,30 +196,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const toggleFavorite = async (targetUid: string, targetNickname?: string, targetAvatarUrl?: string): Promise<boolean> => {
-    if (!user) {
-      setIsModalOpen(true);
-      return false;
+    // Instant zero-barrier toggle: works for guests and logged-in users alike
+    const currentlyFav = favorites.some((f) => f.targetUid === targetUid);
+    const willBeFavorited = !currentlyFav;
+
+    let updated: UserFavorite[];
+    if (currentlyFav) {
+      updated = favorites.filter((f) => f.targetUid !== targetUid);
+    } else {
+      const newFav: UserFavorite = {
+        id: Date.now(),
+        userId: user?.id || 'guest',
+        targetUid,
+        targetNickname: targetNickname || null,
+        targetAvatarUrl: targetAvatarUrl || null,
+        createdAt: new Date().toISOString(),
+      };
+      updated = [newFav, ...favorites.filter((f) => f.targetUid !== targetUid)];
     }
 
-    try {
-      const res = await fetch('/api/auth/favorites', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ targetUid, targetNickname, targetAvatarUrl }),
-      });
-      const data = await res.json();
-      if (res.ok && data.favorites) {
-        setFavorites(data.favorites);
-        return data.favorited;
-      }
-      return false;
-    } catch {
-      return false;
+    setFavorites(updated);
+    saveStoredFavorites(updated);
+
+    // If authenticated, sync with backend database asynchronously in background
+    if (user) {
+      try {
+        fetch('/api/auth/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ targetUid, targetNickname, targetAvatarUrl }),
+        }).catch(() => {});
+      } catch {}
     }
+
+    return willBeFavorited;
   };
 
   const isFavorited = (uid: string) => {
-    return favorites.some(f => f.targetUid === uid);
+    return favorites.some((f) => f.targetUid === uid);
   };
 
   return (

@@ -15,6 +15,7 @@ import type { EnkaData, Character } from '@/lib/enka/types';
 import { getNameCardUrl } from '@/lib/enka/namecard-data';
 import { resolveWeaponName } from '@/lib/enka/weapon-data';
 import AkashaShowcaseCard from '@/components/character/AkashaShowcaseCard';
+import RecentProfilesBar from '@/components/profile/RecentProfilesBar';
 import CountUp from '@/components/CountUp/CountUp';
 import TiltedCard from '@/components/TiltedCard/TiltedCard';
 import ShinyText from '@/components/ShinyText/ShinyText';
@@ -364,7 +365,28 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
         <div className="flex items-center gap-2">
           <span>{updatedLabel}</span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          {/* GitHub Profile Button */}
+          <a
+            href="https://github.com/FuziwaraDesu67"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white transition font-medium border border-zinc-700/80 shadow-sm group active:scale-95 cursor-pointer"
+            title="Developer GitHub: FuziwaraDesu67"
+          >
+            <svg
+              className="w-3.5 h-3.5 fill-current text-zinc-400 group-hover:text-emerald-400 transition-colors"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              />
+            </svg>
+            <span>GitHub</span>
+          </a>
+
           {ttl > 0 ? (
             <span className="text-zinc-400">
               Refresh available in <strong className="text-cyan-400">{getTimeUntilRefresh(ttl)}</strong>
@@ -380,6 +402,13 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
           )}
         </div>
       </div>
+
+      {/* ── Recent History Profiles Tabs (Matches user PNG) ─────────────── */}
+      <RecentProfilesBar
+        currentUid={data.player.uid}
+        currentNickname={data.player.nickname}
+        currentAvatar={data.player.profilePicture}
+      />
 
       {/* ── Player Profile Header Banner with Namecard Artwork ───────────── */}
       <div className="relative rounded-2xl p-5 md:p-6 bg-[#12141c] border border-zinc-800/90 overflow-hidden shadow-lg">
@@ -447,19 +476,19 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                   </span>
                 )}
 
-                {/* Bookmark Favorite Button */}
+                {/* Bookmark Favorite Button (Matches media_1794936772597_89e822e0.png) */}
                 <button
                   type="button"
                   onClick={() => toggleFavorite(data.player.uid, data.player.nickname, data.player.profilePicture)}
                   className={cn(
-                    "ml-1 px-2.5 py-1 rounded-xl border transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer active:scale-95",
+                    "ml-1 px-3 py-1 rounded-full border transition-all flex items-center gap-1.5 text-xs font-semibold cursor-pointer active:scale-95 shadow-sm",
                     isFavorited(data.player.uid)
-                      ? "bg-amber-400/20 text-amber-300 border-amber-400/40 hover:bg-amber-400/30 shadow-md shadow-amber-400/10"
-                      : "bg-black/50 text-zinc-300 border-white/10 hover:text-white hover:bg-white/10"
+                      ? "bg-[#714f12]/75 text-amber-300 border-amber-400/60 hover:bg-[#855e1a]/80 shadow-amber-500/10"
+                      : "bg-black/50 text-zinc-300 border-white/15 hover:text-white hover:bg-white/10 hover:border-amber-400/40"
                   )}
-                  title={isFavorited(data.player.uid) ? "Saved in your Watchlist" : "Bookmark to your Watchlist"}
+                  title={isFavorited(data.player.uid) ? "Saved in your Watchlist (Click to remove)" : "Bookmark to your Watchlist (Click to save)"}
                 >
-                  <Star className={cn("w-3.5 h-3.5", isFavorited(data.player.uid) ? "text-amber-400 fill-amber-400" : "text-zinc-400")} />
+                  <Star className={cn("w-3.5 h-3.5 transition-colors", isFavorited(data.player.uid) ? "text-amber-400 fill-amber-400" : "text-zinc-400")} />
                   <span>{isFavorited(data.player.uid) ? "Favorited" : "Save"}</span>
                 </button>
               </div>
