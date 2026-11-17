@@ -40,6 +40,7 @@ import {
   Layers,
   Crown,
   CheckCircle2,
+  Search,
 } from 'lucide-react';
 
 const ELEMENT_THEMES: Record<string, {
@@ -100,6 +101,52 @@ const ELEMENT_THEMES: Record<string, {
   },
 };
 
+function getDenseKeyStats(char: Character): Array<{ label: string; value: string }> {
+  const stats: Array<{ label: string; value: string }> = [];
+  const elem = (char.element || '').toLowerCase();
+  const elemDmg = char.stats?.dmgBonus?.[elem] || 0;
+
+  // Stat 1: Elemental DMG bonus or HP
+  if (elemDmg > 0) {
+    const elemLabel = char.element.toUpperCase().slice(0, 4);
+    stats.push({ label: elemLabel, value: `${elemDmg.toFixed(1)}%` });
+  } else if (char.stats?.hp > 0) {
+    stats.push({ label: 'HP', value: Math.round(char.stats.hp).toLocaleString() });
+  }
+
+  // Stat 2: ATK or HP
+  if (elemDmg > 0 && char.stats?.hp > 0 && stats.length === 1) {
+    if (char.stats?.atk > 0 && char.stats.atk < 3500) {
+      stats.push({ label: 'ATK', value: Math.round(char.stats.atk).toLocaleString() });
+    } else {
+      stats.push({ label: 'HP', value: Math.round(char.stats.hp).toLocaleString() });
+    }
+  } else if (char.stats?.atk > 0) {
+    stats.push({ label: 'ATK', value: Math.round(char.stats.atk).toLocaleString() });
+  }
+
+  // Stat 3: EM / DEF / HEAL
+  if (char.stats?.healingBonus && char.stats.healingBonus > 0) {
+    stats.push({ label: 'HEAL', value: `${char.stats.healingBonus.toFixed(1)}%` });
+  } else if (char.stats?.def && char.stats.def > 1200) {
+    stats.push({ label: 'DEF', value: Math.round(char.stats.def).toLocaleString() });
+  } else if (char.stats?.em !== undefined) {
+    stats.push({ label: 'EM', value: Math.round(char.stats.em).toString() });
+  } else if (char.stats?.def !== undefined) {
+    stats.push({ label: 'DEF', value: Math.round(char.stats.def).toLocaleString() });
+  }
+
+  // Stat 4: ER
+  if (char.stats?.er !== undefined) {
+    stats.push({ label: 'ER', value: `${char.stats.er.toFixed(1)}%` });
+  }
+
+  while (stats.length < 4) {
+    stats.push({ label: '—', value: '—' });
+  }
+  return stats.slice(0, 4);
+}
+
 interface ProfileClientProps {
   uid: string;
   initialData?: EnkaData;
@@ -116,6 +163,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
   );
   const [isFilterCollapsed, setIsFilterCollapsed] = useState(false);
   const [selectedElementFilter, setSelectedElementFilter] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const { setElement } = useBackground();
   const { user, isFavorited, toggleFavorite } = useAuth();
 
@@ -790,8 +838,19 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                 </span>
               </div>
 
-              {/* Interactive Element Filter Bar */}
-              <div className="flex items-center gap-1.5 flex-wrap">
+              {/* Interactive Element Filter Bar & Search */}
+              <div className="flex items-center gap-2 flex-wrap">
+                <div className="relative">
+                  <Search className="w-3.5 h-3.5 text-[#65625d] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    placeholder="Search characters…"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-36 sm:w-44 pl-8 pr-3 py-1 text-xs rounded-full bg-[#1c1c1f] text-[#ece9e2] placeholder-[#65625d] border border-[#2b2b30] focus:outline-none focus:border-[#c9a66b] transition font-sans"
+                  />
+                </div>
+
                 {elementsList.map((elem) => {
                   const isAll = elem === 'All';
                   const count = isAll ? data.characters.length : elementCounts[elem] || 0;
@@ -864,37 +923,64 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
         ) : (
           <>
             {!isFilterCollapsed && (() => {
-              const filteredCharacters = (data.characters || []).filter((char) => {
-                if (selectedElementFilter === 'All') return true;
-                return char.element.toLowerCase() === selectedElementFilter.toLowerCase();
-              });
+              const filteredCharacters = (data.characters || [])
+                .filter((char) => {
+                  const matchesElement =
+                    selectedElementFilter === 'All' ||
+                    char.element.toLowerCase() === selectedElementFilter.toLowerCase();
+                  const matchesSearch =
+                    !searchQuery.trim() ||
+                    char.name.toLowerCase().includes(searchQuery.toLowerCase().trim());
+                  return matchesElement && matchesSearch;
+                })
+                .sort((a, b) => getEffectiveAkashaCv(b) - getEffectiveAkashaCv(a));
 
               return (
-                <div className="rounded-[14px] overflow-hidden border border-[#2b2b30] bg-[#111113] shadow-2xl">
+                <div className="rounded-[14px] overflow-hidden border border-[#232328] bg-[#16161a] shadow-2xl">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm text-[#ece9e2]">
-                      <thead className="bg-[#141417] text-[#65625d] uppercase text-[11px] tracking-[1px] font-semibold border-b border-[#2b2b30] select-none">
+                      <thead className="bg-[#1e1e22] text-[#8e8a84] text-[12px] font-medium border-b border-[#232328] select-none">
                         <tr>
-                          <th className="py-3 px-2 md:px-3 w-8 md:w-10 text-center font-mono">#</th>
-                          <th className="py-3 px-2.5 md:px-3">CHARACTER</th>
-                          <th className="py-3 px-1.5 md:px-2 w-12 md:w-14 text-center">CONST.</th>
-                          <th className="py-3 px-2.5 md:px-3">WEAPON</th>
-                          <th className="py-3 px-2.5 md:px-3">SETS</th>
-                          <th className="py-3 px-2.5 md:px-3">CRIT VALUE</th>
-                          <th className="py-3 px-2.5 md:px-4 text-right">ELEM. DMG</th>
+                          <th className="py-2.5 px-3 w-12 text-center text-[#65625d] font-mono text-[12px]">#</th>
+                          <th className="py-2.5 px-3 w-48 text-[#8e8a84]">Name</th>
+                          <th className="py-2.5 px-2 w-16 text-center text-[#8e8a84]">Const</th>
+                          <th className="py-2.5 px-3 w-20 text-[#8e8a84]">Weapon</th>
+                          <th className="py-2.5 px-3 w-20 text-[#8e8a84]">Sets</th>
+                          <th className="py-2.5 px-3 min-w-[280px]">
+                            <span className="text-[#8e8a84]">Crit Value </span>
+                            <span className="text-[#c9a66b]">↓</span>
+                          </th>
+                          <th className="py-2.5 px-4 min-w-[380px] text-[#8e8a84]">Key stats</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-[#232328]">
                         {filteredCharacters.length === 0 ? (
                           <tr>
                             <td colSpan={7} className="py-12 text-center text-[#8e8a84] font-sans">
-                              No {selectedElementFilter} characters found in showcase.
-                              <button
-                                onClick={() => setSelectedElementFilter('All')}
-                                className="ml-2 text-xs text-[#c9a66b] hover:underline font-mono"
-                              >
-                                View all ({data.characters.length})
-                              </button>
+                              {searchQuery.trim() ? (
+                                <>
+                                  No characters matching &ldquo;{searchQuery}&rdquo; in showcase.
+                                  <button
+                                    onClick={() => {
+                                      setSearchQuery('');
+                                      setSelectedElementFilter('All');
+                                    }}
+                                    className="ml-2 text-xs text-[#c9a66b] hover:underline font-mono"
+                                  >
+                                    Clear filters ({data.characters.length})
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  No {selectedElementFilter} characters found in showcase.
+                                  <button
+                                    onClick={() => setSelectedElementFilter('All')}
+                                    className="ml-2 text-xs text-[#c9a66b] hover:underline font-mono"
+                                  >
+                                    View all ({data.characters.length})
+                                  </button>
+                                </>
+                              )}
                             </td>
                           </tr>
                         ) : (
@@ -904,9 +990,6 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                             const formattedCharCv = (Math.abs(charCv - Math.round(charCv)) < 0.15)
                               ? `${Math.round(charCv)} cv`
                               : `${charCv.toFixed(1)} cv`;
-                            const elemKey = char.element.toLowerCase();
-                            const elemDmg = char.stats.dmgBonus?.[elemKey] || 0;
-                            const theme = ELEMENT_THEMES[char.element] || ELEMENT_THEMES.Pyro;
 
                             // Active set detection
                             const setCountMap: Record<string, { count: number; name: string; icon: string }> = {};
@@ -921,126 +1004,79 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                             const fourPieceSet = Object.values(setCountMap).find(s => s.count >= 4);
                             const twoPieceSets = Object.values(setCountMap).filter(s => s.count >= 2);
 
-                            // Weapon rarity & framing
-                            const weaponRarity = char.weapon.rarity || 4;
-                            const is5StarWeapon = weaponRarity === 5;
                             const resolvedWeaponName = resolveWeaponName(char.weapon.id, char.weapon.name);
-
-                            // Akasha top percent
-                            const isRanked = Boolean(char.akasha && char.akasha.topPercent > 0);
-                            const topPct = char.akasha?.topPercent;
+                            const cr = char.stats.cr || 0;
+                            const cd = char.stats.cd || 0;
+                            const sum = cr + cd;
+                            const crRatio = sum > 0 ? Math.max(12, Math.min(88, (cr / sum) * 100)) : 50;
+                            const denseStats = getDenseKeyStats(char);
 
                             return (
                               <tr
                                 key={char.id}
                                 onClick={() => handleSelectCharacter(char)}
                                 className={cn(
-                                  "cursor-pointer transition-all duration-150 border-l-2 group select-none",
+                                  "cursor-pointer transition-colors duration-150 border-l-2 group select-none",
                                   isSelected
                                     ? "bg-[#251b18] border-l-[#ff6a1f]"
-                                    : "bg-[#16161a] border-l-transparent hover:bg-[#1c1c22]"
+                                    : "bg-[#1a1a1e] border-l-transparent hover:bg-[#232328]"
                                 )}
                               >
-                                {/* Index / Number */}
-                                <td className="py-3.5 px-2 md:px-3 text-center text-xs font-mono">
-                                  <span className={cn(
-                                    "text-sm font-medium transition-colors",
-                                    isSelected ? "text-white font-bold" : "text-[#71717a] group-hover:text-zinc-300"
-                                  )}>
-                                    {index + 1}
-                                  </span>
+                                {/* # Rank */}
+                                <td className="py-2 px-3 text-center text-[13px] font-mono text-[#65625d]">
+                                  {index + 1}
                                 </td>
 
-                                {/* Character: Avatar + Name + Subtitle */}
-                                <td className="py-3.5 px-2.5 md:px-3 font-sans">
-                                  <div className="flex items-center gap-2.5 md:gap-3">
-                                    <div className="relative w-10 h-10 md:w-11 md:h-11 shrink-0">
-                                      <div className="w-10 h-10 md:w-11 md:h-11 rounded-[14px] overflow-hidden border border-white/10 bg-[#1e1e24] shadow-md transition-transform group-hover:scale-105">
-                                        <img
-                                          src={char.icon}
-                                          alt={char.name}
-                                          className="w-full h-full object-cover"
-                                          onError={(e) => {
-                                            const target = e.target as HTMLImageElement;
-                                            const norm = char.name.toLowerCase().replace(/[^a-z0-9]/g, '');
-                                            if (!target.src.includes(norm)) {
-                                              target.src = `/icons/characters/${norm}.png`;
-                                            } else if (!target.src.includes('enka.network')) {
-                                              target.src = `https://enka.network/ui/UI_AvatarIcon_${char.name.replace(/\s+/g, '')}.png`;
-                                            }
-                                          }}
-                                        />
-                                      </div>
-                                      <div
-                                        className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border border-black/80 flex items-center justify-center p-0.5 shadow"
-                                        style={{ backgroundColor: theme.color }}
-                                      >
-                                        <ElementIcon element={char.element} size={10} className="text-white drop-shadow-sm" />
-                                      </div>
+                                {/* Name + Avatar */}
+                                <td className="py-2 px-3 font-sans">
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="w-7 h-7 rounded-full overflow-hidden bg-[#2a2a2f] border border-white/10 shrink-0 flex items-center justify-center">
+                                      <img
+                                        src={char.icon}
+                                        alt={char.name}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                          const target = e.target as HTMLImageElement;
+                                          const norm = char.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                                          if (!target.src.includes(norm)) {
+                                            target.src = `/icons/characters/${norm}.png`;
+                                          } else if (!target.src.includes('enka.network')) {
+                                            target.src = `https://enka.network/ui/UI_AvatarIcon_${char.name.replace(/\s+/g, '')}.png`;
+                                          }
+                                        }}
+                                      />
                                     </div>
-
-                                    <div className="flex flex-col min-w-0">
-                                      <span className="text-[13px] md:text-[14px] font-semibold text-[#ece9e2] whitespace-nowrap group-hover:text-white transition-colors truncate max-w-[120px] md:max-w-none">
-                                        {char.name}
-                                      </span>
-                                      <div className="flex items-center gap-1.5 text-xs font-sans mt-0.5 whitespace-nowrap">
-                                        <span style={{ color: theme.color }} className="font-medium text-xs">
-                                          {char.element}
-                                        </span>
-                                        <span className="text-[#65625d]">•</span>
-                                        <span className="text-[#8e8a84] text-xs font-normal">
-                                          Lv. {char.level || 90}
-                                        </span>
-                                        {isRanked && (
-                                          <>
-                                            <span className="text-[#65625d]">•</span>
-                                            <span className="bg-[#122416] border border-[#2b5934] text-[#4ade80] text-[10px] font-semibold px-1.5 py-0.5 rounded-[5px] shrink-0 font-mono">
-                                              top {formatTopPercent(topPct!)}
-                                            </span>
-                                          </>
-                                        )}
-                                      </div>
-                                    </div>
+                                    <span className="text-[13px] md:text-[14px] font-medium text-[#ece9e2] group-hover:text-white transition-colors truncate">
+                                      {char.name}
+                                    </span>
                                   </div>
                                 </td>
 
                                 {/* Constellation */}
-                                <td className="py-3.5 px-1.5 md:px-2 text-center whitespace-nowrap">
+                                <td className="py-2 px-2 text-center whitespace-nowrap">
                                   {char.constellation === 0 ? (
-                                    <span className="px-2 py-0.5 rounded-[6px] text-[11px] font-semibold font-mono bg-[#1a1a20] border border-[#27272a] text-[#71717a] inline-block">
+                                    <span className="px-2 py-0.5 rounded-[5px] text-[11px] font-mono font-medium bg-[#2a2a2f] text-[#8e8a84] inline-block">
                                       C0
                                     </span>
+                                  ) : char.constellation === 6 ? (
+                                    <span className="px-2 py-0.5 rounded-[5px] text-[11px] font-mono font-bold bg-[#3b2b18] text-[#e6ca65] border border-[#7a582c]/50 inline-block shadow-sm">
+                                      C6
+                                    </span>
                                   ) : (
-                                    <span
-                                      className="px-2 py-0.5 rounded-[6px] text-[11px] font-semibold font-mono border inline-block"
-                                      style={{
-                                        backgroundColor: `${theme.color}15`,
-                                        borderColor: `${theme.color}40`,
-                                        color: theme.color,
-                                      }}
-                                    >
+                                    <span className="px-2 py-0.5 rounded-[5px] text-[11px] font-mono font-medium bg-[#213542] text-[#8ec5d6] border border-[#3b667e]/40 inline-block">
                                       C{char.constellation}
                                     </span>
                                   )}
                                 </td>
 
                                 {/* Weapon */}
-                                <td className="py-3.5 px-2.5 md:px-3 font-sans">
-                                  <div className="flex items-center gap-2.5 md:gap-3">
-                                    <div
-                                      className={cn(
-                                        "w-9 h-9 md:w-10 md:h-10 rounded-[10px] overflow-hidden p-1 shrink-0 border relative shadow-sm transition-transform group-hover:scale-105",
-                                        is5StarWeapon
-                                          ? "bg-[rgba(201,166,107,0.12)] border-[rgba(201,166,107,0.55)]"
-                                          : weaponRarity === 4
-                                          ? "bg-[rgba(154,134,184,0.12)] border-[rgba(154,134,184,0.55)]"
-                                          : "bg-zinc-800/80 border-zinc-700"
-                                      )}
-                                    >
+                                <td className="py-2 px-3 font-sans">
+                                  <div className="flex items-center gap-2" title={`${resolvedWeaponName} (Lv. ${char.weapon.level || 90})`}>
+                                    <div className="w-[26px] h-[26px] rounded-[6px] overflow-hidden bg-[#1c1c20] border border-[#2b2b30] p-0.5 shrink-0 flex items-center justify-center">
                                       <img
                                         src={char.weapon.icon}
                                         alt={resolvedWeaponName}
-                                        className="w-full h-full object-contain filter drop-shadow(0 2px 4px rgba(0,0,0,0.6))"
+                                        className="w-full h-full object-contain filter drop-shadow(0 1px 2px rgba(0,0,0,0.5))"
                                         onError={(e) => {
                                           const target = e.target as HTMLImageElement;
                                           if (!target.src.includes('enka.network')) {
@@ -1049,104 +1085,40 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                         }}
                                       />
                                     </div>
-                                    <div className="flex flex-col min-w-0 pr-1">
-                                      <span
-                                        className="text-xs md:text-sm font-semibold text-[#ece9e2] group-hover:text-white transition-colors truncate max-w-[130px] lg:max-w-[180px]"
-                                        title={resolvedWeaponName}
-                                      >
-                                        {resolvedWeaponName}
-                                      </span>
-                                      <div className="flex items-center gap-2 mt-0.5">
-                                        <span className="text-[11px] md:text-xs text-[#8e8a84] font-normal">
-                                          Lv. {char.weapon.level || 90}
-                                        </span>
-                                        <span
-                                          className={cn(
-                                            "px-1.5 py-0.2 rounded text-[10px] font-mono font-semibold shrink-0 border",
-                                            char.weapon.refinement === 5
-                                              ? "bg-[#2a2212] border-[#c9a66b]/40 text-[#c9a66b]"
-                                              : "bg-[#1a1a20] border-[#27272a] text-[#8e8a84]"
-                                          )}
-                                        >
-                                          R{char.weapon.refinement}
-                                        </span>
-                                      </div>
-                                    </div>
+                                    <span className="text-[11px] font-mono font-semibold text-[#8e8a84]">
+                                      R{char.weapon.refinement || 1}
+                                    </span>
                                   </div>
                                 </td>
 
-                                {/* Artifact Sets */}
-                                <td className="py-3.5 px-2.5 md:px-3 font-sans">
-                                  {fourPieceSet ? (
-                                    <div className="flex items-center gap-2">
-                                      <div
-                                        className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center"
-                                        title={fourPieceSet.name}
-                                      >
-                                        <img
-                                          src={fourPieceSet.icon}
-                                          alt={fourPieceSet.name}
-                                          className="w-full h-full object-contain"
-                                        />
-                                      </div>
-                                      <div className="flex items-center gap-1.5 px-2 md:px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
-                                        <span className="text-[#e6ca65] font-bold font-mono text-[11px]">4pc</span>
-                                        <span className="text-[#ece9e2] font-medium truncate max-w-[110px] lg:max-w-[160px]" title={fourPieceSet.name}>
-                                          {fourPieceSet.name}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  ) : twoPieceSets.length >= 2 ? (
-                                    <div className="flex items-center gap-2">
-                                      <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
+                                {/* Sets */}
+                                <td className="py-2 px-3 font-sans">
+                                  <div className="flex items-center gap-2" title={fourPieceSet?.name || twoPieceSets.map(s => s.name).join(' / ') || 'Rainbow'}>
+                                    <div className="w-[26px] h-[26px] rounded-[6px] overflow-hidden bg-[#1c1c20] border border-[#2b2b30] p-0.5 shrink-0 flex items-center justify-center">
+                                      {fourPieceSet ? (
+                                        <img src={fourPieceSet.icon} alt={fourPieceSet.name} className="w-full h-full object-contain" />
+                                      ) : twoPieceSets.length > 0 ? (
                                         <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
-                                      </div>
-                                      <div className="flex items-center gap-1.5 px-2 md:px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
-                                        <span className="text-[#4da8e8] font-bold font-mono text-[11px]">2pc+2pc</span>
-                                        <span
-                                          className="text-[#ece9e2] font-medium truncate max-w-[110px] lg:max-w-[160px]"
-                                          title={`${twoPieceSets[0].name} + ${twoPieceSets[1].name}`}
-                                        >
-                                          {twoPieceSets[0].name.split(' ')[0]} / {twoPieceSets[1].name.split(' ')[0]}
-                                        </span>
-                                      </div>
+                                      ) : char.artifacts?.[0]?.icon ? (
+                                        <img src={char.artifacts[0].icon} alt="Artifact" className="w-full h-full object-contain opacity-60" />
+                                      ) : (
+                                        <span className="text-[9px] font-mono text-[#65625d]">—</span>
+                                      )}
                                     </div>
-                                  ) : twoPieceSets.length === 1 ? (
-                                    <div className="flex items-center gap-2">
-                                      <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
-                                        <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
-                                      </div>
-                                      <div className="flex items-center gap-1.5 px-2 md:px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
-                                        <span className="text-[#4da8e8] font-bold font-mono text-[11px]">2pc</span>
-                                        <span className="text-[#ece9e2] font-medium truncate max-w-[110px] lg:max-w-[160px]" title={twoPieceSets[0].name}>
-                                          {twoPieceSets[0].name}
-                                        </span>
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <div className="flex items-center gap-2">
-                                      <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
-                                        {char.artifacts?.[0]?.icon ? (
-                                          <img src={char.artifacts[0].icon} alt="Artifact" className="w-full h-full object-contain opacity-50" />
-                                        ) : (
-                                          <span className="text-[10px] font-mono text-[#65625d]">—</span>
-                                        )}
-                                      </div>
-                                      <span className="px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-[#8e8a84] text-xs font-mono">
-                                        Rainbow
-                                      </span>
-                                    </div>
-                                  )}
+                                    <span className="text-[11px] font-mono font-semibold text-[#8e8a84]">
+                                      {fourPieceSet ? '4' : twoPieceSets.length >= 2 ? '2+2' : twoPieceSets.length === 1 ? '2' : '—'}
+                                    </span>
+                                  </div>
                                 </td>
 
-                                {/* Crit Value */}
-                                <td className="py-3.5 px-2.5 md:px-3 whitespace-nowrap">
-                                  <div className="flex items-center gap-2 md:gap-3">
-                                    <span className="text-[#ece9e2] text-xs font-medium font-mono tracking-tight flex items-center gap-1">
-                                      <span>{(char.stats.cr || 0).toFixed(1)} : {(char.stats.cd || 0).toFixed(1)}</span>
+                                {/* Crit Value ↓ with ratio bar */}
+                                <td className="py-2 px-3 whitespace-nowrap">
+                                  <div className="flex items-center gap-3">
+                                    <span className="text-[12px] font-mono text-[#ece9e2] min-w-[96px]">
+                                      {cr.toFixed(1)} : {cd.toFixed(1)}
                                       {char.setBonusCr ? (
                                         <span
-                                          className="text-[10px] text-[#c9a66b] font-mono font-semibold"
+                                          className="text-[10px] text-[#c9a66b] font-mono font-semibold ml-1"
                                           title={`${char.isCvCapped ? 'Capped at 100% CR' : 'Set Bonus'}: +${char.setBonusCr}% CR`}
                                         >
                                           (+{char.setBonusCr}%)
@@ -1154,41 +1126,31 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                       ) : null}
                                     </span>
 
-                                    {charCv >= 220 ? (
-                                      <span
-                                        className="px-2 py-0.5 rounded-[6px] bg-[#221c10] border border-[#c9a66b]/60 text-[#e6ca65] font-bold text-xs shrink-0 flex items-center gap-1 font-mono shadow-sm"
-                                        title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
-                                      >
-                                        <Sparkles className="w-2.5 h-2.5 text-[#e6ca65] shrink-0" />
-                                        <span>{formattedCharCv}</span>
-                                      </span>
-                                    ) : charCv >= 190 ? (
-                                      <span
-                                        className="px-2 py-0.5 rounded-[6px] bg-[#1a1524] border border-[#7c5fa6]/50 text-[#bba1de] font-semibold text-xs shrink-0 font-mono"
-                                        title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
-                                      >
-                                        {formattedCharCv}
-                                      </span>
-                                    ) : (
-                                      <span
-                                        className="px-2 py-0.5 rounded-[6px] bg-[#18181c] border border-[#27272a] text-[#71717a] font-normal text-xs shrink-0 font-mono"
-                                        title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
-                                      >
-                                        {formattedCharCv}
-                                      </span>
-                                    )}
+                                    <div className="w-[84px] h-[3.5px] rounded-full overflow-hidden flex bg-[#2a2a2f] shrink-0" title={`CR: ${cr.toFixed(1)}% | CD: ${cd.toFixed(1)}%`}>
+                                      <div style={{ width: `${crRatio}%` }} className="h-full bg-[#c9a66b]" />
+                                      <div className="flex-1 h-full bg-[#b8694f]" />
+                                    </div>
+
+                                    <span className="text-[13px] font-mono font-bold text-[#c9a66b] shrink-0 min-w-[62px] text-right">
+                                      {formattedCharCv}
+                                    </span>
                                   </div>
                                 </td>
 
-                                {/* Elemental DMG */}
-                                <td className="py-3.5 px-2.5 md:px-4 text-right whitespace-nowrap font-mono">
-                                  {elemDmg > 0 ? (
-                                    <span className="font-semibold text-xs tabular-nums" style={{ color: theme.color }}>
-                                      +{elemDmg.toFixed(1)}%
-                                    </span>
-                                  ) : (
-                                    <span className="text-[#52525b] text-xs font-mono">—</span>
-                                  )}
+                                {/* Key stats */}
+                                <td className="py-2 px-4 whitespace-nowrap">
+                                  <div className="grid grid-cols-4 gap-3 max-w-[440px]">
+                                    {denseStats.map((st, sIdx) => (
+                                      <div key={sIdx} className="flex items-baseline gap-1.5">
+                                        <span className="text-[9px] font-semibold text-[#65625d] uppercase tracking-[0.5px] shrink-0">
+                                          {st.label}
+                                        </span>
+                                        <span className="text-[12px] font-mono text-[#ece9e2] tabular-nums">
+                                          {st.value}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </td>
                               </tr>
                             );
@@ -1198,20 +1160,15 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                     </table>
                   </div>
 
-                  {/* CV Tiers Legend */}
-                  <div className="flex flex-wrap items-center gap-4 px-4 py-3 bg-[#141417] border-t border-[#2b2b30] text-xs select-none">
-                    <span className="font-semibold text-[#65625d] text-[11px] tracking-[0.8px] uppercase">
-                      CV tiers
-                    </span>
-                    <div className="bg-[rgba(201,166,107,0.14)] border border-[rgba(201,166,107,0.4)] flex items-center gap-1.5 px-2.5 py-1 rounded-[6px]">
-                      <Sparkles className="w-3 h-3 text-[#c9a66b]" />
-                      <span className="font-semibold text-[#c9a66b] text-xs">220+ Elite</span>
+                  {/* Dense Table Footer */}
+                  <div className="px-4 py-2.5 bg-[#141417] border-t border-[#232328] flex items-center justify-between text-xs text-[#65625d] select-none">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-[#8e8a84]">Sorted by Overall CV</span>
+                      <span className="text-[#3a3a42]">•</span>
+                      <span>100% CR cap applied</span>
                     </div>
-                    <div className="bg-[rgba(154,134,184,0.14)] border border-[rgba(154,134,184,0.4)] flex items-center px-2.5 py-1 rounded-[6px]">
-                      <span className="font-semibold text-[#9a86b8] text-xs">190+ Strong</span>
-                    </div>
-                    <div className="bg-[rgba(142,138,132,0.08)] border border-[rgba(142,138,132,0.2)] flex items-center px-2.5 py-1 rounded-[6px]">
-                      <span className="font-semibold text-[#8e8a84] text-xs">Below 190</span>
+                    <div>
+                      {filteredCharacters.length} of {data.characters.length} characters
                     </div>
                   </div>
                 </div>
