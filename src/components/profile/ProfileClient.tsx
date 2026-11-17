@@ -875,13 +875,13 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                     <table className="w-full text-left text-sm text-[#ece9e2]">
                       <thead className="bg-[#141417] text-[#65625d] uppercase text-[11px] tracking-[1px] font-semibold border-b border-[#2b2b30] select-none">
                         <tr>
-                          <th className="py-3 px-3 w-10 text-center font-mono">#</th>
-                          <th className="py-3 px-4">CHARACTER</th>
-                          <th className="py-3 px-3 w-16 text-center">CONST.</th>
-                          <th className="py-3 px-4">WEAPON</th>
-                          <th className="py-3 px-4">SETS</th>
-                          <th className="py-3 px-4">CRIT VALUE</th>
-                          <th className="py-3 px-4 text-right">ELEM. DMG</th>
+                          <th className="py-3 px-2 md:px-3 w-8 md:w-10 text-center font-mono">#</th>
+                          <th className="py-3 px-2.5 md:px-3">CHARACTER</th>
+                          <th className="py-3 px-1.5 md:px-2 w-12 md:w-14 text-center">CONST.</th>
+                          <th className="py-3 px-2.5 md:px-3">WEAPON</th>
+                          <th className="py-3 px-2.5 md:px-3">SETS</th>
+                          <th className="py-3 px-2.5 md:px-3">CRIT VALUE</th>
+                          <th className="py-3 px-2.5 md:px-4 text-right">ELEM. DMG</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-[#232328]">
@@ -942,7 +942,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 )}
                               >
                                 {/* Index / Number */}
-                                <td className="py-3.5 px-3 text-center text-xs font-mono">
+                                <td className="py-3.5 px-2 md:px-3 text-center text-xs font-mono">
                                   <span className={cn(
                                     "text-sm font-medium transition-colors",
                                     isSelected ? "text-white font-bold" : "text-[#71717a] group-hover:text-zinc-300"
@@ -952,10 +952,10 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Character: Avatar + Name + Subtitle */}
-                                <td className="py-3.5 px-4 font-sans">
-                                  <div className="flex items-center gap-3">
-                                    <div className="relative w-11 h-11 shrink-0">
-                                      <div className="w-11 h-11 rounded-[14px] overflow-hidden border border-white/10 bg-[#1e1e24] shadow-md transition-transform group-hover:scale-105">
+                                <td className="py-3.5 px-2.5 md:px-3 font-sans">
+                                  <div className="flex items-center gap-2.5 md:gap-3">
+                                    <div className="relative w-10 h-10 md:w-11 md:h-11 shrink-0">
+                                      <div className="w-10 h-10 md:w-11 md:h-11 rounded-[14px] overflow-hidden border border-white/10 bg-[#1e1e24] shadow-md transition-transform group-hover:scale-105">
                                         <img
                                           src={char.icon}
                                           alt={char.name}
@@ -980,7 +980,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                     </div>
 
                                     <div className="flex flex-col min-w-0">
-                                      <span className="text-[14px] font-semibold text-[#ece9e2] whitespace-nowrap group-hover:text-white transition-colors">
+                                      <span className="text-[13px] md:text-[14px] font-semibold text-[#ece9e2] whitespace-nowrap group-hover:text-white transition-colors truncate max-w-[120px] md:max-w-none">
                                         {char.name}
                                       </span>
                                       <div className="flex items-center gap-1.5 text-xs font-sans mt-0.5 whitespace-nowrap">
@@ -1005,7 +1005,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Constellation */}
-                                <td className="py-3.5 px-3 text-center whitespace-nowrap">
+                                <td className="py-3.5 px-1.5 md:px-2 text-center whitespace-nowrap">
                                   {char.constellation === 0 ? (
                                     <span className="px-2 py-0.5 rounded-[6px] text-[11px] font-semibold font-mono bg-[#1a1a20] border border-[#27272a] text-[#71717a] inline-block">
                                       C0
@@ -1025,11 +1025,11 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Weapon */}
-                                <td className="py-3.5 px-4 font-sans">
-                                  <div className="flex items-center gap-3">
+                                <td className="py-3.5 px-2.5 md:px-3 font-sans">
+                                  <div className="flex items-center gap-2.5 md:gap-3">
                                     <div
                                       className={cn(
-                                        "w-10 h-10 rounded-[10px] overflow-hidden p-1 shrink-0 border relative shadow-sm transition-transform group-hover:scale-105",
+                                        "w-9 h-9 md:w-10 md:h-10 rounded-[10px] overflow-hidden p-1 shrink-0 border relative shadow-sm transition-transform group-hover:scale-105",
                                         is5StarWeapon
                                           ? "bg-[rgba(201,166,107,0.12)] border-[rgba(201,166,107,0.55)]"
                                           : weaponRarity === 4
@@ -1051,13 +1051,13 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                     </div>
                                     <div className="flex flex-col min-w-0 pr-1">
                                       <span
-                                        className="text-sm font-semibold text-[#ece9e2] group-hover:text-white transition-colors whitespace-nowrap"
+                                        className="text-xs md:text-sm font-semibold text-[#ece9e2] group-hover:text-white transition-colors truncate max-w-[130px] lg:max-w-[180px]"
                                         title={resolvedWeaponName}
                                       >
                                         {resolvedWeaponName}
                                       </span>
                                       <div className="flex items-center gap-2 mt-0.5">
-                                        <span className="text-xs text-[#8e8a84] font-normal">
+                                        <span className="text-[11px] md:text-xs text-[#8e8a84] font-normal">
                                           Lv. {char.weapon.level || 90}
                                         </span>
                                         <span
@@ -1076,11 +1076,11 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Artifact Sets */}
-                                <td className="py-3.5 px-4 font-sans">
+                                <td className="py-3.5 px-2.5 md:px-3 font-sans">
                                   {fourPieceSet ? (
-                                    <div className="flex items-center gap-2.5">
+                                    <div className="flex items-center gap-2">
                                       <div
-                                        className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center"
+                                        className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center"
                                         title={fourPieceSet.name}
                                       >
                                         <img
@@ -1089,22 +1089,22 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                           className="w-full h-full object-contain"
                                         />
                                       </div>
-                                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
+                                      <div className="flex items-center gap-1.5 px-2 md:px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
                                         <span className="text-[#e6ca65] font-bold font-mono text-[11px]">4pc</span>
-                                        <span className="text-[#ece9e2] font-medium truncate max-w-[200px]" title={fourPieceSet.name}>
+                                        <span className="text-[#ece9e2] font-medium truncate max-w-[110px] lg:max-w-[160px]" title={fourPieceSet.name}>
                                           {fourPieceSet.name}
                                         </span>
                                       </div>
                                     </div>
                                   ) : twoPieceSets.length >= 2 ? (
-                                    <div className="flex items-center gap-2.5">
-                                      <div className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
                                         <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
                                       </div>
-                                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
+                                      <div className="flex items-center gap-1.5 px-2 md:px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
                                         <span className="text-[#4da8e8] font-bold font-mono text-[11px]">2pc+2pc</span>
                                         <span
-                                          className="text-[#ece9e2] font-medium truncate max-w-[200px]"
+                                          className="text-[#ece9e2] font-medium truncate max-w-[110px] lg:max-w-[160px]"
                                           title={`${twoPieceSets[0].name} + ${twoPieceSets[1].name}`}
                                         >
                                           {twoPieceSets[0].name.split(' ')[0]} / {twoPieceSets[1].name.split(' ')[0]}
@@ -1112,27 +1112,27 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                       </div>
                                     </div>
                                   ) : twoPieceSets.length === 1 ? (
-                                    <div className="flex items-center gap-2.5">
-                                      <div className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
                                         <img src={twoPieceSets[0].icon} alt={twoPieceSets[0].name} className="w-full h-full object-contain" />
                                       </div>
-                                      <div className="flex items-center gap-1.5 px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
+                                      <div className="flex items-center gap-1.5 px-2 md:px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-xs whitespace-nowrap shadow-sm">
                                         <span className="text-[#4da8e8] font-bold font-mono text-[11px]">2pc</span>
-                                        <span className="text-[#ece9e2] font-medium truncate max-w-[200px]" title={twoPieceSets[0].name}>
+                                        <span className="text-[#ece9e2] font-medium truncate max-w-[110px] lg:max-w-[160px]" title={twoPieceSets[0].name}>
                                           {twoPieceSets[0].name}
                                         </span>
                                       </div>
                                     </div>
                                   ) : (
-                                    <div className="flex items-center gap-2.5">
-                                      <div className="w-8 h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
+                                    <div className="flex items-center gap-2">
+                                      <div className="w-7 h-7 md:w-8 md:h-8 rounded-lg bg-[#1a1a20] border border-[#27272a] p-1 shrink-0 overflow-hidden shadow-sm flex items-center justify-center">
                                         {char.artifacts?.[0]?.icon ? (
                                           <img src={char.artifacts[0].icon} alt="Artifact" className="w-full h-full object-contain opacity-50" />
                                         ) : (
                                           <span className="text-[10px] font-mono text-[#65625d]">—</span>
                                         )}
                                       </div>
-                                      <span className="px-3 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-[#8e8a84] text-xs font-mono">
+                                      <span className="px-2.5 py-1 rounded-[8px] bg-[#141417] border border-[#27272a] text-[#8e8a84] text-xs font-mono">
                                         Rainbow
                                       </span>
                                     </div>
@@ -1140,9 +1140,9 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Crit Value */}
-                                <td className="py-3.5 px-4 whitespace-nowrap">
-                                  <div className="flex items-center gap-3">
-                                    <span className="text-[#ece9e2] text-xs font-medium font-mono tracking-tight flex items-center gap-1.5">
+                                <td className="py-3.5 px-2.5 md:px-3 whitespace-nowrap">
+                                  <div className="flex items-center gap-2 md:gap-3">
+                                    <span className="text-[#ece9e2] text-xs font-medium font-mono tracking-tight flex items-center gap-1">
                                       <span>{(char.stats.cr || 0).toFixed(1)} : {(char.stats.cd || 0).toFixed(1)}</span>
                                       {char.setBonusCr ? (
                                         <span
@@ -1156,7 +1156,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
 
                                     {charCv >= 220 ? (
                                       <span
-                                        className="px-2.5 py-0.5 rounded-[6px] bg-[#221c10] border border-[#c9a66b]/60 text-[#e6ca65] font-bold text-xs shrink-0 flex items-center gap-1 font-mono shadow-sm"
+                                        className="px-2 py-0.5 rounded-[6px] bg-[#221c10] border border-[#c9a66b]/60 text-[#e6ca65] font-bold text-xs shrink-0 flex items-center gap-1 font-mono shadow-sm"
                                         title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
                                       >
                                         <Sparkles className="w-2.5 h-2.5 text-[#e6ca65] shrink-0" />
@@ -1164,14 +1164,14 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                       </span>
                                     ) : charCv >= 190 ? (
                                       <span
-                                        className="px-2.5 py-0.5 rounded-[6px] bg-[#1a1524] border border-[#7c5fa6]/50 text-[#bba1de] font-semibold text-xs shrink-0 font-mono"
+                                        className="px-2 py-0.5 rounded-[6px] bg-[#1a1524] border border-[#7c5fa6]/50 text-[#bba1de] font-semibold text-xs shrink-0 font-mono"
                                         title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
                                       >
                                         {formattedCharCv}
                                       </span>
                                     ) : (
                                       <span
-                                        className="px-2.5 py-0.5 rounded-[6px] bg-[#18181c] border border-[#27272a] text-[#71717a] font-normal text-xs shrink-0 font-mono"
+                                        className="px-2 py-0.5 rounded-[6px] bg-[#18181c] border border-[#27272a] text-[#71717a] font-normal text-xs shrink-0 font-mono"
                                         title={char.setBonusCv ? `Includes +${char.setBonusCv} CV from set bonus (100% CR cap)` : undefined}
                                       >
                                         {formattedCharCv}
@@ -1181,7 +1181,7 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 </td>
 
                                 {/* Elemental DMG */}
-                                <td className="py-3.5 px-4 text-right whitespace-nowrap font-mono">
+                                <td className="py-3.5 px-2.5 md:px-4 text-right whitespace-nowrap font-mono">
                                   {elemDmg > 0 ? (
                                     <span className="font-semibold text-xs tabular-nums" style={{ color: theme.color }}>
                                       +{elemDmg.toFixed(1)}%
