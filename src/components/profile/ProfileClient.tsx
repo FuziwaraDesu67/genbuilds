@@ -939,18 +939,18 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                 <div className="rounded-[14px] overflow-hidden border border-[#232328] bg-[#16161a] shadow-2xl">
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm text-[#ece9e2]">
-                      <thead className="bg-[#1e1e22] text-[#8e8a84] text-[12px] font-medium border-b border-[#232328] select-none">
+                      <thead className="bg-[#1e1e22] text-[#8e8a84] text-[12px] md:text-[13px] font-semibold border-b border-[#232328] select-none">
                         <tr>
-                          <th className="py-2.5 px-3 w-12 text-center text-[#65625d] font-mono text-[12px]">#</th>
-                          <th className="py-2.5 px-3 w-48 text-[#8e8a84]">Name</th>
-                          <th className="py-2.5 px-2 w-16 text-center text-[#8e8a84]">Const</th>
-                          <th className="py-2.5 px-3 w-20 text-[#8e8a84]">Weapon</th>
-                          <th className="py-2.5 px-3 w-20 text-[#8e8a84]">Sets</th>
-                          <th className="py-2.5 px-3 min-w-[280px]">
+                          <th className="py-3 px-3 md:px-4 w-12 md:w-14 text-center text-[#8e8a84] font-mono text-[13px]">#</th>
+                          <th className="py-3 px-3 md:px-4 w-52 text-[#8e8a84]">Name</th>
+                          <th className="py-3 px-2 md:px-3 w-16 md:w-20 text-center text-[#8e8a84]">Const</th>
+                          <th className="py-3 px-3 md:px-4 w-24 text-[#8e8a84]">Weapon</th>
+                          <th className="py-3 px-3 md:px-4 w-20 text-[#8e8a84]">Sets</th>
+                          <th className="py-3 px-3 md:px-4 min-w-[320px]">
                             <span className="text-[#8e8a84]">Crit Value </span>
                             <span className="text-[#c9a66b]">↓</span>
                           </th>
-                          <th className="py-2.5 px-4 min-w-[380px] text-[#8e8a84]">Key stats</th>
+                          <th className="py-3 px-4 md:px-5 min-w-[420px] text-[#8e8a84]">Key stats</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-[#232328]">
@@ -1023,14 +1023,14 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                 )}
                               >
                                 {/* # Rank */}
-                                <td className="py-2 px-3 text-center text-[13px] font-mono text-[#65625d]">
+                                <td className="py-3 px-3 md:px-4 text-center text-sm md:text-[15px] font-mono font-medium text-[#8e8a84]">
                                   {index + 1}
                                 </td>
 
                                 {/* Name + Avatar */}
-                                <td className="py-2 px-3 font-sans">
-                                  <div className="flex items-center gap-2.5">
-                                    <div className="w-7 h-7 rounded-full overflow-hidden bg-[#2a2a2f] border border-white/10 shrink-0 flex items-center justify-center">
+                                <td className="py-3 px-3 md:px-4 font-sans">
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-8 h-8 md:w-9 md:h-9 rounded-full overflow-hidden bg-[#2a2a2f] border border-white/10 shrink-0 flex items-center justify-center">
                                       <img
                                         src={char.icon}
                                         alt={char.name}
@@ -1046,33 +1046,33 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                         }}
                                       />
                                     </div>
-                                    <span className="text-[13px] md:text-[14px] font-medium text-[#ece9e2] group-hover:text-white transition-colors truncate">
+                                    <span className="text-[14px] md:text-[15px] font-semibold text-[#ece9e2] group-hover:text-white transition-colors truncate">
                                       {char.name}
                                     </span>
                                   </div>
                                 </td>
 
                                 {/* Constellation */}
-                                <td className="py-2 px-2 text-center whitespace-nowrap">
+                                <td className="py-3 px-2 md:px-3 text-center whitespace-nowrap">
                                   {char.constellation === 0 ? (
-                                    <span className="px-2 py-0.5 rounded-[5px] text-[11px] font-mono font-medium bg-[#2a2a2f] text-[#8e8a84] inline-block">
+                                    <span className="px-2.5 py-1 rounded-[6px] text-xs font-mono font-medium bg-[#2a2a2f] text-[#8e8a84] inline-block">
                                       C0
                                     </span>
                                   ) : char.constellation === 6 ? (
-                                    <span className="px-2 py-0.5 rounded-[5px] text-[11px] font-mono font-bold bg-[#3b2b18] text-[#e6ca65] border border-[#7a582c]/50 inline-block shadow-sm">
+                                    <span className="px-2.5 py-1 rounded-[6px] text-xs font-mono font-bold bg-[#3b2b18] text-[#e6ca65] border border-[#7a582c]/50 inline-block shadow-sm">
                                       C6
                                     </span>
                                   ) : (
-                                    <span className="px-2 py-0.5 rounded-[5px] text-[11px] font-mono font-medium bg-[#213542] text-[#8ec5d6] border border-[#3b667e]/40 inline-block">
+                                    <span className="px-2.5 py-1 rounded-[6px] text-xs font-mono font-medium bg-[#213542] text-[#8ec5d6] border border-[#3b667e]/40 inline-block">
                                       C{char.constellation}
                                     </span>
                                   )}
                                 </td>
 
                                 {/* Weapon */}
-                                <td className="py-2 px-3 font-sans">
-                                  <div className="flex items-center gap-2" title={`${resolvedWeaponName} (Lv. ${char.weapon.level || 90})`}>
-                                    <div className="w-[26px] h-[26px] rounded-[6px] overflow-hidden bg-[#1c1c20] border border-[#2b2b30] p-0.5 shrink-0 flex items-center justify-center">
+                                <td className="py-3 px-3 md:px-4 font-sans">
+                                  <div className="flex items-center gap-2.5" title={`${resolvedWeaponName} (Lv. ${char.weapon.level || 90})`}>
+                                    <div className="w-[30px] h-[30px] md:w-8 md:h-8 rounded-[8px] overflow-hidden bg-[#1c1c20] border border-[#2b2b30] p-0.5 shrink-0 flex items-center justify-center">
                                       <img
                                         src={char.weapon.icon}
                                         alt={resolvedWeaponName}
@@ -1085,16 +1085,16 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                         }}
                                       />
                                     </div>
-                                    <span className="text-[11px] font-mono font-semibold text-[#8e8a84]">
+                                    <span className="text-xs font-mono font-semibold text-[#8e8a84]">
                                       R{char.weapon.refinement || 1}
                                     </span>
                                   </div>
                                 </td>
 
                                 {/* Sets */}
-                                <td className="py-2 px-3 font-sans">
-                                  <div className="flex items-center gap-2" title={fourPieceSet?.name || twoPieceSets.map(s => s.name).join(' / ') || 'Rainbow'}>
-                                    <div className="w-[26px] h-[26px] rounded-[6px] overflow-hidden bg-[#1c1c20] border border-[#2b2b30] p-0.5 shrink-0 flex items-center justify-center">
+                                <td className="py-3 px-3 md:px-4 font-sans">
+                                  <div className="flex items-center gap-2.5" title={fourPieceSet?.name || twoPieceSets.map(s => s.name).join(' / ') || 'Rainbow'}>
+                                    <div className="w-[30px] h-[30px] md:w-8 md:h-8 rounded-[8px] overflow-hidden bg-[#1c1c20] border border-[#2b2b30] p-0.5 shrink-0 flex items-center justify-center">
                                       {fourPieceSet ? (
                                         <img src={fourPieceSet.icon} alt={fourPieceSet.name} className="w-full h-full object-contain" />
                                       ) : twoPieceSets.length > 0 ? (
@@ -1102,23 +1102,23 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                       ) : char.artifacts?.[0]?.icon ? (
                                         <img src={char.artifacts[0].icon} alt="Artifact" className="w-full h-full object-contain opacity-60" />
                                       ) : (
-                                        <span className="text-[9px] font-mono text-[#65625d]">—</span>
+                                        <span className="text-[10px] font-mono text-[#65625d]">—</span>
                                       )}
                                     </div>
-                                    <span className="text-[11px] font-mono font-semibold text-[#8e8a84]">
+                                    <span className="text-xs font-mono font-semibold text-[#8e8a84]">
                                       {fourPieceSet ? '4' : twoPieceSets.length >= 2 ? '2+2' : twoPieceSets.length === 1 ? '2' : '—'}
                                     </span>
                                   </div>
                                 </td>
 
                                 {/* Crit Value ↓ with ratio bar */}
-                                <td className="py-2 px-3 whitespace-nowrap">
+                                <td className="py-3 px-3 md:px-4 whitespace-nowrap">
                                   <div className="flex items-center gap-3">
-                                    <span className="text-[12px] font-mono text-[#ece9e2] min-w-[96px]">
+                                    <span className="text-[13px] md:text-[14px] font-mono text-[#ece9e2] min-w-[104px]">
                                       {cr.toFixed(1)} : {cd.toFixed(1)}
                                       {char.setBonusCr ? (
                                         <span
-                                          className="text-[10px] text-[#c9a66b] font-mono font-semibold ml-1"
+                                          className="text-[11px] text-[#c9a66b] font-mono font-semibold ml-1"
                                           title={`${char.isCvCapped ? 'Capped at 100% CR' : 'Set Bonus'}: +${char.setBonusCr}% CR`}
                                         >
                                           (+{char.setBonusCr}%)
@@ -1126,26 +1126,26 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                                       ) : null}
                                     </span>
 
-                                    <div className="w-[84px] h-[3.5px] rounded-full overflow-hidden flex bg-[#2a2a2f] shrink-0" title={`CR: ${cr.toFixed(1)}% | CD: ${cd.toFixed(1)}%`}>
+                                    <div className="w-[100px] md:w-[120px] h-[5px] rounded-full overflow-hidden flex bg-[#2a2a2f] shrink-0" title={`CR: ${cr.toFixed(1)}% | CD: ${cd.toFixed(1)}%`}>
                                       <div style={{ width: `${crRatio}%` }} className="h-full bg-[#c9a66b]" />
                                       <div className="flex-1 h-full bg-[#b8694f]" />
                                     </div>
 
-                                    <span className="text-[13px] font-mono font-bold text-[#c9a66b] shrink-0 min-w-[62px] text-right">
+                                    <span className="text-[14px] md:text-[15px] font-mono font-bold text-[#c9a66b] shrink-0 min-w-[68px] text-right">
                                       {formattedCharCv}
                                     </span>
                                   </div>
                                 </td>
 
                                 {/* Key stats */}
-                                <td className="py-2 px-4 whitespace-nowrap">
-                                  <div className="grid grid-cols-4 gap-3 max-w-[440px]">
+                                <td className="py-3 px-4 md:px-5 whitespace-nowrap">
+                                  <div className="grid grid-cols-4 gap-3 md:gap-5 max-w-[480px]">
                                     {denseStats.map((st, sIdx) => (
                                       <div key={sIdx} className="flex items-baseline gap-1.5">
-                                        <span className="text-[9px] font-semibold text-[#65625d] uppercase tracking-[0.5px] shrink-0">
+                                        <span className="text-[10px] md:text-[11px] font-semibold text-[#8e8a84] uppercase tracking-[0.5px] shrink-0">
                                           {st.label}
                                         </span>
-                                        <span className="text-[12px] font-mono text-[#ece9e2] tabular-nums">
+                                        <span className="text-[13px] md:text-[14px] font-mono text-[#ece9e2] tabular-nums font-medium">
                                           {st.value}
                                         </span>
                                       </div>
@@ -1161,9 +1161,9 @@ export default function ProfileClient({ uid, initialData }: ProfileClientProps) 
                   </div>
 
                   {/* Dense Table Footer */}
-                  <div className="px-4 py-2.5 bg-[#141417] border-t border-[#232328] flex items-center justify-between text-xs text-[#65625d] select-none">
+                  <div className="px-4 py-3 bg-[#141417] border-t border-[#232328] flex items-center justify-between text-xs md:text-sm text-[#8e8a84] select-none">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-[#8e8a84]">Sorted by Overall CV</span>
+                      <span className="font-medium text-[#ece9e2]">Sorted by Overall CV</span>
                       <span className="text-[#3a3a42]">•</span>
                       <span>100% CR cap applied</span>
                     </div>
