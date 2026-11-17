@@ -30,7 +30,12 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
   // Pre-fetch initial data during SSR for featured showcase UIDs and benchmark profiles
   // to ensure server HTML contains complete build card markup immediately
   let initialData: EnkaData | undefined;
-  if (params.uid === DEMO_FALLBACK_UID || params.uid === '855842984' || isChascaBenchmarkUid(params.uid)) {
+  if (
+    params.uid === DEMO_FALLBACK_UID ||
+    params.uid === '855842984' ||
+    params.uid === '1818407519' ||
+    isChascaBenchmarkUid(params.uid)
+  ) {
     try {
       const fetched = await enkaClient.fetchPlayerData(params.uid);
       initialData = await enrichEnkaWithAkasha(fetched);
